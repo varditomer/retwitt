@@ -1,0 +1,19 @@
+header {
+    background-color: $clr5;
+    padding: 10px;    
+    @include flex-vertically-center;
+    justify-content: space-between;
+    nav {
+        @include flex-vertically-center;
+        justify-content: space-between;
+        padding: 5px 0;
+    }
+    nav a:not(:first-child) {
+        padding: 0 5px;
+        margin: 10px;
+    }
+    .router-link-active {
+        background-color: salmon;
+    }
+    
+}
