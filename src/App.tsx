@@ -1,11 +1,18 @@
+import { Route, Routes } from 'react-router-dom'
 import './styles/main.scss'
+import { Home } from './views/Home'
+import { Bookmarks } from './views/Bookmarks'
+import { Explore } from './views/Explore'
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>hello app</h1>
-    </div>
+    <Routes>
+      {/* <div className="App"> */}
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/" element={<Home />} />
+      {/* </div> */}
+    </Routes>
   )
 }
 
