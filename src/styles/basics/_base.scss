@@ -16,6 +16,7 @@ p,
 figure,
 blockquote,
 dl,
+input,
 dd {
   margin: 0;
   padding: 0;
@@ -26,6 +27,8 @@ dd {
 ul[role='list'],
 ol[role='list'] {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* Set core root defaults */
@@ -42,6 +45,8 @@ body {
 //   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  background-color: $bgc-primary;
+  letter-spacing: -0.035em;
 }
 
 /* A elements that don't have a class get default styles */

@@ -1,0 +1,326 @@
+.main-content {
+    min-height: 100vh;
+    // background-color: gray;
+    display: grid;
+    margin-inline: auto;
+    gap: 20px;
+    max-width: calc(745px + 306px + 20px);
+    padding-top: 26px;
+    grid-template-columns: 745px 306px;
+    h2 {
+        font-family: Poppins-SemiBold;
+        color: $clr-gray2;
+    }
+    .card {
+        background-color: $clr--white;
+        padding: 10px 20px 40px;
+        border-radius: $br-primary;
+        box-shadow: $bs-primary;
+
+        .card-title {
+            font-size: rem(12px);
+            border-bottom: 1px solid $clr-gray6;
+            margin-bottom: 24px;
+            padding-bottom: 8px;
+        }
+        .card-header {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            .user-img {
+                height: 40px;
+                width: 40px;
+            }
+            .user-info {
+                display: flex;
+                flex-direction: column;
+                .user-name {
+                    font-family: Poppins-Medium;
+                    font-size: rem(16px);
+                    color: $clr--black;
+                }
+                .user-followers {
+                    font-family: NotoSans-Medium;
+                    font-size: rem(12px);
+                    color: $clr-gray3;
+                }
+            }
+        }
+    }
+    .add-tweet {
+        .new-tweet {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            .user-img {
+                width: 40px;
+            }
+            font-family: NotoSans-Medium;
+            color: $clr-gray4;
+            margin-bottom: 33px;
+        }
+        .control-btns {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline-start: 40px;
+
+            .settings {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .who-can-reply {
+                    font-family: NotoSans-Medium;
+                    color: $clr-blue1;
+                    font-size: rem(12px);
+                }
+            }
+            .btn-tweet {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: NotoSans-Medium;
+                font-size: rem(12px);
+                background-color: $clr-blue1;
+                color: $clr--white;
+                height: 32px;
+                width: 81px;
+                border: none;
+                border-radius: 4px;
+            }
+        }
+    }
+    .tweets-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .tweet {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .tweet-content {
+            font-family: NotoSans-Regular;
+            color: $clr-gray2;
+            font-size: rem(16px);
+            max-width: 60ch;
+        }
+        .tweet-img {
+            border-radius: $br-secondary;
+            box-shadow: $bs-primary;
+        }
+        .expose {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            .expose-info {
+                display: flex;
+                justify-content: flex-end;
+                font-family: NotoSans-Medium;
+                gap: 16px;
+                color: $clr-gray4;
+                font-size: rem(12px);
+            }
+
+            .action-btns {
+                display: flex;
+                align-items: center;
+                border-top: 1px solid $clr-gray7;
+                border-bottom: 1px solid $clr-gray7;
+                height: 50px;
+                .action-btn {
+                    font-family: NotoSans-Medium;
+                    font-size: rem(14px);
+                    color: $clr-gray2;
+                    flex-grow: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                    border: none;
+                    width: 180px;
+                    background-color: $clr--white;
+                    border-radius: $br-secondary;
+                    height: 86%;
+                    &:hover {
+                        background-color: $clr-gray7;
+                    }
+
+                    &.retweet-active {
+                        color: $clr-green2;
+                    }
+                    &.like-active {
+                        color: $clr-red;
+                    }
+                    &.save-active {
+                        color: $clr-blue2;
+                    }
+                }
+            }
+            .add-reply {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: relative;
+                .user-img {
+                    width: 40px;
+                }
+                .tweet-input {
+                    height: 40px;
+                    background-color: $bgc-input;
+                    flex-grow: 1;
+                    font-family: NotoSans-Medium;
+                    border-radius: $br-secondary;
+                    border: 1px solid $clr-gray7;
+                    color: $clr-gray4;
+                    padding-inline-start: 12px;
+                    &::placeholder {
+                        color: $clr-gray4;
+                    }
+                }
+                .add-photo {
+                    position: absolute;
+                    right: 12.5px;
+                }
+            }
+        }
+        .replies {
+            padding-top: 20px;
+            border-top: 1px solid $clr-gray7;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            .reply {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                .reply-head {
+                    display: flex;
+                    align-items: block-start;
+                    gap: 12px;
+                    .user-img {
+                        height: 40px;
+                        width: 40px;
+                    }
+                    .reply-body {
+                        padding: 15px 15px 22px 15px;
+                        background-color: $bgc-input;
+                        border-radius: $br-secondary;
+                        width: 100%;
+                        .user-info {
+                            display: flex;
+                            align-items: center;
+                            gap: 15px;
+                            .user-name {
+                                font-family: Poppins-Medium;
+                                color: $clr--black;
+                                font-size: rem(14px);
+                            }
+                            .user-followers {
+                                font-family: NotoSans-Medium;
+                                font-size: rem(12px);
+                                color: $clr-gray4;
+                            }
+                        }
+                        .reply-content {
+                            font-family: NotoSans-Regular;
+                            font-size: rem(16px);
+                            color: $clr-gray2;
+                            max-width: 60ch;
+                        }
+                    }
+                }
+                .reply-action {
+                    padding-inline-start: 52px;
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    font-family: NotoSans-SemiBold;
+                    color: $clr-gray4;
+                    font-size: rem(12px);
+
+                    .like {
+                        display: flex;
+                        align-items: center;
+                        .like-active {
+                            color: $clr-red;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .right-area,
+    .left-area {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+    .trends-list {
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        ul li {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            .trend-title {
+                font-family: NotoSans-SemiBold;
+                font-size: rem(16px);
+                color: $clr-gray1;
+            }
+            .trend-tweets-count {
+                font-family: NotoSans-Medium;
+                font-size: rem(12px);
+                color: $clr-gray3;
+            }
+        }
+    }
+
+    .who-to-follow {
+        .users-to-follow {
+            display: grid;
+            gap: 25px;
+            > :not(:last-child) {
+                padding-bottom: 25px;
+                border-bottom: 1px solid $clr-gray6;
+            }
+            .person-card {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                .card-header {
+                    justify-content: space-evenly;
+                }
+
+                .headline {
+                    font-family: NotoSans-Medium;
+                    font-size: rem(14px);
+                    color: $clr-gray3;
+                }
+                .cover-img {
+                    max-height: 100px;
+                    object-fit: cover;
+                    border-radius: $br-secondary;
+                }
+                .btn-follow {
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    font-family: NotoSans-Medium;
+                    font-size: rem(12px);
+                    background-color: $clr-blue1;
+                    color: $clr--white;
+                    max-height: 24px;
+                    border: none;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}
