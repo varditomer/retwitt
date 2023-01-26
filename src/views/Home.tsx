@@ -1,8 +1,5 @@
 import React from 'react'
 import SvgIcon from '../SvgIcon';
-import { Link } from 'react-router-dom';
-
-
 
 type Props = {}
 
@@ -10,7 +7,7 @@ export const Home: React.FC<Props> = (props) => {
     return (
         <section className="home">
             <section className="main-content">
-                <div className="left-area">
+                <div className="small-area">
                     <section className="add-tweet card">
                         <h2 className='card-title'>Tweet something</h2>
                         <div className="new-tweet">
@@ -216,7 +213,7 @@ export const Home: React.FC<Props> = (props) => {
                     </section>
 
                 </div>
-                <div className="right-area">
+                <div className="small-area">
                     <section className="trends-list card">
                         <h2 className='card-title'>Trend for you</h2>
                         <ul role='list'>

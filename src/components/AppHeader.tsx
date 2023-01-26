@@ -14,19 +14,19 @@ export function AppHeader({}: Props) {
                         <NavLink className='nav' to='/'>
                             <span>Home</span>
                         </NavLink>
-                            <div className="line"></div>
+                            <div className="border"></div>
                     </li>
                     <li>
                         <NavLink to='/explore'>
                             <span>Explore</span>
                         </NavLink>
-                            <div className="line"></div>
+                            <div className="border"></div>
                     </li>
                     <li>
                         <NavLink to='/bookmarks'>
                             <span>Bookmarks</span>
                         </NavLink>
-                            <div className="line"></div>
+                            <div className="border"></div>
                     </li>
                 </ul>
                 <div className="user">

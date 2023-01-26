@@ -5,17 +5,24 @@ import { Bookmarks } from './views/Bookmarks'
 import { Explore } from './views/Explore'
 import { AppHeader } from './components/AppHeader'
 import { Footer } from './components/Footer'
-// import routes from ''
+import routes from './routes'
 
 const App: React.FC = () => {
   return (
     <section className='main-app'>
       <AppHeader />
       <Routes>
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/*" element={<Home />} />
-        {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
+        {routes.map(route => {
+          console.log(`route:`, route)
+          if (route.children) {
+            return <Route key={route.path} element={route.component} path={route.path}>
+              {route.children.map(route => {
+                return <Route key={route.path} element={route.component} path={route.path} />
+              })}
+            </ Route>
+          }
+          return <Route key={route.path} element={route.component} path={route.path} />
+        })}
       </Routes>
       <Footer />
     </section>
