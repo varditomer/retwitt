@@ -5,13 +5,13 @@ import { NavLink } from 'react-router-dom';
 
 type Props = {}
 
-export default function AppHeader({}: Props) {
+export function AppHeader({}: Props) {
   return (
     <header className='main-header'>
                 <div className="logo">ReTwitt</div>
                 <ul className='nav-list' role='list'>
                     <li>
-                        <NavLink to='/'>
+                        <NavLink className='nav' to='/'>
                             <span>Home</span>
                         </NavLink>
                             <div className="line"></div>
