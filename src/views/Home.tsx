@@ -1,5 +1,7 @@
 import React from 'react'
 import SvgIcon from '../SvgIcon';
+import { Link } from 'react-router-dom';
+
 
 
 type Props = {}
@@ -7,34 +9,6 @@ type Props = {}
 export const Home: React.FC<Props> = (props) => {
     return (
         <section className="home">
-
-            <header className='main-header'>
-                <div className="logo">ReTwitt</div>
-                <ul className='nav-list' role='list'>
-                    <li className='active'>
-                        <span>Home</span>
-                        <div className="line active"></div>
-                    </li>
-                    <li>
-                        <span>Explore</span>
-                        <div className="line"></div>
-                    </li>
-                    <li>
-                        <span>Bookmarks</span>
-                        <div className="line"></div>
-                    </li>
-                </ul>
-                <div className="user">
-                    <img src="" alt="" className="user-img" />
-                    <div className='account'>
-                        <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
-                        <span className="user-name">Tomer Vardi</span>
-                        <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
-                    </div>
-                </div>
-
-            </header>
-
             <section className="main-content">
                 <div className="left-area">
                     <section className="add-tweet card">

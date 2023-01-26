@@ -3,16 +3,20 @@ import './styles/main.scss'
 import { Home } from './views/Home'
 import { Bookmarks } from './views/Bookmarks'
 import { Explore } from './views/Explore'
+import AppHeader from './components/AppHeader'
+// import routes from ''
 
 const App: React.FC = () => {
   return (
-    <Routes>
-      {/* <div className="App"> */}
+    <>
+      <AppHeader />
+      <Routes>
         <Route path="/explore" element={<Explore />} />
         <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/" element={<Home />} />
-      {/* </div> */}
-    </Routes>
+        <Route path="/*" element={<Home />} />
+        {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
+      </Routes>
+    </>
   )
 }
 
