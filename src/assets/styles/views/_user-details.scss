@@ -1,0 +1,75 @@
+.user-details {
+    position: relative;
+    .cover-img {
+        position: absolute;
+        z-index: -1;
+        max-height: 163.5px;
+        width: 100%;
+        object-fit: cover;
+    }
+    .user-profile {
+        max-width: calc(745px + 306px + 20px);
+        margin: 81.5px auto 0;
+        height: 163px;
+        background-color: $clr--white;
+        padding: 20px;
+        border-radius: $br-primary;
+        box-shadow: $bs-primary;
+        .card-title {
+            font-size: rem(12px);
+            border-bottom: 1px solid $clr-gray6;
+            margin-bottom: 24px;
+            padding-bottom: 8px;
+        }
+        .card-header {
+            align-items: flex-start;
+            display: flex;
+            gap: 24px;
+            .user-img {
+                position: relative;
+                top: -70px;
+                height: 152px;
+                width: 152px;
+            }
+            .user-info {
+                display: flex;
+                flex-direction: column;
+                gap: 22px;
+            }
+            .user-statistics {
+                display: flex;
+                align-items: center;
+                gap: 26px;
+                .user-name {
+                    font-family: Poppins-Medium;
+                    font-size: rem(24px);
+                    color: $clr-gray1;
+                }
+                .user-followers {
+                    font-family: Poppins-Medium;
+                    font-size: rem(12px);
+                    color: $clr-gray3;
+                    .emphasized {
+                        font-family: Poppins-SemiBold;
+                        color: $clr-gray1;
+                    }
+                }
+            }
+            .about {
+                color: $clr-gray3;
+                font-size: rem(18px);
+                max-width: 40ch;
+                line-height: calc(25 / 18);
+            }
+        }
+    }
+    .main-content {
+        min-height: 100vh;
+        display: grid;
+        margin-inline: auto;
+        gap: 20px;
+        padding-top: 26px;
+        grid-template-columns: 306px 745px;
+
+    }
+}

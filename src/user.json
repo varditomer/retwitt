@@ -1,0 +1,44 @@
+[
+    {
+        "_id": "u101",
+        "createdAt": "1674975957",
+        "firstName": "Tomer",
+        "LastName": "Vardi",
+        "userName": "vtomer",
+        "about": "Full-Stack | Web developer | JS; Vue/x & React/dux & Node.js & MongoDB || BSc Industrial Engineering &",
+        "profileImg": "src/assets/imgs/users/tomer-avatar.png",
+        "coverImg": "",
+        "following": ["u102","u103"],
+        "followers": ["u102"],
+        "tweets": ["t101"],
+        "savedTweets": ["t102"]
+    },
+    {
+        "_id": "u102",
+        "createdAt": "1674975957",
+        "firstName": "Ronen",
+        "LastName": "Boxer",
+        "userName": "george clooney",
+        "about": "Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰",
+        "profileImg": "src/assets/imgs/users/ronen-avatar.png",
+        "coverImg": "",
+        "following": ["u101"],
+        "followers": ["u101", "u103"],
+        "tweets": ["t102"],
+        "savedTweets": []
+    },
+    {
+        "_id": "u103",
+        "createdAt": "1674975957",
+        "firstName": "Refael",
+        "LastName": "Avramov",
+        "userName": "refa refa",
+        "about": "Follow me on IG: @arstyy",
+        "profileImg": "src/assets/imgs/users/refael-avatar.png",
+        "coverImg": "",
+        "following": ["u103"],
+        "followers": ["u101"],
+        "tweets": [],
+        "savedTweets": ["t101"]
+    }
+]

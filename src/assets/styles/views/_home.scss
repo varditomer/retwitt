@@ -1,0 +1,104 @@
+.home {
+    grid-template-columns: 745px 306px;
+    .add-tweet {
+        font-family: NotoSans-Medium;
+        .card-title {
+            margin-bottom: 8px;
+        }
+        .new-tweet {
+            color: $clr-gray4;
+        }
+        .control-btns {
+            @include flex-vertically-center;
+            justify-content: space-between;
+            padding-inline-start: calc(40px + 12px - 3.3px);
+
+            .settings {
+                @include flex-vertically-center;
+                gap: 10px;
+                > *:hover {
+                    background-color: lighten($clr-blue1, 40%);
+                    outline: 6px solid lighten($clr-blue1, 40%);
+                    border-radius: 4em;
+                }
+                .who-can-reply {
+                    color: $clr-blue1;
+                    font-size: rem(12px);
+                }
+            }
+            .btn-tweet {
+                @include custom-btn;
+                height: 32px;
+                width: 81px;
+            }
+        }
+    }
+
+    .trends-list {
+        ul {
+            @include flex-column;
+            gap: 24px;
+        }
+        ul li {
+            @include flex-column;
+            gap: 8px;
+            .trend-title {
+                font-family: NotoSans-SemiBold;
+                color: $clr-gray1;
+            }
+            .trend-tweets-count {
+                font-family: NotoSans-Medium;
+                font-size: rem(12px);
+                color: $clr-gray3;
+            }
+            &:hover {
+                background-color: $bgc-input;
+                outline: 10px solid $bgc-input;
+                border-radius: 4px;
+                .trend-title {
+                    &:hover {
+                        outline: 10px solid $bgc-input;
+                        border-radius: 4px;
+                        background-color: darken($bgc-input, 3%);
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+
+    .who-to-follow {
+        .users-to-follow {
+            display: grid;
+            gap: 25px;
+            > :not(:last-child) {
+                padding-bottom: 25px;
+                border-bottom: 1px solid $clr-gray6;
+            }
+            .person-card {
+                @include flex-column;
+                gap: 20px;
+                .card-header {
+                    justify-content: space-evenly;
+                    margin-bottom: 0;
+                    .btn-follow {
+                        @include custom-btn;
+                        padding: 10px;
+                        gap: 4px;
+                        max-height: 24px;
+                    }
+                }
+                .about {
+                    font-family: NotoSans-Medium;
+                    font-size: rem(14px);
+                    color: $clr-gray3;
+                }
+                .cover-img {
+                    max-height: 100px;
+                    object-fit: cover;
+                    border-radius: $br-secondary;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,191 @@
+.tweets-list {
+    @include flex-column;
+    gap: 20px;
+
+    .tweet {
+        .tweet-txt {
+            font-family: NotoSans-Regular;
+            color: $clr-gray2;
+            max-width: 60ch;
+            margin-bottom: 20px;
+        }
+        .tweet-img {
+            border-radius: $br-secondary;
+            box-shadow: $bs-primary;
+            margin-bottom: 12px;
+        }
+        .expose-info {
+            font-family: NotoSans-Medium;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            color: $clr-gray4;
+            font-size: rem(12px);
+            margin-bottom: 8px;
+        }
+
+        .action-btns {
+            @include flex-vertically-center;
+            border-top: 1px solid $clr-gray7;
+            border-bottom: 1px solid $clr-gray7;
+            height: 50px;
+            margin-bottom: 8px;
+            .action-btn {
+                @include flex-vertically-center;
+                justify-content: center;
+                flex-grow: 1;
+                gap: 12px;
+                font-family: NotoSans-Medium;
+                font-size: rem(14px);
+                color: $clr-gray2;
+                border: none;
+                width: 180px;
+                background-color: $clr--white;
+                border-radius: $br-secondary;
+                height: 86%;
+                cursor: pointer;
+                &:hover {
+                    background-color: $clr-gray7;
+
+                    &:not(:is(.active)) {
+                        &.retweet {
+                            color: $clr-green2;
+                            svg {
+                                stroke: $clr-green2;
+                            }
+                        }
+                        &.like {
+                            color: $clr-red;
+                            svg {
+                                stroke: $clr-red;
+                            }
+                        }
+                        &.bookmark {
+                            color: $clr-blue2;
+                            svg {
+                                stroke: $clr-blue2;
+                            }
+                        }
+                    }
+                }
+                &.retweet:is(.active) {
+                    color: $clr-green2;
+                }
+                &.like:is(.active) {
+                    color: $clr-red;
+                }
+                &.bookmark:is(.active) {
+                    color: $clr-blue2;
+                }
+            }
+        }
+    }
+
+    .add-reply {
+        position: relative;
+        @include flex-vertically-center;
+        gap: 12px;
+        .tweet-input {
+            flex-grow: 1;
+            height: 40px;
+            font-family: NotoSans-Medium;
+            color: $clr-gray4;
+            background-color: $bgc-input;
+            border-radius: $br-secondary;
+            border: 1px solid $clr-gray7;
+            padding-inline-start: 12px;
+            &::placeholder {
+                color: $clr-gray4;
+            }
+        }
+        .add-photo {
+            position: absolute;
+            right: 12.5px;
+            &:hover {
+                background-color: white;
+                outline: 6px solid white;
+                border-radius: 4em;
+            }
+        }
+    }
+    .replies {
+        @include flex-column;
+        gap: 18px;
+        padding-top: 20px;
+        border-top: 1px solid $clr-gray7;
+        .reply {
+            @include flex-column;
+            gap: 3px;
+            .reply-head {
+                display: flex;
+                align-items: block-start;
+                gap: 12px;
+                .user-img {
+                    height: 40px;
+                    width: 40px;
+                }
+                .reply-body {
+                    padding: 15px 15px 22px 15px;
+                    background-color: $bgc-input;
+                    border-radius: $br-secondary;
+                    width: 100%;
+                    .user-info {
+                        @include flex-vertically-center;
+                        gap: 15px;
+                        .user-name {
+                            font-family: Poppins-Medium;
+                            color: $clr--black;
+                            font-size: rem(14px);
+                        }
+                        .user-followers {
+                            font-family: NotoSans-Medium;
+                            font-size: rem(12px);
+                            color: $clr-gray4;
+                        }
+                    }
+                    .reply-content {
+                        font-family: NotoSans-Regular;
+                        font-size: rem(16px);
+                        color: $clr-gray2;
+                        max-width: 60ch;
+                    }
+                }
+            }
+            .reply-action {
+                padding-inline-start: 52px;
+                @include flex-vertically-center;
+                gap: 20px;
+                font-family: NotoSans-SemiBold;
+                color: $clr-gray4;
+                font-size: rem(12px);
+
+                .like {
+                    @include flex-vertically-center;
+                    &:hover {
+                        &:not(:is(.active)) {
+                            color: $clr-red;
+                            svg {
+                                stroke: $clr-red;
+                            }
+                        }
+                    }
+                    .like-active {
+                        color: $clr-red;
+                    }
+                    gap: 5px;
+                }
+            }
+            &:hover {
+                background-color: darken($bgc-input, 10%);
+                outline: 10px solid darken($bgc-input, 10%);
+                border-radius: $br-primary;
+                .reply-body {
+                    background-color: darken($bgc-input, 10%);
+                    &:hover {
+                        background-color: darken($bgc-input, 13%);
+                    }
+                }
+            }
+        }
+    }
+}

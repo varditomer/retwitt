@@ -1,37 +1,12 @@
-import React from 'react'
-import SvgIcon from '../SvgIcon';
+import SvgIcon from "../../SvgIcon";
 
-
-export const Home: React.FC = () => {
+export function Tweets() {
     return (
-        <section className="home page">
-
-            <section className="large-area">
-                <article className="add-tweet card">
-                    <h2 className='card-title'>Tweet something</h2>
-                    <div className="card-header new-tweet">
-                        <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
-                        <span className="tweet-input">What’s happening?</span>
-                    </div>
-                    <div className="control-btns">
-                        <div className="settings">
-                            <SvgIcon iconName="img" wrapperStyle="follow" svgProp={{ stroke: "#2F80ED", fill: "#2F80ED" }} />
-                            <SvgIcon iconName="earth" wrapperStyle="follow" svgProp={{ stroke: "#2F80ED", fill: "#2F80ED" }} />
-                            <div className="who-can-reply">
-                                <span>Everyone can reply</span>
-                                {/* <div className="who-can-reply-modal"></div> */}
-                            </div>
-                        </div>
-                        <button className="btn-tweet">
-                            <span>Tweet</span>
-                        </button>
-                    </div>
-                </article>
-
-                <section className="tweets-list">
+        <>
+            <section className="tweets-list">
                     <article className="tweet card">
                         <div className="card-header">
-                            <img className="user-img" src='src\assets\imgs\users\refael-avatar.png' alt="user image" />
+                            <img className="user-img" src='..\src\assets\imgs\users\refael-avatar.png' alt="user image" />
                             <div className="user-info">
                                 <span className="user-name">Refa Refa</span>
                                 <span className="user-followers">24 August at 20:43</span>
@@ -40,7 +15,7 @@ export const Home: React.FC = () => {
                         <p className="tweet-txt">
                             Traveling – it leaves you speechless, then turns you into a storyteller.
                         </p>
-                        <img className="tweet-img" src="src\assets\imgs\map_notebook.jpg" alt="" />
+                        <img className="tweet-img" src="..\src\assets\imgs\map_notebook.jpg" alt="" />
                         
                         <div className="expose-info">
                             <span>449 Comments</span>
@@ -68,7 +43,7 @@ export const Home: React.FC = () => {
                         </div>
 
                         <div className="add-reply">
-                            <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
+                            <img src='..\src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
                             <input type="text" placeholder='Tweet your reply' className="tweet-input" />
                             <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                         </div>
@@ -76,7 +51,7 @@ export const Home: React.FC = () => {
                         <section className="replies">
                             <div className="reply">
                                 <div className="reply-head">
-                                    <img className="user-img" src='src\assets\imgs\users\ronen-avatar.png' alt="user image" />
+                                    <img className="user-img" src='..\src\assets\imgs\users\ronen-avatar.png' alt="user image" />
                                     <div className="reply-body">
                                         <div className="user-info">
                                             <span className="user-name">Ronen Boxer</span>
@@ -97,7 +72,7 @@ export const Home: React.FC = () => {
                             </div>
                             <div className="reply">
                                 <div className="reply-head">
-                                    <img className="user-img" src='src\assets\imgs\users\tomer-avatar.png' alt="user image" />
+                                    <img className="user-img" src='..\src\assets\imgs\users\tomer-avatar.png' alt="user image" />
                                     <div className="reply-body">
                                         <div className="user-info">
                                             <span className="user-name">Tomer Vardi</span>
@@ -122,7 +97,7 @@ export const Home: React.FC = () => {
                     </article>
                     <article className="tweet card">
                         <div className="card-header">
-                            <img className="user-img" src='src\assets\imgs\users\ronen-avatar.png' alt="user image" />
+                            <img className="user-img" src='..\src\assets\imgs\users\ronen-avatar.png' alt="user image" />
                             <div className="user-info">
                                 <span className="user-name">Ronen Boxer</span>
                                 <span className="user-followers">24 August at 20:43</span>
@@ -131,7 +106,7 @@ export const Home: React.FC = () => {
                         <p className="tweet-txt">
                             “We travel, some of us forever, to seek other places, other lives, other souls.” – Anais Nin.
                         </p>
-                        <img className="tweet-img" src="src\assets\imgs\canyon_tree.jpg" alt="" />
+                        <img className="tweet-img" src="..\src\assets\imgs\canyon_tree.jpg" alt="" />
                         <section className="expose">
                             <div className="expose-info">
                                 <span>449 Comments</span>
@@ -157,7 +132,7 @@ export const Home: React.FC = () => {
                                 </button>
                             </div>
                             <div className="add-reply">
-                                <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
+                                <img src='..\src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
                                 <input type="text" placeholder='Tweet your reply' className="tweet-input" />
                                 <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                             </div>
@@ -166,7 +141,7 @@ export const Home: React.FC = () => {
                     </article>
                     <article className="tweet card">
                         <div className="card-header">
-                            <img className="user-img" src='src\assets\imgs\users\ronen-avatar.png' alt="user image" />
+                            <img className="user-img" src='..\src\assets\imgs\users\ronen-avatar.png' alt="user image" />
                             <div className="user-info">
                                 <span className="user-name">Ronen Boxer</span>
                                 <span className="user-followers">24 August at 20:43</span>
@@ -203,7 +178,7 @@ export const Home: React.FC = () => {
                                 </button>
                             </div>
                             <div className="add-reply">
-                                <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
+                                <img src='..\src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
                                 <input type="text" placeholder='Tweet your reply' className="tweet-input" />
                                 <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                             </div>
@@ -211,75 +186,6 @@ export const Home: React.FC = () => {
 
                     </article>
                 </section>
-
-            </section>
-            <div className="small-area">
-                <section className="trends-list card">
-                    <h2 className='card-title'>Trend for you</h2>
-                    <ul role='list'>
-                        <li>
-                            <span className="trend-title">#programming</span>
-                            <span className="trend-tweets-count">213k Tweets</span>
-                        </li>
-                        <li>
-                            <span className="trend-title">#devchallenges</span>
-                            <span className="trend-tweets-count">123k Tweets</span>
-                        </li>
-                        <li>
-                            <span className="trend-title">#frontend</span>
-                            <span className="trend-tweets-count">34k Tweets</span>
-                        </li>
-                        <li>
-                            <span className="trend-title">#helsinki</span>
-                            <span className="trend-tweets-count">11k Tweets</span>
-                        </li>
-                        <li>
-                            <span className="trend-title">#100DaysOfCode</span>
-                            <span className="trend-tweets-count">5k Tweets</span>
-                        </li>
-                    </ul>
-                </section>
-                <section className="who-to-follow card">
-                    <h2 className='card-title'>Who to follow</h2>
-                    <ul role='list' className="users-to-follow">
-                        <li className='person-card'>
-                            <div className="card-header">
-                                <img className="user-img" src='src\assets\imgs\users\ronen-avatar.png' alt="user image" />
-                                <div className="user-info">
-                                    <span className="user-name">Ronen Boxer</span>
-                                    <span className="user-followers">230k followers</span>
-                                </div>
-                                <button className="btn-follow">
-                                    <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                                    <span>Follow</span>
-                                </button>
-
-                            </div>
-                            <p className="about">
-                                Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰
-                            </p>
-                            <img className="cover-img" src='src\assets\imgs\backpacker-cliff.jpg' alt="user image" />
-                        </li>
-                        <li className='person-card'>
-                            <div className="card-header">
-                                <img className="user-img" src='src\assets\imgs\users\refael-avatar.png' alt="user image" />
-                                <div className="user-info">
-                                    <span className="user-name">Refa Refa</span>
-                                    <span className="user-followers">120k followers</span>
-                                </div>
-                                <button className="btn-follow">
-                                    <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                                    <span>Follow</span>
-                                </button>
-                            </div>
-                            <p className="about">
-                                Follow me on IG: @arstyy
-                            </p>
-                            <img className="cover-img" src='src\assets\imgs\cliff_jumping.png' alt="user image" />
-                        </li>
-                    </ul>
-                </section>
-            </div>
-        </section>
+        </>
     )
 }

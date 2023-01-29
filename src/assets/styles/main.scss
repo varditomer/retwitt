@@ -12,14 +12,18 @@
 
 // Views
 @import "views/home";
+@import "views/user-details";
 @import "views/explore";
+@import "views/bookmarks";
 
 
 
 // Components
 @import "components/app-header";
 @import "components/footer";
-@import "components/user-msg";
+@import "components/tweets-list";
+@import "components/tweets-filter";
 
+@import "components/user-msg";
 
 

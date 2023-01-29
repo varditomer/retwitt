@@ -29,36 +29,57 @@
     position: relative;
     overflow: hidden;
     &::before {
-      display: block;
-      content: "";
-      width: 100%;
-      padding-top: calc(($height / $width) * 100%);
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: calc(($height / $width) * 100%);
     }
     > * {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
-  
+
     > img {
-      height: 100%;
-      object-fit: cover;
+        height: 100%;
+        object-fit: cover;
     }
-  }
-  
-  // Mixin for removing hover effects on iphone screen
-  @mixin hover-supported {    
+}
+
+// Mixin for removing hover effects on iphone screen
+@mixin hover-supported {
     @media not all and (pointer: coarse) {
         &:hover {
             @content;
         }
     }
-  }
+}
 
 //   Helpers mixins:
 @mixin flex-vertically-center {
     display: flex;
     align-items: center;
+}
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// Custom button:
+@mixin custom-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: NotoSans-Medium;
+    font-size: rem(12px);
+    background-color: $clr-blue1;
+    color: $clr--white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: darken($clr-blue1, 10%);
+    }
 }

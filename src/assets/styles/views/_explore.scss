@@ -1,0 +1,36 @@
+.explore {
+    grid-template-columns: 306px 745px;
+    .search-tweet {
+        position: relative;
+        @include flex-vertically-center;
+        gap: 12px;
+        padding: 12px;
+        font-family: NotoSans-Medium;
+        color: $clr-gray4;
+        .search-icon {
+            position: absolute;
+            cursor:text;
+        }
+
+        .search-input {
+            padding-inline-start: 32px;
+            height: 100%;
+            flex-grow: 1;
+            font-family: NotoSans-Medium;
+            border-radius: $br-secondary;
+            border: none;
+            color: $clr-gray4;
+            &::placeholder {
+                color: $clr-gray4;
+            }
+            &:focus {
+                outline-color: $clr-blue1;
+            }
+        }
+        .search-btn {
+            @include custom-btn;
+            height: 32px;
+            width: 81px;
+        }
+    }
+}

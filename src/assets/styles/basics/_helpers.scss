@@ -1,0 +1,93 @@
+// Font Sizes
+.fs12 { font-size: rem(12px); }
+.fs14 { font-size: rem(14px); }
+.fs18 { font-size: rem(18px); }
+.fs20 { font-size: rem(20px); }
+.fs24 { font-size: rem(24px); }
+.fs28 { font-size: rem(28px); }
+.fs30 { font-size: rem(30px); }
+
+.text-center {
+    text-align: center;
+}
+// flex helpers
+
+.flex {
+
+    display: flex;
+
+    > *.full {
+        flex: 1;
+    }
+    &.column {
+        flex-direction: column;
+    }
+    &.justify-center {
+        justify-content: center;
+    }
+    &.align-center {
+        align-items: center;
+    }
+}
+
+// Media helpers
+
+.square-ratio {
+    @include aspect-ratio(1, 1);
+}
+.video-ratio {
+    @include aspect-ratio(16, 9);
+}
+.portrait-ratio {
+    @include aspect-ratio(9, 16);
+}
+// Page
+.page {
+    min-height: 100vh;
+    display: grid;
+    max-width: calc(745px + 306px + 20px);
+    margin-inline: auto;
+    padding-top: 26px;
+    gap: 20px;
+}
+
+// Card
+.card {
+    background-color: $clr--white;
+    padding: 20px;
+    border-radius: $br-primary;
+    box-shadow: $bs-primary;
+    cursor: pointer;
+    .card-title {
+        font-family: Poppins-SemiBold;
+        font-size: rem(12px);
+        border-bottom: 1px solid $clr-gray6;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+    }
+    .card-header {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 20px;
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            .user-name {
+                font-family: Poppins-Medium;
+                font-size: rem(16px);
+                color: $clr--black;
+            }
+            .user-followers {
+                font-family: NotoSans-Medium;
+                font-size: rem(12px);
+                color: $clr-gray3;
+            }
+        }
+    }
+    .user-img {
+        height: 40px;
+        width: 40px;
+    }
+    
+}

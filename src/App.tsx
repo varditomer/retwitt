@@ -1,11 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
-import './styles/main.scss'
-import { Home } from './views/Home'
-import { Bookmarks } from './views/Bookmarks'
-import { Explore } from './views/Explore'
+import './assets/styles/main.scss'
 import { AppHeader } from './components/AppHeader'
-import { Footer } from './components/Footer'
 import routes from './routes'
+import { Footer } from './components/Footer'
 
 const App: React.FC = () => {
   return (
@@ -15,9 +12,9 @@ const App: React.FC = () => {
         {routes.map(route => {
           console.log(`route:`, route)
           if (route.children) {
-            return <Route key={route.path} element={route.component} path={route.path}>
+            return <Route key={route.path} path={route.path} element={route.component}>
               {route.children.map(route => {
-                return <Route key={route.path} element={route.component} path={route.path} />
+                return <Route key={route.path} path={route.path} element={route.component} />
               })}
             </ Route>
           }

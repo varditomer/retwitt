@@ -1,0 +1,39 @@
+.tweets-filter {
+    padding: 20px 0;
+    ul {
+        @include flex-column;
+        gap: 21px;
+    }
+    ul li {
+        @include flex-vertically-center;
+        .filter-title {
+            font-family: NotoSans-SemiBold;
+            color: $clr-gray1;
+        }
+        &:has(.active) {
+            a {
+                padding-inline-start: 17px;
+                span {
+                    color: $clr-blue1;
+                }
+            }
+            .border {
+                height: 31px;
+                width: 3px;
+                border-radius: 0px 4px 4px 0px;
+                background-color: $clr-blue1;
+            }
+        }
+        a {
+            width: 100%;
+            padding: 3px 20px;
+        }
+        &:hover {
+            a {
+                background-color: lighten($clr-blue1, 40%);
+                border-top-right-radius: 12px;
+                border-bottom-right-radius: 12px;
+            }
+        }
+    }
+}
