@@ -1,25 +1,19 @@
 /* Breakpoint mixins */
 
+@mixin for-mobile-hover {
+    @media (hover :hover) {
+        @content;
+    }
+}
+
 @mixin for-mobile-layout {
     @media (max-width: calc($mobile-breakpoint + 40px)) {
         @content;
     }
 }
 
-@mixin for-narrow-layout {
-    @media (min-width: calc($mobile-breakpoint + 40px)) {
-        @content;
-    }
-}
-
-@mixin for-normal-layout {
-    @media (min-width: calc($narrow-breakpoint + 40px)) {
-        @content;
-    }
-}
-
 @mixin for-wide-layout {
-    @media (min-width: calc($normal-breakpoint + 40px)) {
+    @media (min-width: calc($narrow-breakpoint + 40px)) {
         @content;
     }
 }
@@ -77,7 +71,7 @@
     background-color: $clr-blue1;
     color: $clr--white;
     border: none;
-    border-radius: 4px;
+    border-radius: 4em;
     cursor: pointer;
     &:hover {
         background-color: darken($clr-blue1, 10%);

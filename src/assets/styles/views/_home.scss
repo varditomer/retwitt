@@ -1,5 +1,7 @@
 .home {
-    grid-template-columns: 745px 306px;
+    .small-area {
+        display: none;
+    }
     .add-tweet {
         font-family: NotoSans-Medium;
         .card-title {
@@ -16,14 +18,36 @@
             .settings {
                 @include flex-vertically-center;
                 gap: 10px;
-                > *:hover {
-                    background-color: lighten($clr-blue1, 40%);
-                    outline: 6px solid lighten($clr-blue1, 40%);
-                    border-radius: 4em;
+                .public-settings {
+                    position: relative;
+                    .public-settings-signs-wrapper {
+                        @include flex-vertically-center;
+                        gap: 6px;
+                    }
+                    .public-settings-txt {
+                        color: $clr-gray2;
+                        font-size: rem(12px);
+                    }
+                    .public-settings-modal {
+                        top: 59px;
+                        width: 235px;
+                    }
                 }
-                .who-can-reply {
-                    color: $clr-blue1;
-                    font-size: rem(12px);
+                .img-icon,
+                .public-settings-signs-wrapper {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: lighten($clr-blue1, 40%);
+                        outline: 8px solid lighten($clr-blue1, 40%);
+                        border-radius: 4em;
+                        svg {
+                            stroke: $clr-blue1;
+                            fill: $clr-blue1;
+                        }
+                        .public-settings-txt {
+                            color: $clr-blue1;
+                        }
+                    }
                 }
             }
             .btn-tweet {
@@ -79,8 +103,10 @@
                 @include flex-column;
                 gap: 20px;
                 .card-header {
-                    justify-content: space-evenly;
                     margin-bottom: 0;
+                    .user-info {
+                        flex-grow: 1;
+                    }
                     .btn-follow {
                         @include custom-btn;
                         padding: 10px;
@@ -99,6 +125,12 @@
                     border-radius: $br-secondary;
                 }
             }
+        }
+    }
+    @include for-wide-layout {
+        grid-template-columns: 2fr 1fr;
+        .small-area {
+            display: flex;
         }
     }
 }

@@ -31,15 +31,19 @@
             height: 50px;
             margin-bottom: 8px;
             .action-btn {
+                @include for-mobile-layout {
+                    .action-type {
+                        display: none;
+                    }
+                }
                 @include flex-vertically-center;
                 justify-content: center;
                 flex-grow: 1;
-                gap: 12px;
+                gap: 8px;
                 font-family: NotoSans-Medium;
                 font-size: rem(14px);
                 color: $clr-gray2;
                 border: none;
-                width: 180px;
                 background-color: $clr--white;
                 border-radius: $br-secondary;
                 height: 86%;

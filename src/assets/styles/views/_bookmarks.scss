@@ -1,3 +1,11 @@
 .bookmarks {
-    grid-template-columns: 306px 745px;
+    .small-area {
+        display: none;
+    }
+    @include for-wide-layout {
+        grid-template-columns: 1fr 2fr;
+        .small-area {
+            display: flex;
+        }
+    }
 }

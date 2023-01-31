@@ -45,19 +45,23 @@
 .page {
     min-height: 100vh;
     display: grid;
-    max-width: calc(745px + 306px + 20px);
+    max-width: calc(745px + 306px + 20px + 40px);
+    width: 100%;
     margin-inline: auto;
+    padding-inline: 20px 35px;
     padding-top: 26px;
     gap: 20px;
+    @include for-mobile-layout {
+        padding-inline: 10px;
+    }
 }
 
 // Card
 .card {
     background-color: $clr--white;
     padding: 20px;
-    border-radius: $br-primary;
+    border-radius: 20px;
     box-shadow: $bs-primary;
-    cursor: pointer;
     .card-title {
         font-family: Poppins-SemiBold;
         font-size: rem(12px);
@@ -89,5 +93,41 @@
         height: 40px;
         width: 40px;
     }
-    
+
+}
+
+// Modal
+.modal {
+    padding: 12px;
+    position: absolute;
+    font-size: rem(12px);
+    height: max-content;
+    width: max-content;
+    background-color: $clr--white;
+    border-radius: 20px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px !important;
+    .modal-title {
+        border: none;
+        font-family: Poppins-SemiBold;
+        color: $clr-gray2;
+        margin-bottom: 3px;
+    }
+    .modal-subtitle {
+        font-family: NotoSans-Regular;
+        color: $clr-gray3;
+        margin-bottom: 6px;
+    }
+    .modal-item {
+        font-family: NotoSans-Medium;
+        @include flex-vertically-center;
+        gap: 10px;
+        padding: 12px;
+        cursor: pointer;
+        &:hover {
+            background-color: #F2F2F2;
+            border-radius: $br-secondary;
+
+        }
+    }
+
 }

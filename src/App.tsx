@@ -13,9 +13,7 @@ const App: React.FC = () => {
           console.log(`route:`, route)
           if (route.children) {
             return <Route key={route.path} path={route.path} element={route.component}>
-              {route.children.map(route => {
-                return <Route key={route.path} path={route.path} element={route.component} />
-              })}
+              {route.children.map((route) => <Route key={route.path} path={route.path} element={route.component} />)}
             </ Route>
           }
           return <Route key={route.path} element={route.component} path={route.path} />

@@ -15,13 +15,27 @@ export const Home: React.FC = () => {
                     </div>
                     <div className="control-btns">
                         <div className="settings">
-                            <SvgIcon iconName="img" wrapperStyle="follow" svgProp={{ stroke: "#2F80ED", fill: "#2F80ED" }} />
-                            <SvgIcon iconName="earth" wrapperStyle="follow" svgProp={{ stroke: "#2F80ED", fill: "#2F80ED" }} />
-                            <div className="who-can-reply">
-                                <span>Everyone can reply</span>
-                                {/* <div className="who-can-reply-modal"></div> */}
+                            <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                            <div className="public-settings">
+                                <div className="public-settings-signs-wrapper">
+                                    <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                                    <span className='public-settings-txt'>Everyone can reply</span>
+                                </div>
+                                <article className="public-settings-modal modal" hidden>
+                                    <h2 className='modal-title'>Who can reply?</h2>
+                                    <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
+                                    <div className="modal-item">
+                                        <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                        <span className="card-item-txt">Everyone</span>
+                                    </div>
+                                    <div className="modal-item">
+                                        <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                        <span className="card-item-txt">People you follow</span>
+                                    </div>
+                                </article>
                             </div>
                         </div>
+
                         <button className="btn-tweet">
                             <span>Tweet</span>
                         </button>
@@ -41,7 +55,7 @@ export const Home: React.FC = () => {
                             Traveling – it leaves you speechless, then turns you into a storyteller.
                         </p>
                         <img className="tweet-img" src="src\assets\imgs\map_notebook.jpg" alt="" />
-                        
+
                         <div className="expose-info">
                             <span>449 Comments</span>
                             <span>59k Retweets</span>
@@ -253,7 +267,6 @@ export const Home: React.FC = () => {
                                     <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
                                     <span>Follow</span>
                                 </button>
-
                             </div>
                             <p className="about">
                                 Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰

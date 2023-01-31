@@ -1,16 +1,69 @@
 footer {
     position: relative;
     bottom: 0;
-    padding: 84px 0 26px 0;
-    display: flex;
-    align-items: center;
+    background-color: $clr--white;
+    margin-top: 26px;
+    @include flex-vertically-center;
     justify-content: center;
-    font-family: Montserrat-Medium;
-    letter-spacing: 1;
-    color: $clr-gray5;
-    .emphasized {
-        text-decoration: underline;
-        font-family: Montserrat-Bold;
+    .copyrights {
+        display: none;
     }
-    
+    .nav-list {
+        @include flex-vertically-center;
+        justify-content: space-around;
+        width: 100%;
+        li {
+            position: relative;
+            @include flex-vertically-center;
+            justify-content: center;
+            flex-grow: 1;
+            padding-block: 26px;
+            span {
+                display: none;
+            }
+            &:has(.active) {
+                svg {
+                    fill: $clr-blue1;
+                    stroke: $clr-blue1;
+                }
+                .border {
+                    position: absolute;
+                    width: 60%;
+                    height: 3px;
+                    bottom: 0;
+                    color: $clr-blue1;
+                    background-color: $clr-blue1;
+                    border-radius: 8px 8px 0px 0px;
+                }
+            }
+        }
+    }
+    @include for-mobile-layout {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        position: sticky;
+        bottom: 0px;
+        z-index: 50;
+    }
+    @include for-wide-layout {
+        padding: 26px 0;
+        background-color: transparent;
+        position: relative;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Montserrat-Medium;
+        letter-spacing: 1;
+        color: $clr-gray5;
+        .copyrights {
+            display: inherit;
+            .emphasized {
+                text-decoration: underline;
+                font-family: Montserrat-Bold;
+            }
+        }
+        .nav-list {
+            display: none;
+        }
+    }
 }

@@ -1,5 +1,7 @@
 .explore {
-    grid-template-columns: 306px 745px;
+    .small-area {
+        display: none;
+    }
     .search-tweet {
         position: relative;
         @include flex-vertically-center;
@@ -15,7 +17,7 @@
         .search-input {
             padding-inline-start: 32px;
             height: 100%;
-            flex-grow: 1;
+            flex-grow: 2;
             font-family: NotoSans-Medium;
             border-radius: $br-secondary;
             border: none;
@@ -30,7 +32,15 @@
         .search-btn {
             @include custom-btn;
             height: 32px;
-            width: 81px;
+            max-width: 81px;
+            flex-grow: 1;
+            
+        }
+    }
+    @include for-wide-layout {
+        grid-template-columns: 1fr 2fr;
+        .small-area {
+            display: flex;
         }
     }
 }

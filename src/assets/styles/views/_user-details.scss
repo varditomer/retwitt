@@ -1,20 +1,24 @@
 .user-details {
     position: relative;
+    > *:not(:is(.cover-img)) {
+        max-width: calc(745px + 306px + 20px);
+        margin-inline: auto;
+    }
     .cover-img {
         position: absolute;
+        top: 0;
+        left: 0;
         z-index: -1;
-        max-height: 163.5px;
+        height: 296.5px;
         width: 100%;
         object-fit: cover;
+        aspect-ratio: 16/9;
     }
     .user-profile {
-        max-width: calc(745px + 306px + 20px);
-        margin: 81.5px auto 0;
-        height: 163px;
-        background-color: $clr--white;
-        padding: 20px;
-        border-radius: $br-primary;
-        box-shadow: $bs-primary;
+        padding-top: 0;
+        margin-top: 242px;
+        min-height: unset;
+
         .card-title {
             font-size: rem(12px);
             border-bottom: 1px solid $clr-gray6;
@@ -22,54 +26,111 @@
             padding-bottom: 8px;
         }
         .card-header {
-            align-items: flex-start;
+            min-height: unset;
+            height: 163px;
+            border-radius: $br-primary;
+            box-shadow: $bs-primary;
+            width: 100%;
+            background-color: $clr--white;
             display: flex;
+            align-items: flex-start;
             gap: 24px;
+            margin: 0;
             .user-img {
                 position: relative;
                 top: -70px;
                 height: 152px;
                 width: 152px;
             }
-            .user-info {
+            .user-info-container {
+                flex-grow: 1;
+                padding-top: 20px;
                 display: flex;
                 flex-direction: column;
                 gap: 22px;
-            }
-            .user-statistics {
-                display: flex;
-                align-items: center;
-                gap: 26px;
-                .user-name {
-                    font-family: Poppins-Medium;
-                    font-size: rem(24px);
-                    color: $clr-gray1;
+                .user-info {
+                    display: flex;
+                    gap: 22px;
                 }
-                .user-followers {
-                    font-family: Poppins-Medium;
-                    font-size: rem(12px);
-                    color: $clr-gray3;
-                    .emphasized {
-                        font-family: Poppins-SemiBold;
+                .user-statistics {
+                    display: grid;
+                    grid-auto-flow: column;
+                    align-items: center;
+                    // justify-content: start;
+                    gap: 26px;
+                    .user-name {
+                        font-family: Poppins-Medium;
+                        font-size: rem(24px);
                         color: $clr-gray1;
                     }
+                    .user-followers {
+                        font-family: Poppins-Medium;
+                        font-size: rem(12px);
+                        color: $clr-gray3;
+                        .emphasized {
+                            font-family: Poppins-SemiBold;
+                            color: $clr-gray1;
+                        }
+                    }
+                    .btn-follow {
+                        @include custom-btn;
+                        padding: 10px;
+                        gap: 4px;
+                        max-height: 24px;
+                        justify-self: end;
+                    }
                 }
-            }
-            .about {
-                color: $clr-gray3;
-                font-size: rem(18px);
-                max-width: 40ch;
-                line-height: calc(25 / 18);
+                .about {
+                    color: $clr-gray3;
+                    font-size: rem(18px);
+                    max-width: 40ch;
+                    line-height: calc(25 / 18);
+                }
             }
         }
     }
     .main-content {
-        min-height: 100vh;
+        min-height: unset;
         display: grid;
-        margin-inline: auto;
         gap: 20px;
         padding-top: 26px;
-        grid-template-columns: 306px 745px;
+        .small-area {
+            display: none;
+        }
+        @include for-wide-layout {
+            grid-template-columns: 1fr 2fr;
+            .small-area {
+                display: flex;
+            }
+        }
+    }
+    @include for-mobile-layout {
+        .user-profile {
+            .card-header {
+                // height: max-content;
 
+                flex-direction: column;
+                gap: 0px;
+                position: relative;
+                .user-info-container {
+                    position: relative;
+                    top: -120px;
+                    margin-inline: auto;
+                    gap: 14px;
+                    .user-statistics {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+                    }
+                }
+                .user-img {
+                    // position: absolute;
+                    top: -100px;
+                    margin-inline: auto;
+                    height: 116px;
+                    width: 116px;
+                }
+            }
+        }
     }
 }
