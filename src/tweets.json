@@ -1,0 +1,142 @@
+[
+    {
+        "_id": "t101",
+        "createdAt": "1674975957",
+        "createdBy": {
+            "_id": "u103",
+            "firstName": "Refael",
+            "lastName": "Avramov",
+            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257401/refael-avatar_tsi0oa.png"  
+        },
+        "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257357/map_notebook_wxpbb4.jpg",
+        "public": true,
+        "retweet": false,
+        "hashtags": [
+            "JS",
+            "Full_Stack",
+            "Code"
+        ],
+        "content": "Traveling – it leaves you speechless, then turns you into a storyteller.",
+        "replies": [
+            {
+                "_id": "c101",
+                "createdAt": "1674975957",
+                "createdBy": {
+                    "_id": "u102",
+                    "firstName": "Ronen",
+                    "lastName": "Boxer",
+                    "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png"
+                },
+                "content": "I’ve seen awe-inspiring things that I thought I’d never be able to explain to another person.",
+                "imgUrl": "",
+                "likes": [
+                    "u102"
+                ]
+            },
+            {
+                "_id": "c102",
+                "createdAt": "1674975957",
+                "createdBy": {
+                    "_id": "u101",
+                    "firstName": "Tomer",
+                    "lastName": "Vardi",
+                    "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"  
+                },
+                "content": "I’ve felt this pull many times, like while road tripping through Morocco. Seeking out the vastness of the desert, and looking inward at the same time.",
+                "imgUrl": "",
+                "likes": [
+                    "u101",
+                    "u102",
+                    "u103"
+
+                ]
+            }
+        ],
+        "reTweeted": [
+            "u102"
+        ],
+        "saved": [
+            "u102"
+        ],
+        "likes": [
+            {
+                "_id": "l101",
+                "createdAt": "1674975957",
+                "createdBy": "u103"
+            }
+        ]
+    },
+    {
+        "_id": "t102",
+        "createdAt": "1674975957",
+        "createdBy": {
+            "_id": "u102",
+            "firstName": "Ronen",
+            "lastName": "Boxer",
+            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png"
+        },
+        "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257386/canyon_tree_uukcrm.jpg",
+        "public": true,
+        "retweet": false,
+        "hashtags": [
+            "JS",
+            "Full_Stack",
+            "Code"
+        ],
+        "content": "”We travel, some of us forever, to seek other places, other lives, other souls.” – Anais Nin.",
+        "replies": [
+        ],
+        "reTweeted": [
+            "u101"
+        ],
+        "saved": [
+            "u101",
+            "u102"
+        ],
+        "likes": [
+            {
+                "_id": "l101",
+                "createdAt": "1674975957",
+                "createdBy": "u101"
+            },
+            {
+                "_id": "l102",
+                "createdAt": "1674975957",
+                "createdBy": "u102"
+            }
+        ]
+    },
+    {
+        "_id": "t103",
+        "createdAt": "1674975957",
+        "createdBy": {
+            "_id": "u102",
+            "firstName": "Ronen",
+            "lastName": "Boxer",
+            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png"
+        },
+        "imgUrl": "",
+        "public": false,
+        "retweet": false,
+        "hashtags": [
+            "JS",
+            "Full_Stack",
+            "Code"
+        ],
+        "content": "“The gladdest moment in human life, methinks, is a departure into unknown lands.” – Sir Richard Burton",
+        "replies": [
+        ],
+        "reTweeted": [
+        ],
+        "saved": [
+            "u102"
+        ],
+        "likes": [
+            {
+                "_id": "l101",
+                "createdAt": "1674975957",
+                "createdBy": "u102"
+            }
+        ]
+    }
+]

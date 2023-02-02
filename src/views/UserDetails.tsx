@@ -18,14 +18,20 @@ export const UserDetails: React.FC<Props> = (props) => {
                                 <span className="user-followers"><span className="emphasized">30k</span> Following </span>
                                 <span className="user-followers"><span className="emphasized">230k</span> Followers</span>
                             </div>
-                            <button className="btn-follow">
-                                <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                                <span>Follow</span>
-                            </button>
+                            <div className="btn-container">
+                                <button className="btn-follow desktop-btn">
+                                    <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                                    <span>Follow</span>
+                                </button>
+                            </div>
                         </div>
                         <p className="about">
                             Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰
                         </p>
+                        <button className="btn-follow mobile-btn">
+                            <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                            <span>Follow</span>
+                        </button>
                     </div>
                 </div>
             </section>

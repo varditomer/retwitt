@@ -10,7 +10,6 @@ const App: React.FC = () => {
       <AppHeader />
       <Routes>
         {routes.map(route => {
-          console.log(`route:`, route)
           if (route.children) {
             return <Route key={route.path} path={route.path} element={route.component}>
               {route.children.map((route) => <Route key={route.path} path={route.path} element={route.component} />)}

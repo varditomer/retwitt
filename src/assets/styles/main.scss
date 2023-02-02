@@ -14,16 +14,17 @@
 @import "views/home";
 @import "views/user-details";
 @import "views/explore";
-@import "views/bookmarks";
+@import "views/bookmark";
 
 
 
 // Components
 @import "components/app-header";
 @import "components/footer";
-@import "components/tweets-list";
+@import "components/user-msg";
+// // tweets-components
+@import "components/tweet_cmps/tweets-list";
 @import "components/tweets-filter";
 
-@import "components/user-msg";
 
 

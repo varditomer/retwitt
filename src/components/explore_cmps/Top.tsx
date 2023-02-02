@@ -1,6 +1,7 @@
 import SvgIcon from "../../SvgIcon";
+import { TweetsList } from "../tweets-cmps/TweetsList";
 
-export function Tweets() {
+export function Top() {
     return (
         <>
             <section className="tweets-list">
@@ -25,7 +26,7 @@ export function Tweets() {
 
                         <div className="action-btns">
                             <button className='action-btn'>
-                                <SvgIcon iconName="comment" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                                <SvgIcon iconName="reply" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                                 <span className="action-type">Comment</span>
                             </button>
                             <button className='action-btn retweet'>
@@ -115,7 +116,7 @@ export function Tweets() {
                             </div>
                             <div className="action-btns">
                                 <button className='action-btn'>
-                                    <SvgIcon iconName="comment" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                                    <SvgIcon iconName="reply" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                                     <span className="action-type">Comment</span>
                                 </button>
                                 <button className='action-btn retweet active'>
@@ -158,7 +159,7 @@ export function Tweets() {
                             </div>
                             <div className="action-btns">
                                 <button className='action-btn'>
-                                    <SvgIcon iconName="comment" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                                    <SvgIcon iconName="reply" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                                     <span className="action-type">Comment</span>
 
                                 </button>

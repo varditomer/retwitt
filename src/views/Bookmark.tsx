@@ -3,9 +3,9 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 type Props = {}
 
-export const Bookmarks: React.FC<Props> = (props) => {
+export const Bookmark: React.FC<Props> = (props) => {
   return (
-    <section className="bookmarks page">
+    <section className="bookmark page">
       <div className="small-area">
         <section className="tweets-filter card">
           <ul role='list'>

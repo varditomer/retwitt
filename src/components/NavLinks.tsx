@@ -21,7 +21,7 @@ export function NavLinks() {
                 <div className="border"></div>
             </li>
             <li>
-                <NavLink to='/bookmarks/tweets'>
+                <NavLink to='/bookmark/tweets'>
                     <SvgIcon iconName="bookmark_filled" wrapperStyle="icon" svgProp={{ stroke: "#828282", fill: "#828282" }} />
                     <span>Bookmarks</span>
                 </NavLink>

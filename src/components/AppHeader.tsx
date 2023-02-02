@@ -16,7 +16,7 @@ export function AppHeader({ }: Props) {
                 <div className="user">
                     <img src="" alt="" className="user-img" />
                     <div className='account'>
-                        <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
+                        <img src='https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png' alt="user image" className="user-img" />
                         <span className="user-name">Tomer Vardi</span>
                         <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
 
