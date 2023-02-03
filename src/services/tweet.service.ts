@@ -5,7 +5,6 @@ import { utilService } from './util.service'
 
 const TWEETS_STORAGE_KEY = 'tweets'
 let _gTweets: Tweet[] = _loadTweets()
-console.log(`_gTweets:`, _gTweets)
 
 export const tweetService = {
     query,

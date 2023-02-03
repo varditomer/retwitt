@@ -1,10 +1,20 @@
+import { useState } from 'react';
+import { User } from '../interfaces/user.interface';
 import SvgIcon from '../SvgIcon';
 import { NavLinks } from './NavLinks';
 
 
-type Props = {}
+type Props = {
+    loggedinUser: User
+}
 
-export function AppHeader({ }: Props) {
+export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const toggleModal = () => {
+        setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
+    }
+
     return (
         <header className='main-header'>
             <div className="header-container">
@@ -16,11 +26,12 @@ export function AppHeader({ }: Props) {
                 <div className="user">
                     <img src="" alt="" className="user-img" />
                     <div className='account'>
-                        <img src='https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png' alt="user image" className="user-img" />
-                        <span className="user-name">Tomer Vardi</span>
-                        <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
+                        <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                        <span className="user-name">{loggedinUser.firstName} {loggedinUser.lastName}</span>
+                        <SvgIcon handleClick={() => toggleModal()} iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
 
-                        <article className="account-modal modal" hidden>
+
+                        <article className={`account-modal modal ${(!isModalOpen) ? 'hide' : ''}`}>
                             <div className="modal-item">
                                 <SvgIcon iconName="profile" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                 <span className="card-item-txt">My Profile</span>
@@ -38,6 +49,8 @@ export function AppHeader({ }: Props) {
                                 <span className="card-item-txt">Logout</span>
                             </div>
                         </article>
+
+
                     </div>
                 </div>
             </div>

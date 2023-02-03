@@ -1,0 +1,32 @@
+.trend-list {
+    ul {
+        @include flex-column;
+        gap: 24px;
+    }
+    ul li {
+        @include flex-column;
+        gap: 8px;
+        .trend-title {
+            font-family: NotoSans-SemiBold;
+            color: $clr-gray1;
+        }
+        .trend-tweets-count {
+            font-family: NotoSans-Medium;
+            font-size: rem(12px);
+            color: $clr-gray3;
+        }
+        &:hover {
+            background-color: $bgc-input;
+            outline: 10px solid $bgc-input;
+            border-radius: 4px;
+            .trend-title {
+                &:hover {
+                    outline: 10px solid $bgc-input;
+                    border-radius: 4px;
+                    background-color: darken($bgc-input, 3%);
+                    color: black;
+                }
+            }
+        }
+    }
+}

@@ -12,7 +12,7 @@ export function loadUsers() {
     }
 }
 
-export function setLoggedinUser() {
+export function loadLoggedinUser() {
     return async (dispatch: any) => {
         try {
             const loggedinUser = userService.getLoggedinUser()
@@ -23,10 +23,10 @@ export function setLoggedinUser() {
     }
 }
 
-export function updateLoggedinUser(loggedinUser: User) {
+export function setLoggedinUser(loggedinUser: User) {
     return async (dispatch: any) => {
         try {
-            userService.updateLoggedinUser(loggedinUser)
+            userService.setLoggedinUser(loggedinUser)
             dispatch({ type: 'UPDATE_LOGGEDIN_USER', payload: loggedinUser })
         } catch (err) {
             console.log(`err:`, err)

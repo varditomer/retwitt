@@ -3,11 +3,30 @@ import './assets/styles/main.scss'
 import { AppHeader } from './components/AppHeader'
 import routes from './routes'
 import { Footer } from './components/Footer'
+import { useDispatch } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
+import { INITIAL_STATE, UserState } from './interfaces/state.interface'
+import { AnyAction } from 'redux'
+import { useEffect } from 'react'
+import { loadLoggedinUser, loadUsers } from './store/actions/user.action'
+import { loadTweets } from './store/actions/tweet.action'
+import { useSelector } from 'react-redux'
 
 const App: React.FC = () => {
+  const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
+  useEffect(() => {
+    dispatch(loadUsers())
+    dispatch(loadLoggedinUser())
+    dispatch(loadTweets())
+  }, [])
+
+  const loggedinUser = useSelector((state: UserState) => state.userModule.loggedinUser)
+
+
+  if (!loggedinUser) return <div>loading...</div>
   return (
     <section className='main-app'>
-      <AppHeader />
+      <AppHeader loggedinUser={loggedinUser} />
       <Routes>
         {routes.map(route => {
           if (route.children) {

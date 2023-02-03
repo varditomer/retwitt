@@ -18,13 +18,18 @@
 
 
 
-// Components
-@import "components/app-header";
-@import "components/footer";
+// Cmps:
+@import "components/app-general_cmps/app-header";
+@import "components/app-general_cmps/app-footer";
 @import "components/user-msg";
-// // tweets-components
-@import "components/tweet_cmps/tweets-list";
+// // tweet_cmps
+@import "components/tweet_cmps/tweet-list";
 @import "components/tweets-filter";
+// // who-to-follow_cmps
+@import "components/who-to-follow_cmps/who-to-follow";
+// // trend_cmps
+@import "components/trend_cmps/trend";
+
 
 
 

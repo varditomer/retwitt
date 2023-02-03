@@ -1,7 +1,7 @@
 [
     {
         "_id": "u101",
-        "createdAt": "1674975957",
+        "createdAt": 1674975957,
         "firstName": "Tomer",
         "lastName": "Vardi",
         "userName": "vtomer",
@@ -15,7 +15,7 @@
     },
     {
         "_id": "u102",
-        "createdAt": "1674975957",
+        "createdAt": 1674975957,
         "firstName": "Ronen",
         "lastName": "Boxer",
         "userName": "george clooney",
@@ -29,7 +29,7 @@
     },
     {
         "_id": "u103",
-        "createdAt": "1674975957",
+        "createdAt": 1674975957,
         "firstName": "Refael",
         "lastName": "Avramov",
         "userName": "refa refa",

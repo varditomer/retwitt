@@ -7,7 +7,7 @@ type Props = {
     tweet: Tweet
 }
 
-export const TweetPreview: React.FC<Props> = ({tweet}) => {
+export const TweetPreview: React.FC<Props> = ({ tweet }) => {
     return (
         <article className="tweet card">
             <div className="card-header">
@@ -20,7 +20,11 @@ export const TweetPreview: React.FC<Props> = ({tweet}) => {
             <p className="tweet-txt">
                 {tweet.content}
             </p>
-            <img className="tweet-img" src={tweet.imgUrl} alt="" />
+            {(tweet.imgUrl) ?
+                <img className="tweet-img" src={tweet.imgUrl} alt="" />
+                :
+                ''
+            }
 
             <div className="expose-info">
                 <span>449 Comments</span>
@@ -30,7 +34,7 @@ export const TweetPreview: React.FC<Props> = ({tweet}) => {
 
             <div className="action-btns">
                 <button className='action-btn'>
-                    <SvgIcon iconName="comment" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                    <SvgIcon iconName="comment" wrapperStyle="comment" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                     <span className="action-type">Comment</span>
                 </button>
                 <button className='action-btn retweet'>
@@ -54,7 +58,7 @@ export const TweetPreview: React.FC<Props> = ({tweet}) => {
             </div>
 
 
-            {(tweet.replies.length)?  <ReplyList replies={tweet.replies}/>: ''}
+            {(tweet.replies.length) ? <ReplyList replies={tweet.replies} /> : ''}
         </article>
     )
 }

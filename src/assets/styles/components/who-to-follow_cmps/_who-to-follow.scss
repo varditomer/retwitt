@@ -1,0 +1,40 @@
+.users-to-follow {
+    display: grid;
+    gap: 25px;
+    > :not(:last-child) {
+        padding-bottom: 25px;
+        border-bottom: 1px solid $clr-gray6;
+    }
+    .person-card {
+        @include flex-column;
+        gap: 20px;
+        >* {
+            cursor: pointer;
+        }
+        .card-header {
+            .user-img, .user-name {
+                cursor: pointer;
+            }
+            margin-bottom: 0;
+            .user-info {
+                flex-grow: 1;
+            }
+            .btn-follow {
+                @include custom-btn;
+                padding: 10px;
+                gap: 4px;
+                max-height: 24px;
+            }
+        }
+        .about {
+            font-family: NotoSans-Medium;
+            font-size: rem(14px);
+            color: $clr-gray3;
+        }
+        .cover-img {
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: $br-secondary;
+        }
+    }
+}

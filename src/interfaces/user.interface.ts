@@ -1,6 +1,6 @@
 export interface User {
     _id: string,
-    createdAt: string,
+    createdAt: number,
     firstName: string,
     lastName: string,
     userName: string,

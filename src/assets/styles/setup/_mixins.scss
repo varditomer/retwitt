@@ -1,7 +1,7 @@
 /* Breakpoint mixins */
 
 @mixin for-mobile-hover {
-    @media (hover :hover) {
+    @media (hover: hover) {
         @content;
     }
 }
@@ -75,5 +75,32 @@
     cursor: pointer;
     &:hover {
         background-color: darken($clr-blue1, 10%);
+    }
+}
+
+// Device Hover Check:
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+// General hover style:
+@mixin custom-hover-txt {
+    background-color: lighten($clr-blue1, 40%);
+    outline: 6px solid lighten($clr-blue1, 40%);
+    color: $clr-blue1;
+    border-radius: 4em;
+}
+@mixin custom-hover-svg-txt($color:$clr-blue1, $outlineRadius: 6px, $lightenPercentage: 40%) {
+    background-color: lighten($color, $lightenPercentage);
+    outline: $outlineRadius solid lighten($color, $lightenPercentage);
+    border-radius: 4em;
+    color: $color;
+    svg {
+        stroke: $color;
+        fill: $color;
     }
 }

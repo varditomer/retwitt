@@ -1,4 +1,4 @@
-.tweets-list {
+.tweet-list {
     @include flex-column;
     gap: 20px;
 
@@ -93,7 +93,7 @@
             flex-grow: 1;
             height: 40px;
             font-family: NotoSans-Medium;
-            color: $clr-gray4;
+            color: $clr-gray1;
             background-color: $bgc-input;
             border-radius: $br-secondary;
             border: 1px solid $clr-gray7;
@@ -101,14 +101,16 @@
             &::placeholder {
                 color: $clr-gray4;
             }
+            &:focus {
+                outline-color: $clr-twitter;
+            }
         }
         .add-photo {
             position: absolute;
             right: 12.5px;
+            cursor: pointer;
             &:hover {
-                background-color: white;
-                outline: 6px solid white;
-                border-radius: 4em;
+                @include custom-hover-svg-txt($outlineRadius: 4px);
             }
         }
     }
@@ -165,19 +167,27 @@
                 font-size: rem(12px);
 
                 .like {
+                    z-index: 2;
                     @include flex-vertically-center;
+                    cursor: pointer;
                     &:hover {
                         &:not(:is(.active)) {
-                            color: $clr-red;
-                            svg {
-                                stroke: $clr-red;
-                            }
+                            @include custom-hover-svg-txt($clr-red, 4px, 30%);   
                         }
                     }
-                    .like-active {
+                    &:is(.active) {
                         color: $clr-red;
+                        svg {
+                            stroke: $clr-red;
+                            fill: $clr-red;
+                        }
                     }
-                    gap: 5px;
+                    gap: 3px;
+                }
+            }
+            .likes-count {
+                cursor: pointer;
+                &:hover {
                 }
             }
             &:hover {
