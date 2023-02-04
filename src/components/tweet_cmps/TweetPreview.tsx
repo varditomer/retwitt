@@ -1,20 +1,26 @@
 import React from 'react'
+import { useTimestampConverter } from '../../hooks/useTimestampConverter'
 import { Tweet } from '../../interfaces/tweet.interface'
+import { User } from '../../interfaces/user.interface'
 import SvgIcon from '../../SvgIcon'
 import { ReplyList } from './reply_cmps/ReplytList'
 
 type Props = {
     tweet: Tweet
+    loggedinUser: User
 }
 
-export const TweetPreview: React.FC<Props> = ({ tweet }) => {
+export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser }) => {
+
+    const convertedTime = useTimestampConverter(tweet.createdAt);
+
     return (
         <article className="tweet card">
             <div className="card-header">
                 <img className="user-img" src={tweet.createdBy.profileImg} alt="user image" />
                 <div className="user-info">
                     <span className="user-name">{tweet.createdBy.firstName} {tweet.createdBy.lastName}</span>
-                    <span className="user-followers">24 August at 20:43</span>
+                    <span className="sub-info">{convertedTime}</span>
                 </div>
             </div>
             <p className="tweet-txt">
@@ -52,7 +58,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet }) => {
             </div>
 
             <div className="add-reply">
-                <img src='src\assets\imgs\users\tomer-avatar.png' alt="user image" className="user-img" />
+                <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
                 <input type="text" placeholder='Tweet your reply' className="reply-input" />
                 <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
             </div>

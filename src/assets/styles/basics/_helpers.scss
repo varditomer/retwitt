@@ -15,6 +15,13 @@
     display: none;
 }
 
+.background {
+    // background-image: url('https://abs.twimg.com/responsive-web/client-web/book-in-bird-cage-400x200.v1.366bcfc9.png');
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 400px;
+}
+
 // flex helpers
 
 .flex {
@@ -87,7 +94,7 @@
                 font-size: rem(16px);
                 color: $clr--black;
             }
-            .user-followers {
+            .sub-info {
                 font-family: NotoSans-Medium;
                 font-size: rem(12px);
                 color: $clr-gray3;

@@ -2,13 +2,13 @@ import { MiniUser } from "./user.interface";
 
 export interface Like {
     _id: string,
-    createdAt: string,
+    createdAt: number,
     createdBy: string,
 }
 
 export interface Reply {
     _id: string,
-    createdAt: string,
+    createdAt: number,
     createdBy: MiniUser,
     content: string,
     imgUrl: string,
@@ -18,7 +18,7 @@ export interface Reply {
 
 export interface Tweet {
     _id: string,
-    createdAt: string,
+    createdAt: number,
     createdBy: MiniUser,
     imgUrl: string,
     public: boolean,

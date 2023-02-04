@@ -11,7 +11,7 @@ export const ReplyList: React.FC<Props> = ({ replies }) => {
 
 
     return (
-        <section className="replies">
+        <section className="reply-list">
             {replies.map((reply: Reply) =>
                 <ReplyPreview key={reply._id} reply={reply} />
             )}

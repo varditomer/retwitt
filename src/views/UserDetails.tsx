@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
-import { AnyAction } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { INITIAL_STATE, UserState } from '../interfaces/state.interface';
+import { TweetState, UserState } from '../interfaces/state.interface';
+import { Tweet } from '../interfaces/tweet.interface';
 import { User } from '../interfaces/user.interface';
-import { loadUsers } from '../store/actions/user.action';
 import SvgIcon from '../SvgIcon';
 
 type Props = {}
 
 export const UserDetails: React.FC<Props> = () => {
-    const users = useSelector((state: UserState) => state.userModule.users)
+    const {users, loggedinUser} = useSelector((state: UserState) => state.userModule)
+    const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
     const [user, setUser] = useState<User | null>(null)
+    const [userTweets, setUserTweets] = useState<Tweet[] | null>(null)
     let navigate = useNavigate()
-
-
     const params = useParams()
+
     useEffect(() => {
         if (!users.length) return
         const selectedUser = users.filter(user => user._id === params.id)[0]
@@ -25,13 +23,17 @@ export const UserDetails: React.FC<Props> = () => {
         setUser(selectedUser)
     }, [params.id, users])
 
+    useEffect(() => {
+        if (!tweets.length || !user) return
+        const selectedUserTweets = tweets.filter(tweet => tweet.createdBy._id === user?._id)
+        setUserTweets(selectedUserTweets)
+    }, [params.id, tweets, user])
 
-
-
+    if(!userTweets) return <div>Loading...</div>
     return (
         <section className="user-details">
             <img src={user?.coverImg} alt="" className="cover-img" />
-            <section className="user-profile  page">
+            <section className="user-profile page">
                 <div className="card-header card">
                     <img className="user-img" src={user?.profileImg} alt="user image" />
                     <div className="user-info-container">
@@ -91,7 +93,12 @@ export const UserDetails: React.FC<Props> = () => {
                     </section>
                 </div>
                 <div className="large-area">
-                    <Outlet />
+                    <Outlet
+                        context={{
+                            userTweets,
+                            loggedinUser
+                        }}
+                    />
                 </div>
             </section>
         </section>

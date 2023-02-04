@@ -1,7 +1,7 @@
 [
     {
         "_id": "t101",
-        "createdAt": "1674975957",
+        "createdAt": 1674975957,
         "createdBy": {
             "_id": "u103",
             "firstName": "Refael",
@@ -20,7 +20,7 @@
         "replies": [
             {
                 "_id": "c101",
-                "createdAt": "1674975957",
+                "createdAt": 1674975957,
                 "createdBy": {
                     "_id": "u102",
                     "firstName": "Ronen",
@@ -35,7 +35,7 @@
             },
             {
                 "_id": "c102",
-                "createdAt": "1674975957",
+                "createdAt": 1674975957,
                 "createdBy": {
                     "_id": "u101",
                     "firstName": "Tomer",
@@ -61,14 +61,14 @@
         "likes": [
             {
                 "_id": "l101",
-                "createdAt": "1674975957",
+                "createdAt": 1674975957,
                 "createdBy": "u103"
             }
         ]
     },
     {
         "_id": "t102",
-        "createdAt": "1674975957",
+        "createdAt": 1674975957,
         "createdBy": {
             "_id": "u102",
             "firstName": "Ronen",
@@ -96,19 +96,19 @@
         "likes": [
             {
                 "_id": "l101",
-                "createdAt": "1674975957",
+                "createdAt": 1674975957,
                 "createdBy": "u101"
             },
             {
                 "_id": "l102",
-                "createdAt": "1674975957",
+                "createdAt": 1674975957,
                 "createdBy": "u102"
             }
         ]
     },
     {
         "_id": "t103",
-        "createdAt": "1674975957",
+        "createdAt": 1674975957,
         "createdBy": {
             "_id": "u102",
             "firstName": "Ronen",
@@ -134,7 +134,7 @@
         "likes": [
             {
                 "_id": "l101",
-                "createdAt": "1674975957",
+                "createdAt": 1674975957,
                 "createdBy": "u102"
             }
         ]

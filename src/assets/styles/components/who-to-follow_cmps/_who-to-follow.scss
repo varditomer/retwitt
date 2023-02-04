@@ -15,6 +15,9 @@
             .user-img, .user-name {
                 cursor: pointer;
             }
+            .user-img {
+                // align-self: flex-start;
+            }
             margin-bottom: 0;
             .user-info {
                 flex-grow: 1;

@@ -8,9 +8,11 @@ type Props = {
 }
 
 export const WhoToFollowPreview: React.FC<Props> = ({ user }) => {
+    
+
 
     const handleClick = (ev: MouseEvent) => {
-        ev.stopPropagation()
+        ev.preventDefault()
     }
 
     return (
@@ -20,9 +22,9 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user }) => {
                     <img className="user-img" src={user.profileImg} alt="user image" />
                     <div className="user-info">
                         <span className="user-name">{user.firstName} {user.lastName}</span>
-                        <span className="user-followers">230k followers</span>
+                        <span className="sub-info">230k followers</span>
                     </div>
-                    <button className="btn-follow" onClick={(ev)=>handleClick(ev)}>
+                    <button type="button" className="btn-follow" onClick={(ev)=>handleClick(ev)}>
                         <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
                         <span>Follow</span>
                     </button>

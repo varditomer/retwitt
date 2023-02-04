@@ -2,9 +2,30 @@ import SvgIcon from "../../SvgIcon";
 
 export function Tweets() {
     return (
-        <>
-            <section className="tweets-list">
-                    <article className="tweet card">
+        <section className="tweets-list">
+            <div className="css-1dbjc4n r-1kihuf0 r-1jgb5lz r-764hgp r-jzhu7e r-1dye5f7 r-13qz1uu" data-testid="emptyState">
+                <div className="css-1dbjc4n r-h8hv3c r-1wzrnnt">
+                    <div className="css-1dbjc4n r-1adg3ll r-1udh08x">
+                        <div className="r-1adg3ll r-13qz1uu" style={{ paddingBottom: '50%' }}></div>
+                        <div className="r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-ipm5af r-13qz1uu">
+                            <div aria-label="" className="css-1dbjc4n r-1p0dtai r-1mlwlqe r-1d2f490 r-1udh08x r-u8s1d r-zchlnj r-ipm5af r-417010" data-testid="empty_state_illustration">
+                                <div className="css-1dbjc4n r-1niwhzg r-vvn4in r-u6sd8q r-4gszlv r-1p0dtai r-1pi2tsx r-1d2f490 r-u8s1d r-zchlnj r-ipm5af r-13qz1uu r-1wyyakw" style={{ backgroundImage: "url(https://abs.twimg.com/responsive-web/client-web/book-in-bird-cage-400x200.v1.366bcfc9.png)" }}>
+                                </div>
+                                <img alt="" draggable="true" src="https://abs.twimg.com/responsive-web/client-web/book-in-bird-cage-400x200.v1.366bcfc9.png" className="css-9pa8cd" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="css-1dbjc4n">
+                    <div dir="ltr" className="css-901oao r-18jsvk2 r-37j5jr r-1yjpyg1 r-1vr29t4 r-ueyrd6 r-5oul0u r-bcqeeo r-fdjqy7 r-qvutc0" data-testid="empty_state_header_text">
+                        <span className="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">Save Tweets for later</span>
+                    </div>
+                    <div dir="ltr" className="css-901oao r-14j79pv r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-1nxhmzv r-bcqeeo r-fdjqy7 r-qvutc0" data-testid="empty_state_body_text">
+                        <span className="css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0">Don’t let the good ones fly away! Bookmark Tweets to easily find them again in the future.</span>
+                    </div>
+                </div>
+            </div>
+            {/* <article className="tweet card">
                         <div className="card-header">
                             <img className="user-img" src='..\src\assets\imgs\users\refael-avatar.png' alt="user image" />
                             <div className="user-info">
@@ -184,8 +205,7 @@ export function Tweets() {
                             </div>
                         </section>
 
-                    </article>
-                </section>
-        </>
+                    </article> */}
+        </section>
     )
 }

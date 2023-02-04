@@ -72,9 +72,9 @@
                         font-family: Poppins-Medium;
                         font-size: rem(24px);
                         color: $clr-gray1;
+                        line-height: 1;
                     }
                     .user-followers {
-                        // flex: 1;
                         font-family: Poppins-Medium;
                         font-size: rem(12px);
                         color: $clr-gray3;
@@ -101,15 +101,21 @@
         .small-area {
             display: none;
         }
-        @include for-wide-layout {
+    }
+    @include for-wide-layout {
+        .user-profile {
+            .card-header {
+                .user-img {
+                    top: -70px;
+                    height: 152px;
+                    width: 152px;
+                }
+            }
+        }
+        .main-content{
             grid-template-columns: 1fr 2fr;
             .small-area {
                 display: flex;
-            }
-            .user-img {
-                top: -70px;
-                height: 152px;
-                width: 152px;
             }
         }
     }
@@ -132,6 +138,12 @@
                         display: flex;
                         flex-direction: column;
                         gap: 4px;
+                        .user-name {
+                            line-height: 1.5;
+                        }
+                    }
+                    .about {
+                        text-align: center;
                     }
                 }
                 .user-img {

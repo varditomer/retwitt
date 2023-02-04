@@ -10,21 +10,20 @@ import { WhoToFollowList } from '../components/who-to-follow_cmps/WhoToFollowLis
 export const Home: React.FC = () => {
 
     const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
-    const usersStore = useSelector((state: UserState) => state.userModule)
+    const {users, loggedinUser} = useSelector((state: UserState) => state.userModule)
 
-    if (!tweets || !usersStore.users || !usersStore.loggedinUser) return <div>Loading...</div>
+    if (!tweets || !users || !loggedinUser) return <div>Loading...</div>
 
     return (
         <section className="home page">
 
             <section className="large-area">
-                <AddTweet loggedinUser={usersStore.loggedinUser} />
-                <TweetList tweets={tweets} />
-
+                <AddTweet loggedinUser={loggedinUser} />
+                <TweetList tweets={tweets} loggedinUser={loggedinUser} />
             </section>
             <div className="small-area">
                 <TrendList />
-                <WhoToFollowList users={usersStore.users} />
+                <WhoToFollowList users={users} />
             </div>
         </section>
     )

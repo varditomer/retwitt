@@ -1,0 +1,100 @@
+.reply-list {
+    @include flex-column;
+    gap: 18px;
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid $clr-gray7;
+    .reply {
+        @include flex-column;
+        gap: 3px;
+        .reply-head {
+            display: flex;
+            align-items: block-start;
+            gap: 12px;
+            .user-img {
+                height: 40px;
+                width: 40px;
+            }
+            .reply-body {
+                padding: 12px 12px 20px;
+                background-color: $bgc-input;
+                border-radius: $br-secondary;
+                width: 100%;
+                .user-info {
+                    @include flex-vertically-center;
+                    gap: 15px;
+
+                    @include for-mobile-layout {
+                        align-items: flex-start;
+                        flex-direction: column;
+                        gap: 0px;
+                    }
+
+
+                    .user-name {
+                        font-family: Poppins-Medium;
+                        color: $clr--black;
+                        font-size: rem(14px);
+                    }
+                    .user-followers {
+                        font-family: NotoSans-Medium;
+                        font-size: rem(12px);
+                        color: $clr-gray4;
+                    }
+                }
+                .reply-content {
+                    font-family: NotoSans-Regular;
+                    font-size: rem(16px);
+                    color: $clr-gray2;
+                    max-width: 60ch;
+                }
+            }
+        }
+        .reply-action {
+            padding-inline-start: 52px;
+            @include flex-vertically-center;
+            gap: 20px;
+            font-family: NotoSans-SemiBold;
+            color: $clr-gray4;
+            font-size: rem(12px);
+
+            .like {
+                z-index: 2;
+                @include flex-vertically-center;
+                cursor: pointer;
+                &:hover {
+                    &:not(:is(.active)) {
+                        @include custom-hover-svg-txt($clr-red, 4px, 30%);   
+                    }
+                }
+                &:is(.active) {
+                    color: $clr-red;
+                    svg {
+                        stroke: $clr-red;
+                        fill: $clr-red;
+                    }
+                }
+                gap: 3px;
+            }
+        }
+        .likes-count {
+            cursor: pointer;
+            &:hover {
+            }
+        }
+        @include hover-supported{
+            &:hover {
+                background-color: darken($bgc-input, 10%);
+                outline: 10px solid darken($bgc-input, 10%);
+                border-radius: $br-primary;
+                .reply-body {
+                    background-color: darken($bgc-input, 10%);
+                    &:hover {
+                        background-color: darken($bgc-input, 13%);
+                    }
+                }
+            }
+        }
+    }
+  
+}
