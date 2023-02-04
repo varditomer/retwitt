@@ -36,10 +36,12 @@
                 .img-icon,
                 .public-settings-signs-wrapper {
                     cursor: pointer;
-                    &:hover {
-                        @include custom-hover-svg-txt;
-                        .public-settings-txt {
-                            color: $clr-blue1;
+                    @include hover-supported{
+                        &:hover {
+                            @include custom-hover-svg-txt;
+                            .public-settings-txt {
+                                color: $clr-blue1;
+                            }
                         }
                     }
                 }

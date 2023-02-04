@@ -33,7 +33,8 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser }) => {
             }
 
             <div className="expose-info">
-                <span>449 Comments</span>
+                {tweet.likes?.length ? <span> {tweet.likes.length} Likes</span> : ''}
+                {tweet.replies?.length ? <span> {tweet.replies.length} Replies</span> : ''}
                 <span>59k Retweets</span>
                 <span>234 Saved</span>
             </div>

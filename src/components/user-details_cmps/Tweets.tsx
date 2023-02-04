@@ -5,14 +5,14 @@ import { TweetList } from "../tweet_cmps/TweetList";
 
 type Props = {}
 
-interface ReTwittContext {
-    userTweets: Tweet[],
+export interface ReTwittContext {
+    tweetsToShow: Tweet[],
     loggedinUser: User
 }
 
 export const Tweets: React.FC<Props> = () => {
-    const {userTweets, loggedinUser}: ReTwittContext = useOutletContext()
+    const {tweetsToShow, loggedinUser}: ReTwittContext = useOutletContext()
     return (
-        <TweetList tweets={userTweets} loggedinUser={loggedinUser} />
+        <TweetList tweets={tweetsToShow} loggedinUser={loggedinUser} />
     )
 }

@@ -6,7 +6,7 @@
             "_id": "u103",
             "firstName": "Refael",
             "lastName": "Avramov",
-            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257401/refael-avatar_tsi0oa.png"  
+            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257401/refael-avatar_tsi0oa.png"
         },
         "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257357/map_notebook_wxpbb4.jpg",
         "public": true,
@@ -40,7 +40,7 @@
                     "_id": "u101",
                     "firstName": "Tomer",
                     "lastName": "Vardi",
-                    "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"  
+                    "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"
                 },
                 "content": "I’ve felt this pull many times, like while road tripping through Morocco. Seeking out the vastness of the desert, and looking inward at the same time.",
                 "imgUrl": "",
@@ -48,7 +48,6 @@
                     "u101",
                     "u102",
                     "u103"
-
                 ]
             }
         ],
@@ -84,8 +83,7 @@
             "Code"
         ],
         "content": "”We travel, some of us forever, to seek other places, other lives, other souls.” – Anais Nin.",
-        "replies": [
-        ],
+        "replies": [],
         "reTweeted": [
             "u101"
         ],
@@ -94,16 +92,7 @@
             "u102"
         ],
         "likes": [
-            {
-                "_id": "l101",
-                "createdAt": 1674975957,
-                "createdBy": "u101"
-            },
-            {
-                "_id": "l102",
-                "createdAt": 1674975957,
-                "createdBy": "u102"
-            }
+            "u101"
         ]
     },
     {
@@ -124,10 +113,68 @@
             "Code"
         ],
         "content": "“The gladdest moment in human life, methinks, is a departure into unknown lands.” – Sir Richard Burton",
-        "replies": [
+        "replies": [],
+        "reTweeted": [],
+        "saved": [
+            "u102"
         ],
-        "reTweeted": [
+        "likes": [
+            "u101",
+            "u102",
+            "u103"
+        ]
+    },
+    {
+        "_id": "t104",
+        "createdAt": 1674975957,
+        "createdBy": {
+            "_id": "u101",
+            "firstName": "Tomer",
+            "lastName": "Vardi",
+            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"
+        },
+        "imgUrl": "",
+        "public": false,
+        "retweet": false,
+        "hashtags": [
+            "JS",
+            "Full_Stack",
+            "Code"
         ],
+        "content": "Just made the switch to #React with #TypeScript for my full-stack development and it's a game-changer! 🚀 Strong typing, better code organization, and seamless integration with #NodeJS. Love the boost in productivity and cleaner code 💻 #WebDevelopment",
+        "replies": [],
+        "reTweeted": [],
+        "saved": [
+            "u102"
+        ],
+        "likes": [
+            {
+                "_id": "l101",
+                "createdAt": 1674975957,
+                "createdBy": "u102"
+            }
+        ]
+    },
+    {
+        "_id": "t105",
+        "createdAt": 1674975957,
+        "createdBy": {
+            "_id": "u101",
+            "firstName": "Tomer",
+            "lastName": "Vardi",
+            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"
+        },
+        "imgUrl": "https://picsum.photos/200/300/?random",
+        "public": false,
+        "retweet": false,
+        "hashtags": [
+            "JS",
+            "Full_Stack",
+            "Code"
+        ],
+        "content": "Excited to dive into #React with #TypeScript as a fullstack developer! The power of a statically typed language with the speed and efficiency of React, what more could you ask for? 🚀 #FullStack #WebDevelopment",
+        "replies": [],
+        "reTweeted": [],
         "saved": [
             "u102"
         ],

@@ -8,7 +8,7 @@
         "about": "Full-Stack | Web developer | JS; Vue/x & React/dux & Node.js & MongoDB || BSc Industrial Engineering &",
         "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png",
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675256741/cld-sample-2.jpg",
-        "following": ["u102","u103"],
+        "follows": ["u102","u103"],
         "followers": ["u102"],
         "tweets": ["t101"],
         "savedTweets": ["t102"]
@@ -22,7 +22,7 @@
         "about": "Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰",
         "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png",
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257376/backpacker-cliff_zz8hmg.jpg",
-        "following": ["u101"],
+        "follows": ["u101"],
         "followers": ["u101", "u103"],
         "tweets": ["t102"],
         "savedTweets": []
@@ -36,7 +36,7 @@
         "about": "Follow me on IG: @arstyy",
         "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257401/refael-avatar_tsi0oa.png",
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257378/cliff_jumping_ufayvx.jpg",
-        "following": ["u103"],
+        "follows": ["u103"],
         "followers": ["u101"],
         "tweets": [],
         "savedTweets": ["t101"]

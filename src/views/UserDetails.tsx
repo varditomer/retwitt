@@ -9,10 +9,10 @@ import SvgIcon from '../SvgIcon';
 type Props = {}
 
 export const UserDetails: React.FC<Props> = () => {
-    const {users, loggedinUser} = useSelector((state: UserState) => state.userModule)
+    const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
     const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
     const [user, setUser] = useState<User | null>(null)
-    const [userTweets, setUserTweets] = useState<Tweet[] | null>(null)
+    const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
     let navigate = useNavigate()
     const params = useParams()
 
@@ -26,10 +26,10 @@ export const UserDetails: React.FC<Props> = () => {
     useEffect(() => {
         if (!tweets.length || !user) return
         const selectedUserTweets = tweets.filter(tweet => tweet.createdBy._id === user?._id)
-        setUserTweets(selectedUserTweets)
+        setTweetsToShow(selectedUserTweets)
     }, [params.id, tweets, user])
 
-    if(!userTweets) return <div>Loading...</div>
+    if (!tweetsToShow) return <div>Loading...</div>
     return (
         <section className="user-details">
             <img src={user?.coverImg} alt="" className="cover-img" />
@@ -95,7 +95,7 @@ export const UserDetails: React.FC<Props> = () => {
                 <div className="large-area">
                     <Outlet
                         context={{
-                            userTweets,
+                            tweetsToShow,
                             loggedinUser
                         }}
                     />

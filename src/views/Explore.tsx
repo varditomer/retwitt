@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SvgIcon from '../SvgIcon';
 import { NavLink, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { TweetState, UserState } from '../interfaces/state.interface';
+import { Tweet } from '../interfaces/tweet.interface';
 
 
 
 type Props = {}
 
-export const Explore: React.FC<Props> = (props) => {
+export const Explore: React.FC<Props> = () => {
+  const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
+  const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
+  const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
+
+
+  useEffect(() => {
+    if (!tweets.length || !loggedinUser) return
+    const unFollowsUsers = users.filter(user => !loggedinUser.follows.includes(user._id))
+    const unFollowsUsersIds = unFollowsUsers.map(user=>user._id)
+    const currTweetsToShow = tweets.filter(tweet => unFollowsUsersIds.includes(tweet.createdBy._id))
+    setTweetsToShow(currTweetsToShow)
+  }, [tweets, loggedinUser])
+
+
+  if (!tweetsToShow?.length || !users || !loggedinUser) return <div>Loading...</div>
   return (
     <section className="explore page">
       <div className="small-area">
@@ -45,7 +63,12 @@ export const Explore: React.FC<Props> = (props) => {
           <input type="text" placeholder='Search' className="search-input" />
           <button className="search-btn">Search</button>
         </section>
-        <Outlet />
+        <Outlet
+          context={{
+            tweetsToShow,
+            loggedinUser
+          }}
+        />
       </div>
     </section>
   )
