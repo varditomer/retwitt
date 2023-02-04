@@ -1,9 +1,24 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, Outlet } from 'react-router-dom';
+import { TweetState, UserState } from '../interfaces/state.interface';
+import { Tweet } from '../interfaces/tweet.interface';
 
-type Props = {}
 
-export const Bookmark: React.FC<Props> = (props) => {
+export const Bookmark: React.FC = () => {
+  const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
+  const loggedinUser = useSelector((state: UserState) => state.userModule.loggedinUser)
+  const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
+
+  useEffect(() => {
+    if (!loggedinUser || !tweets) return
+    const savedTweets = tweets.filter(tweet => loggedinUser.savedTweets.includes(tweet._id))
+    setTweetsToShow(savedTweets)
+
+  }, [loggedinUser, loggedinUser?.savedTweets])
+
+
+
   return (
     <section className="bookmark page">
       <div className="small-area">
@@ -37,7 +52,12 @@ export const Bookmark: React.FC<Props> = (props) => {
         </section>
       </div>
       <div className="large-area">
-        <Outlet />
+        <Outlet
+          context={{
+            tweetsToShow,
+            loggedinUser
+          }}
+        />
       </div>
     </section>
   )

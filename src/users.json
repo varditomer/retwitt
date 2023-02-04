@@ -10,7 +10,6 @@
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675256741/cld-sample-2.jpg",
         "follows": ["u102","u103"],
         "followers": ["u102"],
-        "tweets": ["t101"],
         "savedTweets": ["t102"]
     },
     {
@@ -24,7 +23,6 @@
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257376/backpacker-cliff_zz8hmg.jpg",
         "follows": ["u101"],
         "followers": ["u101", "u103"],
-        "tweets": ["t102"],
         "savedTweets": []
     },
     {
@@ -38,7 +36,6 @@
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257378/cliff_jumping_ufayvx.jpg",
         "follows": ["u103"],
         "followers": ["u101"],
-        "tweets": [],
         "savedTweets": ["t101"]
     }
 ]

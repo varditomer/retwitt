@@ -9,7 +9,6 @@ export interface User {
     coverImg: string,
     follows: string[],
     followers: string[],
-    tweets: string[],
     savedTweets: string[]
 }
 
