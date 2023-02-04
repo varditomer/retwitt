@@ -1,9 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 import { useTimestampConverter } from '../../hooks/useTimestampConverter'
 import { Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 import SvgIcon from '../../SvgIcon'
 import { ReplyList } from './reply_cmps/ReplytList'
+
 
 type Props = {
     tweet: Tweet
@@ -11,15 +13,20 @@ type Props = {
 }
 
 export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser }) => {
+    const navigate = useNavigate()
+
+    const navigateTo = () => {
+        navigate(`/home/${tweet.createdBy._id}/tweets`)
+    }
 
     const convertedTime = useTimestampConverter(tweet.createdAt);
 
     return (
         <article className="tweet card">
             <div className="card-header">
-                <img className="user-img" src={tweet.createdBy.profileImg} alt="user image" />
+                <img className="user-img" src={tweet.createdBy.profileImg} alt="user image" onClick={()=>navigateTo()} />
                 <div className="user-info">
-                    <span className="user-name">{tweet.createdBy.firstName} {tweet.createdBy.lastName}</span>
+                    <span className="user-name" onClick={()=>navigateTo()}>{tweet.createdBy.firstName} {tweet.createdBy.lastName}</span>
                     <span className="sub-info">{convertedTime}</span>
                 </div>
             </div>

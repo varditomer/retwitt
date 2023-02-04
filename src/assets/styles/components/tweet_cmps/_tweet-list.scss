@@ -17,7 +17,6 @@
             object-fit: fill;
             min-height: 350px;
             aspect-ratio: 16/9;
-
         }
         .expose-info {
             font-family: NotoSans-Medium;
@@ -53,26 +52,28 @@
                 border-radius: $br-secondary;
                 height: 86%;
                 cursor: pointer;
-                &:hover {
-                    background-color: $clr-gray7;
+                @include hover-supported {
+                    &:hover {
+                        background-color: $clr-gray7;
 
-                    &:not(:is(.active)) {
-                        &.retweet {
-                            color: $clr-green2;
-                            svg {
-                                stroke: $clr-green2;
+                        &:not(:is(.active)) {
+                            &.retweet {
+                                color: $clr-green2;
+                                svg {
+                                    stroke: $clr-green2;
+                                }
                             }
-                        }
-                        &.like {
-                            color: $clr-red;
-                            svg {
-                                stroke: $clr-red;
+                            &.like {
+                                color: $clr-red;
+                                svg {
+                                    stroke: $clr-red;
+                                }
                             }
-                        }
-                        &.bookmark {
-                            color: $clr-blue2;
-                            svg {
-                                stroke: $clr-blue2;
+                            &.bookmark {
+                                color: $clr-blue2;
+                                svg {
+                                    stroke: $clr-blue2;
+                                }
                             }
                         }
                     }

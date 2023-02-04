@@ -13,7 +13,7 @@ export const UserDetails: React.FC<Props> = () => {
     const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
     const [user, setUser] = useState<User | null>(null)
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     const params = useParams()
 
     useEffect(() => {
