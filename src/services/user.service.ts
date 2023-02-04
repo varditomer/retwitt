@@ -11,7 +11,7 @@ let _gLoggedinUser: User | null = _loadLoggedinUser()
 
 export const userService = {
     query,
-    getUserById,
+    getUserById: getById,
     saveUser,
     removeUser,
     getLoggedinUser,
@@ -23,7 +23,7 @@ function query(): User[] {
     return JSON.parse(JSON.stringify(_gUsers))
 }
 
-function getUserById(userId: string): User | null {
+function getById(userId: string): User | null {
     const user = _gUsers.find(user => user._id === userId) || null
     if (!user) return null
     return JSON.parse(JSON.stringify(user))

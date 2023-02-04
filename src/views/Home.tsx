@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 import { TweetState, UserState } from '../interfaces/state.interface';
 import { TweetList } from '../components/tweet_cmps/TweetList';
-import SvgIcon from '../SvgIcon';
 import { AddTweet } from '../components/tweet_cmps/AddTweet';
 import { TrendList } from '../components/general_cmps/TrendList';
 import { WhoToFollowList } from '../components/who-to-follow_cmps/WhoToFollowList';
 import { useEffect, useState } from 'react';
 import { Tweet } from '../interfaces/tweet.interface';
+import { User } from '../interfaces/user.interface';
 
 
 export const Home: React.FC = () => {
@@ -14,6 +14,7 @@ export const Home: React.FC = () => {
     const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
     const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
+    const [usersToShow, setUsersToShow] = useState<User[] | null>(null)
 
     useEffect(() => {
         if (!tweets.length || !loggedinUser) return
@@ -21,8 +22,15 @@ export const Home: React.FC = () => {
         setTweetsToShow(currTweetsToShow)
     }, [tweets, loggedinUser])
 
+    useEffect(() => {
+        if (!users.length || !loggedinUser) return
+        const currUsersToShow = users.filter(user => !loggedinUser?.follows.includes(user._id))
+        console.log(`currUsersToShow:`, currUsersToShow)
+        setUsersToShow(currUsersToShow)
+    }, [users, loggedinUser])
 
-    if (!tweetsToShow?.length || !users || !loggedinUser) return <div>Loading...</div>
+
+    if (!tweetsToShow?.length || !usersToShow?.length || !loggedinUser) return <div>Loading...</div>
 
     return (
         <section className="home page">
@@ -33,7 +41,7 @@ export const Home: React.FC = () => {
             </section>
             <div className="small-area">
                 <TrendList />
-                <WhoToFollowList users={users} />
+                <WhoToFollowList users={usersToShow} />
             </div>
         </section>
     )

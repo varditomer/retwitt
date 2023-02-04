@@ -54,7 +54,7 @@
         "reTweeted": [
             "u102"
         ],
-        "saved": [
+        "savedBy": [
             "u102"
         ],
         "likes": [
@@ -87,7 +87,7 @@
         "reTweeted": [
             "u101"
         ],
-        "saved": [
+        "savedBy": [
             "u101",
             "u102"
         ],
@@ -115,7 +115,7 @@
         "content": "“The gladdest moment in human life, methinks, is a departure into unknown lands.” – Sir Richard Burton",
         "replies": [],
         "reTweeted": [],
-        "saved": [
+        "savedBy": [
             "u102"
         ],
         "likes": [
@@ -144,7 +144,7 @@
         "content": "Just made the switch to #React with #TypeScript for my full-stack development and it's a game-changer! 🚀 Strong typing, better code organization, and seamless integration with #NodeJS. Love the boost in productivity and cleaner code 💻 #WebDevelopment",
         "replies": [],
         "reTweeted": [],
-        "saved": [
+        "savedBy": [
             "u102"
         ],
         "likes": [
@@ -175,7 +175,7 @@
         "content": "Excited to dive into #React with #TypeScript as a fullstack developer! The power of a statically typed language with the speed and efficiency of React, what more could you ask for? 🚀 #FullStack #WebDevelopment",
         "replies": [],
         "reTweeted": [],
-        "saved": [
+        "savedBy": [
             "u102"
         ],
         "likes": [

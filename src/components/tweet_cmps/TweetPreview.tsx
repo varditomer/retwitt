@@ -36,7 +36,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser }) => {
                 {tweet.likes?.length ? <span> {tweet.likes.length} Likes</span> : ''}
                 {tweet.replies?.length ? <span> {tweet.replies.length} Replies</span> : ''}
                 <span>59k Retweets</span>
-                <span>234 Saved</span>
+                {tweet.savedBy.length ? <span> {tweet.savedBy.length} Saved</span> : ''}
             </div>
 
             <div className="action-btns">

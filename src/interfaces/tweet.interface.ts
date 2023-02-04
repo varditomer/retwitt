@@ -27,6 +27,6 @@ export interface Tweet {
     content: string,
     replies: Reply[],
     reTweeted: string[],
-    saved: string[],
+    savedBy: string[],
     likes: Like[],
 }
