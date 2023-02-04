@@ -61,7 +61,7 @@ function getLoggedinUser(): User {
         follows: ['u101', 'u103'],
         followers: [],
         tweets: [],
-        savedTweets: ['t104', 't102']
+        savedTweets: ['t104']
     } as User
     return JSON.parse(JSON.stringify(_gLoggedinUser))
 }

@@ -19,6 +19,8 @@ import { Replies as UserDetailsReplies } from './components/user-details_cmps/Re
 import { Media as UserDetailsMedia } from './components/user-details_cmps/Media'
 import { Likes as UserDetailsLikes } from './components/user-details_cmps/Likes'
 
+import { Media as GeneralMedia } from './components/general_cmps/Media'
+
 const routes = [
     {
         path: "/",
@@ -38,7 +40,7 @@ const routes = [
             },
             {
                 path: "/home/:id/media",
-                component: <UserDetailsMedia />,
+                component: <GeneralMedia />,
             },
             {
                 path: "/home/:id/likes",
@@ -65,7 +67,7 @@ const routes = [
             },
             {
                 path: "/explore/media",
-                component: <ExploreMedia />,
+                component: <GeneralMedia />,
             }
         ]
     },
@@ -83,7 +85,7 @@ const routes = [
             },
             {
                 path: "/bookmark/media",
-                component: <BookmarkMedia />,
+                component: <GeneralMedia />,
             },
             {
                 path: "/bookmark/likes",
