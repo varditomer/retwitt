@@ -25,7 +25,7 @@ export const UserDetails: React.FC<Props> = () => {
 
     useEffect(() => {
         if (!tweets.length || !user) return
-        const selectedUserTweets = tweets.filter(tweet => tweet.createdBy._id === user?._id)
+        const selectedUserTweets = tweets.filter(tweet => tweet.createdBy === user?._id)
         setTweetsToShow(selectedUserTweets)
     }, [params.id, tweets, user])
 
@@ -96,7 +96,8 @@ export const UserDetails: React.FC<Props> = () => {
                     <Outlet
                         context={{
                             tweetsToShow,
-                            loggedinUser
+                            loggedinUser,
+                            users
                         }}
                     />
                 </div>

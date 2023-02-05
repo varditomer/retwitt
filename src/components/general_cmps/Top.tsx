@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
+import { ReTwittContext } from "../../interfaces/state.interface";
 import { Tweet } from "../../interfaces/tweet.interface";
 import { TweetList } from "../tweet_cmps/TweetList";
-import { ReTwittContext } from "../user-details_cmps/Tweets";
 
-export const Top: React.FC = () => {
-    const { tweetsToShow, loggedinUser }: ReTwittContext = useOutletContext()
+
+export const Top: React.FC = () => { //tweets sorted by most likes
+    const { tweetsToShow, loggedinUser, users }: ReTwittContext = useOutletContext()
     const [topTweets, setTopTweets] = useState<Tweet[] | null>(null)
 
     useEffect(() => {
@@ -15,6 +16,10 @@ export const Top: React.FC = () => {
 
     if (!topTweets) return <div>Loading...</div>
     return (
-        <TweetList tweets={topTweets} loggedinUser={loggedinUser} />
+        <TweetList
+            tweets={tweetsToShow}
+            loggedinUser={loggedinUser}
+            users={users}
+        />
     )
 }

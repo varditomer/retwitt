@@ -1,4 +1,4 @@
-export function People() {
+export const People: React.FC = () => { //people to explore
     return (
         <footer>
             <div>

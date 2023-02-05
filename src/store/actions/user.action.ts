@@ -33,9 +33,3 @@ export function setLoggedinUser(loggedinUser: User) {
         }
     }
 }
-
-export function getUserById(userId: string) {
-    return (dispatch: any) => {
-        dispatch({ type: 'GET_USER_BY_ID', payload: userId })
-    }
-}

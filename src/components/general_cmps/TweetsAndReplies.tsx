@@ -1,4 +1,4 @@
-export function Replies() {
+export const TweetsAndReplies: React.FC = () => {  //user's replies on tweets including the original tweet and his reply
     return (
         <footer>
             <div>

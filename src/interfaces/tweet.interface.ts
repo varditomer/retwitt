@@ -9,7 +9,7 @@ export interface Like {
 export interface Reply {
     _id: string,
     createdAt: number,
-    createdBy: MiniUser,
+    createdBy: string,
     content: string,
     imgUrl: string,
     likes: string[],
@@ -19,7 +19,7 @@ export interface Reply {
 export interface Tweet {
     _id: string,
     createdAt: number,
-    createdBy: MiniUser,
+    createdBy: string,
     imgUrl: string,
     public: boolean,
     retweet: boolean,

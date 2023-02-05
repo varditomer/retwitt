@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useTimestampConverter } from '../../hooks/useTimestampConverter'
 import { Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
+import { utilService } from '../../services/util.service'
 import SvgIcon from '../../SvgIcon'
 import { ReplyList } from './reply_cmps/ReplytList'
 
@@ -10,24 +11,32 @@ import { ReplyList } from './reply_cmps/ReplytList'
 type Props = {
     tweet: Tweet
     loggedinUser: User
+    tweetCreatedByUser: User,
+    repliesCreatedByUsers?: User[]
 }
 
-export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser }) => {
+export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreatedByUser, repliesCreatedByUsers }) => {
     const navigate = useNavigate()
+    console.log(`tweet-preview-run:`,)
+
 
     const navigateTo = () => {
-        navigate(`/home/${tweet.createdBy._id}/tweets`)
+        navigate(`/home/${tweet.createdBy}/tweets`)
     }
 
-    const convertedTime = useTimestampConverter(tweet.createdAt);
+    // const convertedTime = useTimestampConverter(tweet.createdAt)
+    // setTime(convertedTime)
+    // console.log(`convertedTime:`, convertedTime)
+    // console.log(`typeofconvertedTime:`, typeof(convertedTime))
+    if (!tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
 
     return (
         <article className="tweet card">
             <div className="card-header">
-                <img className="user-img" src={tweet.createdBy.profileImg} alt="user image" onClick={()=>navigateTo()} />
+                <img className="user-img" src={tweetCreatedByUser?.profileImg} alt="user image" onClick={() => navigateTo()} />
                 <div className="user-info">
-                    <span className="user-name" onClick={()=>navigateTo()}>{tweet.createdBy.firstName} {tweet.createdBy.lastName}</span>
-                    <span className="sub-info">{convertedTime}</span>
+                    <span className="user-name" onClick={() => navigateTo()}>{tweetCreatedByUser?.firstName} {tweetCreatedByUser?.lastName}</span>
+                    <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
                 </div>
             </div>
             <p className="tweet-txt">
@@ -72,7 +81,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser }) => {
             </div>
 
 
-            {(tweet.replies.length) ? <ReplyList replies={tweet.replies} /> : ''}
+            {(tweet.replies.length && repliesCreatedByUsers) ? <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} /> : ''}
         </article>
     )
 }

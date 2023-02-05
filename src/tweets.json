@@ -2,12 +2,7 @@
     {
         "_id": "t101",
         "createdAt": 1674975957,
-        "createdBy": {
-            "_id": "u103",
-            "firstName": "Refael",
-            "lastName": "Avramov",
-            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257401/refael-avatar_tsi0oa.png"
-        },
+        "createdBy":  "u103",
         "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257357/map_notebook_wxpbb4.jpg",
         "public": true,
         "retweet": false,
@@ -21,12 +16,7 @@
             {
                 "_id": "c101",
                 "createdAt": 1674975957,
-                "createdBy": {
-                    "_id": "u102",
-                    "firstName": "Ronen",
-                    "lastName": "Boxer",
-                    "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png"
-                },
+                "createdBy": "u102",
                 "content": "I’ve seen awe-inspiring things that I thought I’d never be able to explain to another person.",
                 "imgUrl": "",
                 "likes": [
@@ -36,12 +26,7 @@
             {
                 "_id": "c102",
                 "createdAt": 1674975957,
-                "createdBy": {
-                    "_id": "u101",
-                    "firstName": "Tomer",
-                    "lastName": "Vardi",
-                    "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"
-                },
+                "createdBy": "u101",
                 "content": "I’ve felt this pull many times, like while road tripping through Morocco. Seeking out the vastness of the desert, and looking inward at the same time.",
                 "imgUrl": "",
                 "likes": [
@@ -68,12 +53,7 @@
     {
         "_id": "t102",
         "createdAt": 1674975957,
-        "createdBy": {
-            "_id": "u102",
-            "firstName": "Ronen",
-            "lastName": "Boxer",
-            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png"
-        },
+        "createdBy": "u102",
         "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257386/canyon_tree_uukcrm.jpg",
         "public": true,
         "retweet": false,
@@ -98,12 +78,7 @@
     {
         "_id": "t103",
         "createdAt": 1674975957,
-        "createdBy": {
-            "_id": "u102",
-            "firstName": "Ronen",
-            "lastName": "Boxer",
-            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png"
-        },
+        "createdBy": "u102",
         "imgUrl": "",
         "public": false,
         "retweet": false,
@@ -127,12 +102,7 @@
     {
         "_id": "t104",
         "createdAt": 1674975957,
-        "createdBy": {
-            "_id": "u101",
-            "firstName": "Tomer",
-            "lastName": "Vardi",
-            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"
-        },
+        "createdBy": "u101",
         "imgUrl": "",
         "public": false,
         "retweet": false,
@@ -158,12 +128,7 @@
     {
         "_id": "t105",
         "createdAt": 1674975957,
-        "createdBy": {
-            "_id": "u101",
-            "firstName": "Tomer",
-            "lastName": "Vardi",
-            "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png"
-        },
+        "createdBy": "u101",
         "imgUrl": "https://picsum.photos/200/300/?random",
         "public": false,
         "retweet": false,

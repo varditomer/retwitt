@@ -18,8 +18,8 @@ export const Explore: React.FC<Props> = () => {
   useEffect(() => {
     if (!tweets.length || !loggedinUser) return
     const unFollowsUsers = users.filter(user => !loggedinUser.follows.includes(user._id))
-    const unFollowsUsersIds = unFollowsUsers.map(user=>user._id)
-    const currTweetsToShow = tweets.filter(tweet => unFollowsUsersIds.includes(tweet.createdBy._id))
+    const unFollowsUsersIds = unFollowsUsers.map(user => user._id)
+    const currTweetsToShow = tweets.filter(tweet => unFollowsUsersIds.includes(tweet.createdBy))
     setTweetsToShow(currTweetsToShow)
   }, [tweets, loggedinUser])
 
@@ -66,7 +66,8 @@ export const Explore: React.FC<Props> = () => {
         <Outlet
           context={{
             tweetsToShow,
-            loggedinUser
+            loggedinUser,
+            users
           }}
         />
       </div>

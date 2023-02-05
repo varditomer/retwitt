@@ -36,13 +36,31 @@
                 .img-icon,
                 .public-settings-signs-wrapper {
                     cursor: pointer;
-                    @include hover-supported{
+                    @include hover-supported {
                         &:hover {
                             @include custom-hover-svg-txt;
                             .public-settings-txt {
                                 color: $clr-blue1;
                             }
                         }
+                    }
+                }
+                .add-reaction-container {
+                    cursor: pointer;
+                    padding: 6px;
+                    @include hover-supported {
+                        &:hover {
+                            background-color: lighten($clr-blue1, 40%);
+                            border-radius: 4em;
+                            svg {
+                                fill: $clr-blue1;
+                                stroke: $clr-blue1;
+                            }
+                        }
+                    }
+                    .EmojiPickerReact {
+                        position: absolute;
+                        box-shadow: $bs-primary;
                     }
                 }
             }
@@ -53,7 +71,6 @@
             }
         }
     }
-
 
     @include for-wide-layout {
         grid-template-columns: 2fr 1fr;

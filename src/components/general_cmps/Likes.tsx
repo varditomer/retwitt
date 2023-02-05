@@ -1,4 +1,4 @@
-export function Likes() {
+export const Likes: React.FC = () => { //user's likes on tweets including the original tweet
     return (
         <footer>
             <div>

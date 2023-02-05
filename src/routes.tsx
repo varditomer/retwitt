@@ -1,25 +1,20 @@
+// Views:
 import { Home } from './views/Home'
 import { Bookmark } from './views/Bookmark'
 import { Explore } from './views/Explore'
 import { UserDetails } from './views/UserDetails'
+import { Tweets } from './components/general_cmps/Tweets'
+import { TweetsAndReplies } from './components/general_cmps/TweetsAndReplies'
+import { Media } from './components/general_cmps/Media'
+import { Likes } from './components/general_cmps/Likes'
+import { Top } from './components/general_cmps/Top'
+import { People } from './components/general_cmps/People'
+
+// Components:
 
 
-import { Top } from './components/explore_cmps/Top'
-import { Latest } from './components/explore_cmps/Latest'
-import { People } from './components/explore_cmps/People'
-import { Media as ExploreMedia } from './components/explore_cmps/Media'
 
-import { Media as BookmarkMedia } from './components/bookmark_cmps/Media'
-import { Tweets } from './components/bookmark_cmps/Tweets'
-import { Replies } from './components/bookmark_cmps/Replies'
-import { Likes } from './components/bookmark_cmps/Likes'
 
-import { Tweets as UserDetailsTweets } from './components/user-details_cmps/Tweets'
-import { Replies as UserDetailsReplies } from './components/user-details_cmps/Replies'
-import { Media as UserDetailsMedia } from './components/user-details_cmps/Media'
-import { Likes as UserDetailsLikes } from './components/user-details_cmps/Likes'
-
-import { Media as GeneralMedia } from './components/general_cmps/Media'
 
 const routes = [
     {
@@ -32,19 +27,19 @@ const routes = [
         children: [
             {
                 path: "/home/:id/tweets",
-                component: <UserDetailsTweets />,
+                component: <Tweets />,
             },
             {
                 path: "/home/:id/tweets_replies",
-                component: <UserDetailsReplies />,
+                component: <TweetsAndReplies />,
             },
             {
                 path: "/home/:id/media",
-                component: <GeneralMedia />,
+                component: <Media />,
             },
             {
                 path: "/home/:id/likes",
-                component: <UserDetailsLikes />,
+                component: <Likes />,
             }
         ]
     },
@@ -59,7 +54,7 @@ const routes = [
             },
             {
                 path: "/explore/latest",
-                component: <Latest />,
+                component: <Tweets />,
             },
             {
                 path: "/explore/people",
@@ -67,7 +62,7 @@ const routes = [
             },
             {
                 path: "/explore/media",
-                component: <GeneralMedia />,
+                component: <Media />,
             }
         ]
     },
@@ -81,11 +76,11 @@ const routes = [
             },
             {
                 path: "/bookmark/tweets_replies",
-                component: <Replies />,
+                component: <TweetsAndReplies />,
             },
             {
                 path: "/bookmark/media",
-                component: <GeneralMedia />,
+                component: <Media />,
             },
             {
                 path: "/bookmark/likes",

@@ -1,8 +1,8 @@
 // Setup
+@import "setup/typography";
 @import "setup/variables";
 @import "setup/functions";
 @import "setup/mixins";
-@import "setup/typography";
 
 // Basics
 @import "basics/helpers";
@@ -15,7 +15,6 @@
 @import "views/user-details";
 @import "views/explore";
 @import "views/bookmark";
-
 
 
 // Cmps:

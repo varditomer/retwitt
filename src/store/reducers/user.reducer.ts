@@ -27,12 +27,6 @@ export function userReducer(state = USER_STATE, action: Action) {
                 ...state,
                 users: [action.payload, ...state.users]
             }
-        case 'GET_USER_BY_ID': // to get loggedinUser's related users details by id --> if not related --> will get it from the service
-            const user = state.users.filter((user: User)=>user._id === action.payload)
-            console.log(`user:`, user)
-            return {
-                ...user
-            }
         case 'REMOVE_USER':
             return {
                 ...state,

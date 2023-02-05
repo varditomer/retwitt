@@ -1,5 +1,5 @@
 import { MouseEvent } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { User } from "../../interfaces/user.interface"
 import SvgIcon from "../../SvgIcon"
 
@@ -9,15 +9,22 @@ type Props = {
 
 export const WhoToFollowPreview: React.FC<Props> = ({ user }) => {
 
+    const navigate = useNavigate()
+
+
+    const navigateTo = () => {
+        navigate(`/home/${user._id}/tweets`)
+    }
 
 
     const handleClick = (ev: MouseEvent) => {
         ev.preventDefault()
+        ev.stopPropagation()
     }
 
     return (
-        <NavLink to={`/home/${user._id}/tweets`}>
-            <li className='person-card'>
+        // <NavLink to={`/home/${user._id}/tweets`}>
+            <li className='person-card' onClick={() => navigateTo()}>
                 <div className="card-header">
                     <img className="user-img" src={user.profileImg} alt="user image" />
                     <div className="user-info">
@@ -34,7 +41,7 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user }) => {
                 </p>
                 <img className="cover-img" src={user.coverImg} alt="user cover image" />
             </li>
-        </NavLink>
+        // </NavLink>
     )
 
 }

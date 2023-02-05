@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
 import './assets/styles/main.scss'
+import { Route, Routes } from 'react-router-dom'
 import { AppHeader } from './components/AppHeader'
 import routes from './routes'
 import { Footer } from './components/Footer'
@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { loadLoggedinUser, loadUsers } from './store/actions/user.action'
 import { loadTweets } from './store/actions/tweet.action'
 import { useSelector } from 'react-redux'
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()

@@ -13,31 +13,31 @@ export const Home: React.FC = () => {
 
     const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
     const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
+
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
     const [usersToShow, setUsersToShow] = useState<User[] | null>(null)
 
     useEffect(() => {
         if (!tweets.length || !loggedinUser) return
-        const currTweetsToShow = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy._id))
+        const currTweetsToShow = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy))
         setTweetsToShow(currTweetsToShow)
     }, [tweets, loggedinUser])
 
     useEffect(() => {
         if (!users.length || !loggedinUser) return
         const currUsersToShow = users.filter(user => !loggedinUser?.follows.includes(user._id))
-        console.log(`currUsersToShow:`, currUsersToShow)
         setUsersToShow(currUsersToShow)
     }, [users, loggedinUser])
 
 
-    if (!tweetsToShow?.length || !usersToShow?.length || !loggedinUser) return <div>Loading...</div>
+    if (!loggedinUser || !users?.length || !tweetsToShow || !usersToShow) return <div>Loading...</div>
 
     return (
         <section className="home page">
 
             <section className="large-area">
                 <AddTweet loggedinUser={loggedinUser} />
-                <TweetList tweets={tweetsToShow} loggedinUser={loggedinUser} />
+                <TweetList tweets={tweetsToShow} loggedinUser={loggedinUser} users={users} />
             </section>
             <div className="small-area">
                 <TrendList />

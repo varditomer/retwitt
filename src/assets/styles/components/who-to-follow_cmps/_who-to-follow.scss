@@ -8,11 +8,10 @@
     .person-card {
         @include flex-column;
         gap: 20px;
-        >* {
-            cursor: pointer;
-        }
+        cursor: pointer;
         .card-header {
-            .user-img, .user-name {
+            .user-img,
+            .user-name {
                 cursor: pointer;
             }
             .user-img {
