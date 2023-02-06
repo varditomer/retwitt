@@ -2,6 +2,7 @@ import tweetsJson from '../tweets.json'
 import { Tweet } from '../interfaces/tweet.interface'
 import { storageService } from './localStorage.service'
 import { utilService } from './util.service'
+import { userService } from './user.service'
 
 const TWEETS_STORAGE_KEY = 'tweets'
 let _gTweets: Tweet[] = _loadTweets()
@@ -10,7 +11,8 @@ export const tweetService = {
     query,
     getTweetById,
     saveTweet,
-    removeTweet
+    removeTweet,
+    getEmptyTweet
 }
 
 
@@ -20,7 +22,7 @@ function query(): Tweet[] {
 
 function getTweetById(tweetId: string): Tweet | null {
     const tweet = _gTweets.find(tweet => tweet._id === tweetId) || null
-    if(!tweet) return null
+    if (!tweet) return null
     return JSON.parse(JSON.stringify(tweet))
 }
 
@@ -33,6 +35,7 @@ function saveTweet(tweet: Tweet) {
         _gTweets.splice(idx, 1, tweet)
     }
     storageService.saveToStorage(TWEETS_STORAGE_KEY, _gTweets)
+    return Promise.resolve(tweet)
 }
 
 function removeTweet(tweetId: string): string | null {
@@ -47,4 +50,20 @@ function _loadTweets(): Tweet[] {
     let tweets = storageService.loadFromStorage(TWEETS_STORAGE_KEY)
     if (!tweets) tweets = tweetsJson
     return tweets as Tweet[]
+}
+
+function getEmptyTweet(): Tweet {
+    return {
+        createdAt: Date.now(),
+        createdBy: 'u101',
+        imgUrl: '',
+        public: true,
+        retweet: false,
+        hashtags: [],
+        content: '',
+        replies: [],
+        reTweeted: [],
+        savedBy: [],
+        likes: [],
+    } as Tweet
 }

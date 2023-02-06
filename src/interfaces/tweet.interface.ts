@@ -15,7 +15,7 @@ export interface Reply {
 }
 
 export interface Tweet {
-    _id: string,
+    _id?: string,
     createdAt: number,
     createdBy: string,
     imgUrl: string,

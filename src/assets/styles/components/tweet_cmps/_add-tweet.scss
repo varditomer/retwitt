@@ -75,10 +75,14 @@
                 }
             }
         }
-        .btn-tweet {
+        .add-tweet-btn {
             @include custom-btn;
             height: 32px;
             width: 81px;
+            &:disabled {
+                background-color: lighten($clr-gray3, 20%);
+                cursor: not-allowed;
+            }
         }
     }
 }

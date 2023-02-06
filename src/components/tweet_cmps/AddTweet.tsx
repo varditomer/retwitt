@@ -1,6 +1,13 @@
 // import EmojiPicker from "emoji-picker-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { AnyAction } from "redux"
+import { ThunkDispatch } from "redux-thunk"
+import { INITIAL_STATE } from "../../interfaces/state.interface"
+import { Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
+import { tweetService } from "../../services/tweet.service"
+import { addTweet } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
 
 type Props = {
@@ -8,17 +15,46 @@ type Props = {
 }
 
 export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
+    const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isEmojiClicked, setIsEmojiClicked] = useState(false)
+    const [newTweet, setNewTweet] = useState<null | Tweet>(null)
+    const [tweetContent, setTweetContent] = useState<string>('')
+
+    useEffect(() => {
+        const emptyTweet = tweetService.getEmptyTweet()
+        setNewTweet(emptyTweet)
+    }, [])
+
+    useEffect(() => {
+        if(!newTweet) return
+        setTweetContent(newTweet?.content)
+    }, [newTweet])
+
+    const handleChange = (ev: any) => {
+        setTweetContent(ev.target.value)
+        const tweetToSave = JSON.parse(JSON.stringify(newTweet))
+        tweetToSave.content = ev.target.value
+        setNewTweet(JSON.parse(JSON.stringify(tweetToSave)))
+    }
+
+    const onAddTweet = (ev: any) => {
+        ev.preventDefault()
+
+        const tweetToSave = JSON.parse(JSON.stringify(newTweet))
+        dispatch(addTweet(tweetToSave))
+
+        const emptyTweet = tweetService.getEmptyTweet()
+        setNewTweet(emptyTweet)
+    }
 
     return (
-        <article className="add-tweet card">
+        <form className="add-tweet card" onSubmit={onAddTweet}>
             <h2 className='card-title'>Tweet something</h2>
             <div className="card-header new-tweet">
                 <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
-                {/* <span className="tweet-input">What’s happening?</span> */}
-                <input className="tweet-input" placeholder="What’s happening?" />
+                <input onChange={handleChange} className="tweet-input" placeholder="What’s happening?" value={tweetContent} />
             </div>
             <div className="control-btns">
                 <div className="settings">
@@ -30,7 +66,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                         </div> */}
                     </div>
                     <div className="public-settings">
-                        <div className="public-settings-signs-wrapper" onClick={() => setIsModalOpen(prevState=>!prevState)}>
+                        <div className="public-settings-signs-wrapper" onClick={() => setIsModalOpen(prevState => !prevState)}>
                             <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                             <span className='public-settings-txt'>Everyone can reply</span>
                         </div>
@@ -49,10 +85,10 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                     </div>
                 </div>
 
-                <button className="btn-tweet">
+                <button type="submit" className="add-tweet-btn" disabled={newTweet?.content.length ? false : true}>
                     <span>Tweet</span>
                 </button>
             </div>
-        </article>
+        </form>
     )
 }

@@ -1,3 +1,4 @@
+import { Tweet } from "../../interfaces/tweet.interface";
 import { tweetService } from "../../services/tweet.service";
 
 export function loadTweets() {
@@ -16,6 +17,17 @@ export function removeTweet(tweetId: string) {
         try {
             const tweets = tweetService.removeTweet(tweetId)
             dispatch({ type: 'REMOVE_TWEET', payload: tweetId })
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+}
+
+export function addTweet(tweetToAdd: Tweet) {
+    return async (dispatch: any) => {
+        try {
+            const tweet = await tweetService.saveTweet(tweetToAdd)
+            dispatch({ type: 'ADD_TWEET', payload: tweet })
         } catch (err) {
             console.log(`err:`, err)
         }
