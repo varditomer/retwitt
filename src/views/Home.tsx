@@ -15,22 +15,26 @@ export const Home: React.FC = () => {
     const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
 
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
-    const [usersToShow, setUsersToShow] = useState<User[] | null>(null)
+    const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
 
     useEffect(() => {
         if (!tweets.length || !loggedinUser) return
-        const currTweetsToShow = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy))
-        setTweetsToShow(currTweetsToShow)
+
+        const followsUsersTweets = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy))
+
+        setTweetsToShow(followsUsersTweets)
     }, [tweets, loggedinUser])
 
     useEffect(() => {
         if (!users.length || !loggedinUser) return
-        const currUsersToShow = users.filter(user => !loggedinUser?.follows.includes(user._id))
-        setUsersToShow(currUsersToShow)
+
+        const currUsersToFollow = users.filter(user => !loggedinUser?.follows.includes(user._id))
+
+        setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 
 
-    if (!loggedinUser || !users?.length || !tweetsToShow || !usersToShow) return <div>Loading...</div>
+    if (!loggedinUser || !users?.length || !tweetsToShow || !usersToFollow) return <div>Loading...</div>
 
     return (
         <section className="home page">
@@ -41,8 +45,9 @@ export const Home: React.FC = () => {
             </section>
             <div className="small-area">
                 <TrendList />
-                <WhoToFollowList users={usersToShow} />
+                <WhoToFollowList users={usersToFollow} />
             </div>
+
         </section>
     )
 }

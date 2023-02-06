@@ -6,8 +6,10 @@ import { Tweet } from '../interfaces/tweet.interface';
 
 
 export const Bookmark: React.FC = () => {
+
   const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
   const {users, loggedinUser} = useSelector((state: UserState) => state.userModule)
+
   const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
 
   useEffect(() => {
@@ -16,7 +18,6 @@ export const Bookmark: React.FC = () => {
     setTweetsToShow(savedTweets)
 
   }, [loggedinUser, loggedinUser?.savedTweets])
-
 
 
   return (

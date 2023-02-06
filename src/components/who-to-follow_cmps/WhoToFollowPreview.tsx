@@ -23,25 +23,23 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user }) => {
     }
 
     return (
-        // <NavLink to={`/home/${user._id}/tweets`}>
-            <li className='person-card' onClick={() => navigateTo()}>
-                <div className="card-header">
-                    <img className="user-img" src={user.profileImg} alt="user image" />
-                    <div className="user-info">
-                        <span className="user-name">{user.firstName} {user.lastName}</span>
-                        {(user.followers?.length) ? <span className="sub-info">{user.followers.length} Followers</span> : <span className="sub-info">No followers yet</span>}
-                    </div>
-                    <button type="button" className="btn-follow" onClick={(ev) => handleClick(ev)}>
-                        <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                        <span>Follow</span>
-                    </button>
+        <li className='person-card' onClick={() => navigateTo()}>
+            <div className="card-header">
+                <img className="user-img" src={user.profileImg} alt="user image" />
+                <div className="user-info">
+                    <span className="user-name">{user.firstName} {user.lastName}</span>
+                    {(user.followers?.length) ? <span className="sub-info">{user.followers.length} Followers</span> : <span className="sub-info">No followers yet</span>}
                 </div>
-                <p className="about">
-                    {user.about}
-                </p>
-                <img className="cover-img" src={user.coverImg} alt="user cover image" />
-            </li>
-        // </NavLink>
+                <button type="button" className="btn-follow" onClick={(ev) => handleClick(ev)}>
+                    <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                    <span>Follow</span>
+                </button>
+            </div>
+            <p className="about">
+                {user.about}
+            </p>
+            <img className="cover-img" src={user.coverImg} alt="user cover image" />
+        </li>
     )
 
 }

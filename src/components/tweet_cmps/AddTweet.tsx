@@ -8,12 +8,9 @@ type Props = {
 }
 
 export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
+    
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isEmojiClicked, setIsEmojiClicked] = useState(false)
-
-    // const toggleModal = () => {
-    //     setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
-    // }
 
     return (
         <article className="add-tweet card">
@@ -27,9 +24,9 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                     <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                     <div className="add-reaction-container" onClick={() => setIsEmojiClicked(prevState => !prevState)}>
                         <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                        <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
+                        {/* <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
                             <EmojiPicker />
-                        </div>
+                        </div> */}
                     </div>
                     <div className="public-settings">
                         <div className="public-settings-signs-wrapper" onClick={() => setIsModalOpen(prevState=>!prevState)}>

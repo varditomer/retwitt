@@ -5,6 +5,11 @@
         padding-bottom: 25px;
         border-bottom: 1px solid $clr-gray6;
     }
+    .no-users-to-follow {
+        font-family: NotoSans-SemiBold;
+        font-size: rem(14px);
+        color: $clr-red;
+    }
     .person-card {
         @include flex-column;
         gap: 20px;

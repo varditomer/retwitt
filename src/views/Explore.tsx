@@ -10,21 +10,27 @@ import { Tweet } from '../interfaces/tweet.interface';
 type Props = {}
 
 export const Explore: React.FC<Props> = () => {
+
   const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
   const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
-  const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
+
+  const [tweetsToExplore, setTweetsToExplore] = useState<Tweet[] | null>(null)
 
 
   useEffect(() => {
     if (!tweets.length || !loggedinUser) return
+
     const unFollowsUsers = users.filter(user => !loggedinUser.follows.includes(user._id))
     const unFollowsUsersIds = unFollowsUsers.map(user => user._id)
-    const currTweetsToShow = tweets.filter(tweet => unFollowsUsersIds.includes(tweet.createdBy))
-    setTweetsToShow(currTweetsToShow)
+    const unFollowsUsersTweets = tweets.filter(tweet => unFollowsUsersIds.includes(tweet.createdBy))
+
+    setTweetsToExplore(unFollowsUsersTweets)
+
   }, [tweets, loggedinUser])
 
 
-  if (!tweetsToShow?.length || !users || !loggedinUser) return <div>Loading...</div>
+  if (!tweetsToExplore || !users || !loggedinUser) return <div>Loading...</div>
+
   return (
     <section className="explore page">
       <div className="small-area">
@@ -63,13 +69,15 @@ export const Explore: React.FC<Props> = () => {
           <input type="text" placeholder='Search' className="search-input" />
           <button className="search-btn">Search</button>
         </section>
+
         <Outlet
           context={{
-            tweetsToShow,
+            tweetsToShow: tweetsToExplore,
             loggedinUser,
             users
           }}
         />
+
       </div>
     </section>
   )
