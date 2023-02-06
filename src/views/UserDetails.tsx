@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TweetState, UserState } from '../interfaces/state.interface';
@@ -29,7 +29,6 @@ export const UserDetails: React.FC<Props> = () => {
     useEffect(() => {
         if (!tweets.length || !user) return
         const selectedUserTweets = tweets.filter(tweet => tweet.createdBy === user?._id)
-        console.log(`selectedUserTweets:`, selectedUserTweets)
         setUserTweets(selectedUserTweets)
     }, [params.id, tweets, user])
 

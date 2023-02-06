@@ -1,5 +1,5 @@
 import { MouseEvent } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { User } from "../../interfaces/user.interface"
 import SvgIcon from "../../SvgIcon"
 

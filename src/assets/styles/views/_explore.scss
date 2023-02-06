@@ -4,37 +4,47 @@
     }
     .search-tweet {
         position: relative;
+        height: 54px;
         @include flex-vertically-center;
         gap: 12px;
-        padding: 12px;
+        padding: 0;
         font-family: NotoSans-Medium;
-        color: $clr-gray4;
         .search-icon {
             position: absolute;
-            cursor:text;
+            cursor: text;
+            left: 12px;
+        }
+        .cancel-search-container {
+            position: absolute;
+            right: 12px;
+            cursor: pointer;
         }
 
+        &:has(.search-input:focus) {
+            .search-icon {
+                svg {
+                    stroke: $clr-twitter;
+                    fill: $clr-twitter;
+                }
+            }
+        }
         .search-input {
-            padding-inline-start: 32px;
+            padding-inline-start: 36px;
+            padding-inline-end: 40px;
             height: 100%;
             flex-grow: 2;
             font-family: NotoSans-Medium;
             border-radius: $br-secondary;
             border: none;
-            color: $clr-gray4;
+            color: $clr-gray1;
+            border-radius: 20px;
             &::placeholder {
                 color: $clr-gray4;
             }
             &:focus {
-                outline-color: $clr-blue1;
+                border: none;
+                outline: 2px solid $clr-twitter;
             }
-        }
-        .search-btn {
-            @include custom-btn;
-            height: 32px;
-            max-width: 81px;
-            flex-grow: 1;
-            
         }
     }
     @include for-wide-layout {

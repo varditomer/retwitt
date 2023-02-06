@@ -1,4 +1,3 @@
-import React from 'react'
 import SvgIcon from '../SvgIcon';
 import { NavLink } from 'react-router-dom';
 

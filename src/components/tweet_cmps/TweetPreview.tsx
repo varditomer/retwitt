@@ -1,6 +1,4 @@
-import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { useTimestampConverter } from '../../hooks/useTimestampConverter'
 import { Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 import { utilService } from '../../services/util.service'
@@ -16,18 +14,13 @@ type Props = {
 }
 
 export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreatedByUser, repliesCreatedByUsers }) => {
-    const navigate = useNavigate()
-    console.log(`tweet-preview-run:`,)
 
+    const navigate = useNavigate()
 
     const navigateTo = () => {
         navigate(`/home/${tweet.createdBy}/tweets`)
     }
 
-    // const convertedTime = useTimestampConverter(tweet.createdAt)
-    // setTime(convertedTime)
-    // console.log(`convertedTime:`, convertedTime)
-    // console.log(`typeofconvertedTime:`, typeof(convertedTime))
     if (!tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
 
     return (
@@ -80,8 +73,12 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                 <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
             </div>
 
+            {(tweet.replies.length && repliesCreatedByUsers) ?
+                <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} />
+                :
+                ''
+            }
 
-            {(tweet.replies.length && repliesCreatedByUsers) ? <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} /> : ''}
         </article>
     )
 }

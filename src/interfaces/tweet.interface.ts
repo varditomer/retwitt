@@ -1,5 +1,3 @@
-import { MiniUser } from "./user.interface";
-
 export interface Like {
     _id: string,
     createdAt: number,

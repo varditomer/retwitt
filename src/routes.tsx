@@ -3,14 +3,14 @@ import { Home } from './views/Home'
 import { Bookmark } from './views/Bookmark'
 import { Explore } from './views/Explore'
 import { UserDetails } from './views/UserDetails'
+
+// Components:
 import { Tweets } from './components/general_cmps/Tweets'
 import { TweetsAndReplies } from './components/general_cmps/TweetsAndReplies'
 import { Media } from './components/general_cmps/Media'
 import { Likes } from './components/general_cmps/Likes'
 import { Top } from './components/general_cmps/Top'
 import { People } from './components/general_cmps/People'
-
-// Components:
 
 
 

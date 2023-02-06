@@ -9,9 +9,6 @@ type Props = {
 }
 
 export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
-    console.log(`tweetlistrun:`, )
-    console.log(`tweets:`, tweets)
-    console.log(`users:`, users)
 
     const getTweetCreatedByUser = (tweet: Tweet): User => users.find(user => user._id === tweet.createdBy)!
 

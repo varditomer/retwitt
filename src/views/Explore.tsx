@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import SvgIcon from '../SvgIcon';
 import { NavLink, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { TweetState, UserState } from '../interfaces/state.interface';
 import { Tweet } from '../interfaces/tweet.interface';
+import { SearchTweet } from '../components/tweet_cmps/SearchTweet';
 
 
 
@@ -15,6 +16,13 @@ export const Explore: React.FC<Props> = () => {
   const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
 
   const [tweetsToExplore, setTweetsToExplore] = useState<Tweet[] | null>(null)
+  const [filteredTweetsToExplore, setFilteredTweetsToExplore] = useState<Tweet[] | null>(null)
+
+  const [searchTweetBy, setSearchTweetBy] = useState('')
+
+  const onChangeSearchTweetBy = (query: string) => {
+    setSearchTweetBy(query)
+  }
 
 
   useEffect(() => {
@@ -27,6 +35,16 @@ export const Explore: React.FC<Props> = () => {
     setTweetsToExplore(unFollowsUsersTweets)
 
   }, [tweets, loggedinUser])
+
+  useEffect(() => {
+    if (!tweetsToExplore) return
+    const tweets: Tweet[] = JSON.parse(JSON.stringify(tweetsToExplore))
+    const regex = new RegExp(searchTweetBy, 'i')
+    const filteredTweets = tweets.filter(tweet => regex.test(tweet.content))
+    setFilteredTweetsToExplore(JSON.parse(JSON.stringify(filteredTweets)))
+  }, [tweetsToExplore, searchTweetBy])
+
+
 
 
   if (!tweetsToExplore || !users || !loggedinUser) return <div>Loading...</div>
@@ -64,15 +82,11 @@ export const Explore: React.FC<Props> = () => {
         </section>
       </div>
       <div className="large-area">
-        <section className="search-tweet card">
-          <SvgIcon iconName="search" wrapperStyle="search-icon" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
-          <input type="text" placeholder='Search' className="search-input" />
-          <button className="search-btn">Search</button>
-        </section>
+        <SearchTweet searchTweetBy={searchTweetBy} onChangeSearchTweetBy={onChangeSearchTweetBy} />
 
         <Outlet
           context={{
-            tweetsToShow: tweetsToExplore,
+            tweetsToShow: filteredTweetsToExplore,
             loggedinUser,
             users
           }}

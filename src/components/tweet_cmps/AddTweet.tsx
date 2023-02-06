@@ -1,4 +1,4 @@
-import EmojiPicker from "emoji-picker-react"
+// import EmojiPicker from "emoji-picker-react"
 import { useState } from "react"
 import { User } from "../../interfaces/user.interface"
 import SvgIcon from "../../SvgIcon"
@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
-    
+
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isEmojiClicked, setIsEmojiClicked] = useState(false)
 
@@ -17,7 +17,8 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
             <h2 className='card-title'>Tweet something</h2>
             <div className="card-header new-tweet">
                 <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
-                <span className="tweet-input">What’s happening?</span>
+                {/* <span className="tweet-input">What’s happening?</span> */}
+                <input className="tweet-input" placeholder="What’s happening?" />
             </div>
             <div className="control-btns">
                 <div className="settings">

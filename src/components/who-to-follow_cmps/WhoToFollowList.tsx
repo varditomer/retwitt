@@ -1,5 +1,4 @@
 import { User } from "../../interfaces/user.interface"
-import SvgIcon from "../../SvgIcon"
 import { WhoToFollowPreview } from "./WhoToFollowPreview"
 
 type Props = {
