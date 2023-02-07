@@ -1,8 +1,10 @@
+import { useRef } from 'react'
 import { useNavigate } from 'react-router'
 import { Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 import { utilService } from '../../services/util.service'
 import SvgIcon from '../../SvgIcon'
+import { AddReply } from './reply_cmps/AddReply'
 import { ReplyList } from './reply_cmps/ReplytList'
 
 
@@ -20,6 +22,9 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     const navigateTo = () => {
         navigate(`/home/${tweet.createdBy}/tweets`)
     }
+
+    const childInputRef = useRef<HTMLInputElement>(null)
+
 
     if (!tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
 
@@ -49,7 +54,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             </div>
 
             <div className="action-btns">
-                <button className='action-btn'>
+                <button className='action-btn' onClick={()=>childInputRef.current?.focus()}>
                     <SvgIcon iconName="comment" wrapperStyle="comment" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                     <span className="action-type">Comment</span>
                 </button>
@@ -67,11 +72,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                 </button>
             </div>
 
-            <div className="add-reply">
-                <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
-                <input type="text" placeholder='Tweet your reply' className="reply-input" />
-                <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
-            </div>
+            <AddReply loggedinUser={loggedinUser} tweetToEdit={tweet} childInputRef={childInputRef} />
 
             {(tweet.replies.length && repliesCreatedByUsers) ?
                 <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} />

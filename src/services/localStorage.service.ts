@@ -5,9 +5,9 @@ export const storageService = {
 
 
 function saveToStorage(key: string, val: any) {
-    let storedItems = loadFromStorage(key)
-    storedItems ? storedItems.push(val) : [val]
-    localStorage.setItem(key, JSON.stringify(storedItems))
+    // let storedItems = loadFromStorage(key)
+    // storedItems ? storedItems.push(val) : [val]
+    localStorage.setItem(key, JSON.stringify(val))
 }
 
 function loadFromStorage(key: string) {

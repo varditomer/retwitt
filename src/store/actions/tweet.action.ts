@@ -34,4 +34,15 @@ export function addTweet(tweetToAdd: Tweet) {
     }
 }
 
+export function updateTweet(tweetToUpdate: Tweet) {
+    return async (dispatch: any) => {
+        try {
+            const tweet = await tweetService.saveTweet(tweetToUpdate)
+            dispatch({ type: 'UPDATE_TWEET', payload: tweet })
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+}
+
 

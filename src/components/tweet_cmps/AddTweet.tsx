@@ -32,17 +32,17 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
         setTweetContent(newTweet?.content)
     }, [newTweet])
 
-    const handleChange = (ev: any) => {
+    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setTweetContent(ev.target.value)
-        const tweetToSave = JSON.parse(JSON.stringify(newTweet))
+        const tweetToSave = structuredClone(newTweet)
         tweetToSave.content = ev.target.value
-        setNewTweet(JSON.parse(JSON.stringify(tweetToSave)))
+        setNewTweet(structuredClone(tweetToSave))
     }
 
-    const onAddTweet = (ev: any) => {
+    const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
 
-        const tweetToSave = JSON.parse(JSON.stringify(newTweet))
+        const tweetToSave = structuredClone(newTweet)
         dispatch(addTweet(tweetToSave))
 
         const emptyTweet = tweetService.getEmptyTweet()
@@ -59,7 +59,8 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
             <div className="control-btns">
                 <div className="settings">
                     <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    <div className="add-reaction-container" onClick={() => setIsEmojiClicked(prevState => !prevState)}>
+                    {/* <div className="add-reaction-container" onClick={() => setIsEmojiClicked(prevState => !prevState)}> */}
+                    <div className="add-reaction-container">
                         <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                         {/* <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
                             <EmojiPicker />
@@ -85,7 +86,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                     </div>
                 </div>
 
-                <button type="submit" className="add-tweet-btn" disabled={newTweet?.content.length ? false : true}>
+                <button type="submit" className="add-tweet-btn" disabled={newTweet?.content.length ? false : true} title={newTweet?.content.length ? 'Click to add new tweet' : 'Enter tweet content first'}>
                     <span>Tweet</span>
                 </button>
             </div>

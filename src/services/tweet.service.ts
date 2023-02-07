@@ -1,5 +1,5 @@
 import tweetsJson from '../tweets.json'
-import { Tweet } from '../interfaces/tweet.interface'
+import { Reply, Tweet } from '../interfaces/tweet.interface'
 import { storageService } from './localStorage.service'
 import { utilService } from './util.service'
 import { userService } from './user.service'
@@ -12,7 +12,8 @@ export const tweetService = {
     getTweetById,
     saveTweet,
     removeTweet,
-    getEmptyTweet
+    getEmptyTweet,
+    getEmptyReply
 }
 
 
@@ -66,4 +67,15 @@ function getEmptyTweet(): Tweet {
         savedBy: [],
         likes: [],
     } as Tweet
+}
+
+function getEmptyReply(): Reply {
+    return {
+        _id: utilService.makeId(),
+        createdAt: Date.now(),
+        createdBy: 'u101',
+        content: '',
+        imgUrl: '',
+        likes: [],
+    }
 }
