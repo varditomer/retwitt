@@ -42,13 +42,17 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         return loggedinUser.savedTweets.includes(tweet._id!)
     }
 
+    const onUpdateTweet = (tweetToUpdate: Tweet) => {
+        dispatch(updateTweet(tweetToUpdate))
+    }
+
 
     const toggleLikeTweet = () => {
         const tweetToUpdate: Tweet = structuredClone(tweet)
         const idx = tweetToUpdate.likes.findIndex(likedById => likedById === loggedinUser._id)
         if (idx !== -1) tweetToUpdate.likes.splice(idx, 1)
         else tweetToUpdate.likes.push(structuredClone(loggedinUser._id))
-        dispatch(updateTweet(tweetToUpdate))
+        onUpdateTweet(tweetToUpdate)
     }
 
     const toggleBookmarkTweet = () => {
@@ -63,7 +67,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         const userIdx = tweetToUpdate.savedBy.findIndex(savedById => savedById === loggedinUser._id)
         if (userIdx !== -1) tweetToUpdate.savedBy.splice(userIdx, 1)
         else tweetToUpdate.savedBy.push(structuredClone(loggedinUser._id))
-        dispatch(updateTweet(tweetToUpdate))
+        onUpdateTweet(tweetToUpdate)
     }
 
     const toggleLikeReply = (currReply: Reply) => {
@@ -72,7 +76,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         const likeIdx = tweetToUpdate.replies[replyIdx].likes.findIndex(likedById => likedById === loggedinUser._id)
         if (likeIdx !== -1) tweetToUpdate.replies[replyIdx].likes.splice(likeIdx, 1)
         else tweetToUpdate.replies[replyIdx].likes.push(structuredClone(loggedinUser._id))
-        dispatch(updateTweet(tweetToUpdate))
+        onUpdateTweet(tweetToUpdate)
     }
 
 
@@ -123,7 +127,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                 </button>
             </div>
 
-            <AddReply loggedinUser={loggedinUser} tweetToEditId={tweet._id} childInputRef={childInputRef} />
+            <AddReply loggedinUser={loggedinUser} childInputRef={childInputRef} tweetToEdit={tweet} onUpdateTweet={onUpdateTweet} />
 
             {(tweet.replies.length && repliesCreatedByUsers) ?
                 <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} />

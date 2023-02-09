@@ -67,6 +67,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                         </div> */}
                     </div>
                     <div className="public-settings">
+                        {/* Choose between everyone can reply or only people i follow will can */}
                         <div className="public-settings-signs-wrapper" onClick={() => setIsModalOpen(prevState => !prevState)}>
                             <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                             <span className='public-settings-txt'>Everyone can reply</span>

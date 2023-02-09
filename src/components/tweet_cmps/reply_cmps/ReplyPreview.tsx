@@ -47,7 +47,11 @@ export const ReplyPreview: React.FC<Props> = ({ reply, user, loggedinUser, toggl
                     <SvgIcon iconName="like" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                     <span>like</span>
                 </div>
-                <span className="likes-count">{reply.likes.length}</span>
+                {(reply.likes.length) ?
+                    <span className="likes-count">{reply.likes.length} Likes</span>
+                    :
+                    ''
+                }
             </div>
         </div>
     )
