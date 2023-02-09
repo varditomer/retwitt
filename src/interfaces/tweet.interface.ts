@@ -1,9 +1,3 @@
-export interface Like {
-    _id: string,
-    createdAt: number,
-    createdBy: string,
-}
-
 export interface Reply {
     _id: string,
     createdAt: number,
@@ -26,5 +20,5 @@ export interface Tweet {
     replies: Reply[],
     reTweeted: string[],
     savedBy: string[],
-    likes: Like[],
+    likes: string[],
 }

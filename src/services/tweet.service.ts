@@ -18,7 +18,7 @@ export const tweetService = {
 
 
 function query(): Tweet[] {
-    return JSON.parse(JSON.stringify(_gTweets))
+    return structuredClone(_gTweets)
 }
 
 function getTweetById(tweetId: string): Tweet | null {
@@ -30,7 +30,7 @@ function getTweetById(tweetId: string): Tweet | null {
 function saveTweet(tweet: Tweet) {
     if (!tweet._id) {
         tweet._id = utilService.makeId()
-        _gTweets.push(tweet)
+        _gTweets.unshift(tweet)
     } else {
         const idx = _gTweets.findIndex(storedTweet => storedTweet._id === tweet._id)
         _gTweets.splice(idx, 1, tweet)
@@ -49,7 +49,10 @@ function removeTweet(tweetId: string): string | null {
 
 function _loadTweets(): Tweet[] {
     let tweets = storageService.loadFromStorage(TWEETS_STORAGE_KEY)
-    if (!tweets) tweets = tweetsJson
+    if (!tweets) {
+        tweets = tweetsJson
+        storageService.saveToStorage(TWEETS_STORAGE_KEY, tweets)
+    }
     return tweets as Tweet[]
 }
 

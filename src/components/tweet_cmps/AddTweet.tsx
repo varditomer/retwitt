@@ -1,4 +1,4 @@
-// import EmojiPicker from "emoji-picker-react"
+import EmojiPicker from "emoji-picker-react"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
@@ -59,8 +59,8 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
             <div className="control-btns">
                 <div className="settings">
                     <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    {/* <div className="add-reaction-container" onClick={() => setIsEmojiClicked(prevState => !prevState)}> */}
-                    <div className="add-reaction-container">
+                    <div className="add-reaction-container" onClick={() => setIsEmojiClicked(prevState => !prevState)}>
+                    {/* <div className="add-reaction-container"> */}
                         <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                         {/* <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
                             <EmojiPicker />

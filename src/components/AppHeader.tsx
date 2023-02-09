@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { User } from '../interfaces/user.interface';
 import SvgIcon from '../SvgIcon';
 import { NavLinks } from './NavLinks';
@@ -9,7 +10,15 @@ type Props = {
 }
 
 export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
+
     const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const navigate = useNavigate()
+
+    const navigateTo = () => {
+        setIsModalOpen(false)
+        navigate(`/home/${loggedinUser._id}/tweets`)
+    }
 
     const toggleModal = () => {
         setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
@@ -26,13 +35,15 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                 <div className="user">
                     <img src="" alt="" className="user-img" />
                     <div className='account'>
-                        <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
-                        <span className="user-name">{loggedinUser.firstName} {loggedinUser.lastName}</span>
-                        <SvgIcon handleClick={() => toggleModal()} iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
+                        <div className="account-icons-container" onClick={toggleModal}>
+                            <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                            <span className="user-name">{loggedinUser.firstName} {loggedinUser.lastName}</span>
+                            <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
+                        </div>
 
 
                         <article className={`account-modal modal ${(!isModalOpen) ? 'hide' : ''}`}>
-                            <div className="modal-item">
+                            <div className="modal-item" onClick={navigateTo}>
                                 <SvgIcon iconName="profile" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                 <span className="card-item-txt">My Profile</span>
                             </div>

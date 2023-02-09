@@ -11,13 +11,17 @@ export const Bookmark: React.FC = () => {
   const {users, loggedinUser} = useSelector((state: UserState) => state.userModule)
 
   const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
+  const [userLikedTweets, setUserLikedTweets] = useState<Tweet[] | null>(null)
+
 
   useEffect(() => {
     if (!loggedinUser || !tweets) return
-    const savedTweets = tweets.filter(tweet => loggedinUser.savedTweets.includes(tweet._id))
+    const savedTweets = tweets.filter(tweet => loggedinUser.savedTweets.includes(tweet._id!))
     setTweetsToShow(savedTweets)
+    const selectedUserLikedTweets = tweets.filter(tweet => tweet.likes.includes(loggedinUser._id))
+    setUserLikedTweets(selectedUserLikedTweets)
 
-  }, [loggedinUser, loggedinUser?.savedTweets])
+  }, [loggedinUser, loggedinUser?.savedTweets, tweets])
 
 
   return (
@@ -57,7 +61,8 @@ export const Bookmark: React.FC = () => {
           context={{
             tweetsToShow,
             loggedinUser,
-            users
+            users,
+            userLikedTweets
           }}
         />
       </div>

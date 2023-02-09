@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { INITIAL_STATE } from "../../../interfaces/state.interface"
+import { INITIAL_STATE, TweetState } from "../../../interfaces/state.interface"
 import { Reply, Tweet } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
 import { tweetService } from "../../../services/tweet.service"
@@ -11,29 +12,24 @@ import SvgIcon from "../../../SvgIcon"
 
 
 type Props = {
-    tweetToEdit: Tweet,
+    tweetToEditId: string,
     loggedinUser: User,
-    childInputRef: React.RefObject<HTMLInputElement>
+    childInputRef: React.RefObject<HTMLInputElement>,
 }
 
 
-export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInputRef  }) => {
+export const AddReply: React.FC<Props> = ({ tweetToEditId, loggedinUser, childInputRef }) => {
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
+    const tweet = useSelector((state: TweetState) => state.tweetModule.tweets.filter(tweet => tweet._id === tweetToEditId))[0]
 
-    // const [tweetToSave, setTweetToSave] = useState<null | Tweet>(null)
     const [newReply, setNewReply] = useState<null | Reply>(null)
+    const [tweetToEdit, setTweetToEdit] = useState<null | Tweet>(null)
     const [replyContent, setReplyContent] = useState<string>('')
 
     useEffect(() => {
-
-        // const tweet = structuredClone(tweetToEdit)
-        // setTweetToSave(tweet)
-
         const emptyReply = tweetService.getEmptyReply()
         setNewReply(emptyReply)
-        console.log(`tweetToEdit:`, tweetToEdit)
-
     }, [])
 
     useEffect(() => {
@@ -41,8 +37,12 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
         setReplyContent(newReply?.content)
     }, [newReply])
 
+    useEffect(() => {
+        if (!tweet) return
+        setTweetToEdit(structuredClone(tweet))
+    }, [])
+
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(`ev.target.value:`, ev.target.value)
         setReplyContent(ev.target.value)
         const replyToSave = structuredClone(newReply)
         replyToSave.content = ev.target.value
@@ -51,13 +51,12 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
 
     const onAddReply = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
+        if (!replyContent.length || !tweetToEdit) return
 
         const replyToSave = structuredClone(newReply)
+        tweetToEdit.replies.unshift(replyToSave)
 
-        const tweet: Tweet = structuredClone(tweetToEdit)
-        tweet.replies.push(replyToSave)
-
-        dispatch(updateTweet(tweet))
+        dispatch(updateTweet(tweetToEdit))
 
         const emptyReply = tweetService.getEmptyReply()
         setNewReply(emptyReply)

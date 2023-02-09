@@ -29,16 +29,16 @@
 
     .account {
         position: relative;
-        @include flex-vertically-center;
-        > *:not(.user-img, .account-modal) {
-            display: none;
-        }
-        .user-img {
-            height: 32px;
-            width: 32px;
-        }
-        .expand_more {
+        .account-icons-container {
+            @include flex-vertically-center;
             cursor: pointer;
+            > *:not(.user-img, .account-modal) {
+                display: none;
+            }
+            .user-img {
+                height: 32px;
+                width: 32px;
+            }
         }
         .account-modal {
             top: 65px;
@@ -88,15 +88,17 @@
             }
         }
         .account {
-            gap: 6px;
-            font-family: NotoSans-SemiBold;
-            font-size: rem(12px);
-            > *:not(.user-img, .account-modal) {
-                display: inherit;
-            }
-            .expand_more {
-                @include flex-vertically-center;
-                justify-content: center;
+            .account-icons-container {
+                gap: 6px;
+                font-family: NotoSans-SemiBold;
+                font-size: rem(12px);
+                > *:not(.user-img, .account-modal) {
+                    display: inherit;
+                }
+                .expand_more {
+                    @include flex-vertically-center;
+                    justify-content: center;
+                }
             }
         }
     }

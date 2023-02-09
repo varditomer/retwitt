@@ -1,5 +1,23 @@
 [
     {
+        "_id": "u000",
+        "createdAt": 1674975957,
+        "firstName": "Guest",
+        "lastName": "",
+        "userName": "",
+        "about": "Hey, I just want to join the party 🥳",
+        "profileImg": "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png",
+        "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675256742/cld-sample-3.jpg",
+        "follows": ["u101"],
+        "followers": [
+            "u101",
+            "u102",
+            "u103"
+        ],
+        "savedTweets": ["t102"],
+        "isGuest": true
+    },
+    {
         "_id": "u101",
         "createdAt": 1674975957,
         "firstName": "Tomer",
@@ -8,9 +26,14 @@
         "about": "Full-Stack | Web developer | JS; Vue/x & React/dux & Node.js & MongoDB || BSc Industrial Engineering &",
         "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/tomer-avatar_gqqzev.png",
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675256741/cld-sample-2.jpg",
-        "follows": ["u102","u103"],
+        "follows": [
+            "u000",
+            "u102",
+            "u103"
+        ],
         "followers": ["u102"],
-        "savedTweets": ["t102"]
+        "savedTweets": ["t102"],
+        "isGuest": false
     },
     {
         "_id": "u102",
@@ -21,9 +44,13 @@
         "about": "Photographer & Filmmaker based in Copenhagen, Denmark ✵ 🇩🇰",
         "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257402/ronen-avatar_kdrcyt.png",
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257376/backpacker-cliff_zz8hmg.jpg",
-        "follows": ["u101"],
+        "follows": [
+            "u000",
+            "u101"
+        ],
         "followers": ["u101", "u103"],
-        "savedTweets": []
+        "savedTweets": [],
+        "isGuest": false
     },
     {
         "_id": "u103",
@@ -34,8 +61,12 @@
         "about": "Follow me on IG: @arstyy",
         "profileImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257401/refael-avatar_tsi0oa.png",
         "coverImg": "https://res.cloudinary.com/retwitt/image/upload/v1675257378/cliff_jumping_ufayvx.jpg",
-        "follows": ["u103"],
+        "follows": [
+            "u000",
+            "u103"
+        ],
         "followers": ["u101"],
-        "savedTweets": ["t101"]
+        "savedTweets": ["t101"],
+        "isGuest": false
     }
 ]

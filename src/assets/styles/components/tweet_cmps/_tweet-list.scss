@@ -55,7 +55,6 @@
                 @include hover-supported {
                     &:hover {
                         background-color: $clr-gray7;
-
                         &:not(:is(.active)) {
                             &.retweet {
                                 color: $clr-green2;
@@ -76,6 +75,13 @@
                                 }
                             }
                         }
+                        &:is(.active) {
+                            color: $clr-gray2;
+                            svg {
+                                stroke: $clr-gray2;
+                            }
+
+                        }
                     }
                 }
                 &.retweet:is(.active) {
@@ -83,9 +89,15 @@
                 }
                 &.like:is(.active) {
                     color: $clr-red;
+                    svg {
+                        stroke: $clr-red;
+                    }
                 }
                 &.bookmark:is(.active) {
                     color: $clr-blue2;
+                    svg {
+                        stroke: $clr-blue2;
+                    }
                 }
             }
         }

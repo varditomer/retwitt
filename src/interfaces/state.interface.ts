@@ -20,5 +20,7 @@ export interface INITIAL_STATE {
 export interface ReTwittContext {
     tweetsToShow: Tweet[],
     loggedinUser: User,
-    users: User[]
+    users: User[],
+    userLikedTweets?: Tweet[],
+    userRepliedTweets?: Tweet[]
   }

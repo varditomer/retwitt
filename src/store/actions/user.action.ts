@@ -27,9 +27,21 @@ export function setLoggedinUser(loggedinUser: User) {
     return async (dispatch: any) => {
         try {
             userService.setLoggedinUser(loggedinUser)
-            dispatch({ type: 'UPDATE_LOGGEDIN_USER', payload: loggedinUser })
+            dispatch({ type: 'SET_LOGGEDIN_USER', payload: loggedinUser })
         } catch (err) {
             console.log(`err:`, err)
         }
     }
+}
+
+export function updateUser(user: User) {
+    return async (dispatch: any) => {
+        try {
+            userService.saveUser(user)
+            dispatch({ type: 'UPDATE_USER', payload: user })
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+
 }

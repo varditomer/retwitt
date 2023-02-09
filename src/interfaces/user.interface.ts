@@ -9,7 +9,8 @@ export interface User {
     coverImg: string,
     follows: string[],
     followers: string[],
-    savedTweets: string[]
+    savedTweets: string[],
+    isGuest: boolean
 }
 
 export interface MiniUser {

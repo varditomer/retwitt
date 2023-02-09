@@ -21,16 +21,16 @@ export const Home: React.FC = () => {
         if (!tweets.length || !loggedinUser) return
 
         const followsUsersTweets = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy))
-
         setTweetsToShow(followsUsersTweets)
+
     }, [tweets, loggedinUser])
 
     useEffect(() => {
         if (!users.length || !loggedinUser) return
 
-        const currUsersToFollow = users.filter(user => !loggedinUser?.follows.includes(user._id))
-
+        const currUsersToFollow = users.filter(user => ((!loggedinUser?.follows.includes(user._id)) && (!user.isGuest)))
         setUsersToFollow(currUsersToFollow)
+
     }, [users, loggedinUser])
 
 
@@ -45,7 +45,7 @@ export const Home: React.FC = () => {
             </section>
             <div className="small-area">
                 <TrendList />
-                <WhoToFollowList users={usersToFollow} />
+                <WhoToFollowList users={usersToFollow} loggedinUser={loggedinUser} />
             </div>
 
         </section>

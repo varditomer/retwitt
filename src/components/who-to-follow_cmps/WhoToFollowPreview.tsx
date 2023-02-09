@@ -1,29 +1,22 @@
 import { MouseEvent } from "react"
-import { useNavigate } from "react-router-dom"
 import { User } from "../../interfaces/user.interface"
 import SvgIcon from "../../SvgIcon"
 
 type Props = {
-    user: User
+    user: User,
+    onNavigateTo: Function,
+    followUser: Function 
 }
 
-export const WhoToFollowPreview: React.FC<Props> = ({ user }) => {
+export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, followUser }) => {
 
-    const navigate = useNavigate()
-
-
-    const navigateTo = () => {
-        navigate(`/home/${user._id}/tweets`)
-    }
-
-
-    const handleClick = (ev: MouseEvent) => {
-        ev.preventDefault()
+    const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation()
+        followUser(user)
     }
 
     return (
-        <li className='person-card' onClick={() => navigateTo()}>
+        <li className='person-card' onClick={() => onNavigateTo(user)}>
             <div className="card-header">
                 <img className="user-img" src={user.profileImg} alt="user image" />
                 <div className="user-info">

@@ -64,7 +64,6 @@
                         background-color: lighten($clr-blue1, 40%);
                         border-radius: 4em;
                         svg {
-                            fill: $clr-blue1;
                             stroke: $clr-blue1;
                         }
                     }
@@ -82,6 +81,13 @@
             &:disabled {
                 background-color: lighten($clr-gray3, 20%);
                 cursor: not-allowed;
+                @include hover-supported {
+                    &:hover {
+                        color: $clr-red;
+                        text-decoration: line-through;
+                        background-color: darken($clr-gray3, 10%);
+                    }
+                }
             }
         }
     }
