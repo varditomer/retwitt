@@ -3,8 +3,8 @@ import { ReTwittContext } from "../../interfaces/state.interface";
 import { TweetList } from "../tweet_cmps/TweetList";
 
 export const Tweets: React.FC = () => { //tweets sorted by createdAt
+    
     const { tweetsToShow, loggedinUser, users }: ReTwittContext = useOutletContext()
-    console.log(`tweetsToShow:`, tweetsToShow)
 
    if (!tweetsToShow?.length) return <>
         <img alt="" className="" src="https://abs.twimg.com/responsive-web/client-web/book-in-bird-cage-400x200.v1.366bcfc9.png" />

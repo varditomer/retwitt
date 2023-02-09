@@ -76,7 +76,7 @@ function getEmptyReply(): Reply {
     return {
         _id: utilService.makeId(),
         createdAt: Date.now(),
-        createdBy: 'u101',
+        createdBy: userService.getLoggedinUser()._id,
         content: '',
         imgUrl: '',
         likes: [],
