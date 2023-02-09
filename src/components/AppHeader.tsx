@@ -27,7 +27,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
     return (
         <header className='main-header'>
             <div className="header-container">
-                <div className="logo">
+                <div className="logo" onClick={()=>navigate(`/`)}>
                     <img src="src\assets\icons\twitter_gif_no_bgc.gif" alt="" className='twitter' />
                     <span>ReTwitt</span>
                 </div>
