@@ -59,7 +59,7 @@ function _loadTweets(): Tweet[] {
 function getEmptyTweet(): Tweet {
     return {
         createdAt: Date.now(),
-        createdBy: 'u101',
+        createdBy: userService.getLoggedinUser()._id,
         imgUrl: '',
         public: true,
         retweet: false,

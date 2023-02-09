@@ -3,6 +3,25 @@
     gap: 20px;
 
     .tweet {
+        position: relative;
+        .tweet-modal {
+            z-index: 30;
+            position: absolute;
+            right: -71px;
+            top: 40px;
+        }
+        .options-container {
+            visibility: hidden;
+            position: absolute;
+            right: 16px;
+            top: 10px;
+            cursor: pointer;
+            @include hover-supported {
+                .options-icon {
+                    @include custom-hover-svg-txt($outlineRadius: 3px);
+                }
+            }
+        }
         .tweet-txt {
             font-family: NotoSans-Regular;
             color: $clr-gray2;
@@ -80,7 +99,6 @@
                             svg {
                                 stroke: $clr-gray2;
                             }
-
                         }
                     }
                 }
@@ -100,6 +118,11 @@
                     }
                 }
             }
+        }
+        &:hover {
+         .options-container {
+            visibility: visible;
+         }   
         }
     }
 

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
@@ -26,6 +26,12 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     const childInputRef = useRef<HTMLInputElement>(null)
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const toggleModal = () => {
+        setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
+    }
 
 
     const navigate = useNavigate()
@@ -85,12 +91,31 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
     return (
         <article className="tweet card">
-            <div className="card-header">
+            <div className="card-header tweet-header">
                 <img className="user-img" src={tweetCreatedByUser?.profileImg} alt="user image" onClick={() => navigateTo()} />
                 <div className="user-info">
                     <span className="user-name" onClick={() => navigateTo()}>{tweetCreatedByUser?.firstName} {tweetCreatedByUser?.lastName}</span>
                     <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
                 </div>
+
+                <div className={`options-container ${(tweet.createdBy===loggedinUser._id) ? '' : 'hide'}`} onClick={toggleModal}>
+                    <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                </div>
+
+                <article className={`tweet-modal modal ${(!isModalOpen) ? 'hide' : ''}`}>
+                    <div className="modal-item">
+                        <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                        <span className="card-item-txt">Who can reply</span>
+                    </div>
+                    <div className="modal-item">
+                        <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                        <span className="card-item-txt">Copy tweet text</span>
+                    </div>
+                    <div className="modal-item logout">
+                        <SvgIcon iconName="remove" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
+                        <span className="card-item-txt">Delete tweet</span>
+                    </div>
+                </article>
             </div>
             <p className="tweet-txt">
                 {tweet.content}

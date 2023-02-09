@@ -28,7 +28,7 @@ export const Explore: React.FC<Props> = () => {
   useEffect(() => {
     if (!tweets.length || !loggedinUser) return
 
-    const unFollowsUsers = users.filter(user => !loggedinUser.follows.includes(user._id))
+    const unFollowsUsers = users.filter(user => !loggedinUser.follows.includes(user._id) && user._id !== loggedinUser._id)
     const unFollowsUsersIds = unFollowsUsers.map(user => user._id)
     const unFollowsUsersTweets = tweets.filter(tweet => unFollowsUsersIds.includes(tweet.createdBy))
 
