@@ -39,12 +39,11 @@ function saveTweet(tweet: Tweet) {
     return Promise.resolve(tweet)
 }
 
-function removeTweet(tweetId: string): string | null {
+function removeTweet(tweetId: string) {
     const idx = _gTweets.findIndex(storedTweet => storedTweet._id === tweetId)
-    if (idx < 0) return null
+    if (idx < 0) return
     _gTweets.splice(idx, 1)
     storageService.saveToStorage(TWEETS_STORAGE_KEY, _gTweets)
-    return tweetId
 }
 
 function _loadTweets(): Tweet[] {

@@ -15,7 +15,7 @@ export function loadTweets() {
 export function removeTweet(tweetId: string) {
     return async (dispatch: any) => {
         try {
-            const tweets = tweetService.removeTweet(tweetId)
+            tweetService.removeTweet(tweetId)
             dispatch({ type: 'REMOVE_TWEET', payload: tweetId })
         } catch (err) {
             console.log(`err:`, err)

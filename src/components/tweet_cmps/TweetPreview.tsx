@@ -7,7 +7,7 @@ import { INITIAL_STATE } from '../../interfaces/state.interface'
 import { Reply, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 import { utilService } from '../../services/util.service'
-import { updateTweet } from '../../store/actions/tweet.action'
+import { removeTweet, updateTweet } from '../../store/actions/tweet.action'
 import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
 import SvgIcon from '../../SvgIcon'
 import { AddReply } from './reply_cmps/AddReply'
@@ -27,10 +27,10 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [showTweetModal, setShowTweetModal] = useState(false)
 
     const toggleModal = () => {
-        setIsModalOpen(prevIsModalOpen => !prevIsModalOpen)
+        setShowTweetModal(prevShowTweetModal => !prevShowTweetModal)
     }
 
 
@@ -85,9 +85,15 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         onUpdateTweet(tweetToUpdate)
     }
 
+    const onRemoveTweet = () => {
+        if (!tweet._id || tweet.createdBy !== loggedinUser._id) return
+        setShowTweetModal(false)
+        dispatch(removeTweet(tweet._id))
+    }
 
 
-    if (!tweet._id || !tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
+
+    if (!tweet || !tweet._id || !tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
 
     return (
         <article className="tweet card">
@@ -98,11 +104,11 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                     <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
                 </div>
 
-                <div className={`options-container ${(tweet.createdBy===loggedinUser._id) ? '' : 'hide'}`} onClick={toggleModal}>
+                <div className={`options-container ${(tweet.createdBy === loggedinUser._id) ? '' : 'hide'}`} onClick={toggleModal}>
                     <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                 </div>
 
-                <article className={`tweet-modal modal ${(!isModalOpen) ? 'hide' : ''}`}>
+                <article className={`tweet-modal modal ${(showTweetModal) ? '' : 'hide'}`}>
                     <div className="modal-item">
                         <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                         <span className="card-item-txt">Who can reply</span>
@@ -111,7 +117,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                         <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                         <span className="card-item-txt">Copy tweet text</span>
                     </div>
-                    <div className="modal-item logout">
+                    <div className="modal-item logout" onClick={onRemoveTweet}>
                         <SvgIcon iconName="remove" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
                         <span className="card-item-txt">Delete tweet</span>
                     </div>
