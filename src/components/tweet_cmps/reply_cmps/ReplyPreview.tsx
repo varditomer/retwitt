@@ -6,12 +6,15 @@ import SvgIcon from "../../../SvgIcon"
 
 type Props = {
     reply: Reply
-    user: User
+    user: User,
+    loggedinUser: User,
+    toggleLikeReply: Function
+
 }
 
 
 
-export const ReplyPreview: React.FC<Props> = ({reply, user}) => {
+export const ReplyPreview: React.FC<Props> = ({ reply, user, loggedinUser, toggleLikeReply }) => {
 
     const convertedTime = useTimestampConverter(reply.createdAt)
 
@@ -21,14 +24,17 @@ export const ReplyPreview: React.FC<Props> = ({reply, user}) => {
         navigate(`/home/${user._id}/tweets`)
     }
 
+    const isLikeClicked = () => {
+        return reply.likes.includes(loggedinUser._id)
+    }
 
     return (
         <div className="reply">
             <div className="reply-head">
-                <img className="user-img" src={user.profileImg} alt="user image" onClick={()=>navigateTo()} />
+                <img className="user-img" src={user.profileImg} alt="user image" onClick={() => navigateTo()} />
                 <div className="reply-body">
                     <div className="user-info">
-                        <span className="user-name" onClick={()=>navigateTo()}>{user.firstName} {user.lastName}</span>
+                        <span className="user-name" onClick={() => navigateTo()}>{user.firstName} {user.lastName}</span>
                         <span className="user-followers">{convertedTime}</span>
                     </div>
                     <p className="reply-content">
@@ -37,7 +43,7 @@ export const ReplyPreview: React.FC<Props> = ({reply, user}) => {
                 </div>
             </div>
             <div className="reply-action">
-                <div className="like">
+                <div className={`like ${(isLikeClicked()) ? 'active' : ''}`} onClick={() => toggleLikeReply(reply)}>
                     <SvgIcon iconName="like" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                     <span>like</span>
                 </div>

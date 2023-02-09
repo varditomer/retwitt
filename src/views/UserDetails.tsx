@@ -37,8 +37,6 @@ export const UserDetails: React.FC<Props> = () => {
     useEffect(() => {
         if (!tweets.length || !user) return
 
-        console.log(`tweets:`, tweets)
-        
         const selectedUserTweets = tweets.filter(tweet => tweet.createdBy === user._id)
         setUserTweets(selectedUserTweets)
 

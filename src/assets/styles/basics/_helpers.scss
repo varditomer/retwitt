@@ -1,11 +1,25 @@
 // Font Sizes
-.fs12 { font-size: rem(12px); }
-.fs14 { font-size: rem(14px); }
-.fs18 { font-size: rem(18px); }
-.fs20 { font-size: rem(20px); }
-.fs24 { font-size: rem(24px); }
-.fs28 { font-size: rem(28px); }
-.fs30 { font-size: rem(30px); }
+.fs12 {
+    font-size: rem(12px);
+}
+.fs14 {
+    font-size: rem(14px);
+}
+.fs18 {
+    font-size: rem(18px);
+}
+.fs20 {
+    font-size: rem(20px);
+}
+.fs24 {
+    font-size: rem(24px);
+}
+.fs28 {
+    font-size: rem(28px);
+}
+.fs30 {
+    font-size: rem(30px);
+}
 
 .text-center {
     text-align: center;
@@ -25,7 +39,6 @@
 // flex helpers
 
 .flex {
-
     display: flex;
 
     > *.full {
@@ -107,7 +120,6 @@
         height: 40px;
         width: 40px;
     }
-
 }
 
 // Modal
@@ -138,11 +150,10 @@
         padding: 12px;
         cursor: pointer;
         &:hover {
-            background-color: #F2F2F2;
-            border-radius: $br-secondary;
-
+            @include hover-supported {
+                background-color: #f2f2f2;
+                border-radius: $br-secondary;
+            }
         }
     }
-
 }
-

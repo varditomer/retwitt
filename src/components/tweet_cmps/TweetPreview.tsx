@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { INITIAL_STATE } from '../../interfaces/state.interface'
-import { Tweet } from '../../interfaces/tweet.interface'
+import { Reply, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 import { utilService } from '../../services/util.service'
 import { updateTweet } from '../../store/actions/tweet.action'
@@ -66,6 +66,15 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         dispatch(updateTweet(tweetToUpdate))
     }
 
+    const toggleLikeReply = (currReply: Reply) => {
+        const tweetToUpdate: Tweet = structuredClone(tweet)
+        const replyIdx = tweetToUpdate.replies.findIndex(reply => reply._id === currReply._id)!
+        const likeIdx = tweetToUpdate.replies[replyIdx].likes.findIndex(likedById => likedById === loggedinUser._id)
+        if (likeIdx !== -1) tweetToUpdate.replies[replyIdx].likes.splice(likeIdx, 1)
+        else tweetToUpdate.replies[replyIdx].likes.push(structuredClone(loggedinUser._id))
+        dispatch(updateTweet(tweetToUpdate))
+    }
+
 
 
     if (!tweet._id || !tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
@@ -117,7 +126,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             <AddReply loggedinUser={loggedinUser} tweetToEditId={tweet._id} childInputRef={childInputRef} />
 
             {(tweet.replies.length && repliesCreatedByUsers) ?
-                <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} />
+                <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} />
                 :
                 ''
             }
