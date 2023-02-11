@@ -6,8 +6,8 @@ import { utilService } from './util.service';
 const STORAGE_KEY_USERS = 'users'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
-let _gUsers: User[] = _loadUsers()
-let _gLoggedinUser: User = _loadLoggedinUser()
+let _gUsers = _loadUsers()
+let _gLoggedinUser = _loadLoggedinUser()
 
 export const userService = {
     query,
@@ -71,11 +71,12 @@ function _loadUsers(): User[] {
     return users as User[]
 }
 
-function _loadLoggedinUser(): User {
+function _loadLoggedinUser(): User | null{
     let loggedinUser = storageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
-    if (!loggedinUser) {
-        loggedinUser = structuredClone(_gUsers[0])
-        storageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, loggedinUser)
-    }
-    return loggedinUser as User
+    // if (!loggedinUser) {
+    //     loggedinUser = structuredClone(_gUsers[0])
+    //     storageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, loggedinUser)
+    // }
+    // return loggedinUser as User
+    return loggedinUser
 }

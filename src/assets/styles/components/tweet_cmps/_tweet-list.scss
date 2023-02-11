@@ -9,12 +9,6 @@
             position: absolute;
             right: -71px;
             top: 40px;
-            .logout {
-                margin-top: 10px;
-                padding-top: 22px;
-                border-top: 1px solid $clr-gray6;
-                color: $clr-red;
-            }
         }
         .options-container {
             @media (hover: hover) {

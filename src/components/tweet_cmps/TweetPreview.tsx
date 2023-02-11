@@ -10,6 +10,7 @@ import { utilService } from '../../services/util.service'
 import { removeTweet, updateTweet } from '../../store/actions/tweet.action'
 import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
 import SvgIcon from '../../SvgIcon'
+import { Modal } from '../Modal'
 import { AddReply } from './reply_cmps/AddReply'
 import { ReplyList } from './reply_cmps/ReplytList'
 
@@ -27,10 +28,10 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
-    const [showTweetModal, setShowTweetModal] = useState(false)
+    const [showTweetOptModal, setShowTweetOptModal] = useState(false)
 
     const toggleModal = () => {
-        setShowTweetModal(prevShowTweetModal => !prevShowTweetModal)
+        setShowTweetOptModal(prevShowTweetOptModal => !prevShowTweetOptModal)
     }
 
 
@@ -76,9 +77,9 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         onUpdateTweet(tweetToUpdate)
     }
 
-    const toggleLikeReply = (currReply: Reply) => {
+    const toggleLikeReply = (replyId: string) => {
         const tweetToUpdate: Tweet = structuredClone(tweet)
-        const replyIdx = tweetToUpdate.replies.findIndex(reply => reply._id === currReply._id)!
+        const replyIdx = tweetToUpdate.replies.findIndex(reply => reply._id === replyId)!
         const likeIdx = tweetToUpdate.replies[replyIdx].likes.findIndex(likedById => likedById === loggedinUser._id)
         if (likeIdx !== -1) tweetToUpdate.replies[replyIdx].likes.splice(likeIdx, 1)
         else tweetToUpdate.replies[replyIdx].likes.push(structuredClone(loggedinUser._id))
@@ -87,8 +88,24 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
     const onRemoveTweet = () => {
         if (!tweet._id || tweet.createdBy !== loggedinUser._id) return
-        setShowTweetModal(false)
+        setShowTweetOptModal(false)
         dispatch(removeTweet(tweet._id))
+    }
+
+    const toggleFollowUser = (userId: string) => {
+        const userToUpdate: User = structuredClone(loggedinUser)
+        const idx = loggedinUser.follows.findIndex(followedUserId => followedUserId === userId)
+        if (idx !== -1) userToUpdate.follows.splice(idx, 1)
+        else userToUpdate.follows.push(userId)
+        dispatch(updateUser(userToUpdate))
+        dispatch(setLoggedinUser(userToUpdate))
+    }
+
+    const removeReply = (replyId: string) => {
+        const tweetToUpdate: Tweet = structuredClone(tweet)
+        const replyIdx = tweetToUpdate.replies.findIndex(reply => reply._id === replyId)!
+        tweetToUpdate.replies.splice(replyIdx, 1)
+        onUpdateTweet(tweetToUpdate)
     }
 
 
@@ -104,24 +121,47 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                     <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
                 </div>
 
-                <div className={`options-container ${(tweet.createdBy === loggedinUser._id) ? '' : 'hide'}`} onClick={toggleModal}>
+                <div className="options-container" onClick={toggleModal}>
                     <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                 </div>
 
-                <article className={`tweet-modal modal ${(showTweetModal) ? '' : 'hide'}`}>
-                    <div className="modal-item">
-                        <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                        <span className="card-item-txt">Who can reply</span>
-                    </div>
-                    <div className="modal-item">
-                        <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                        <span className="card-item-txt">Copy tweet text</span>
-                    </div>
-                    <div className="modal-item logout" onClick={onRemoveTweet}>
-                        <SvgIcon iconName="remove" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
-                        <span className="card-item-txt">Delete tweet</span>
-                    </div>
-                </article>
+                {showTweetOptModal ?
+                    <Modal modalClass='tweet-modal'>
+                        {(tweet.createdBy === loggedinUser._id) ?
+                            <div className="modal-item">
+                                <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                <span className="card-item-txt">Who can reply</span>
+                            </div>
+                            :
+                            ''
+                        }
+
+                        <div className="modal-item">
+                            <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                            <span className="card-item-txt">Copy tweet text</span>
+                        </div>
+                        {(tweet.createdBy === loggedinUser._id) ?
+                            <div className={`modal-item negative`} onClick={onRemoveTweet}>
+                                <SvgIcon iconName="remove" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
+                                <span className="card-item-txt">Delete tweet</span>
+                            </div>
+                            :
+                            (loggedinUser.follows.includes(tweet.createdBy)) ?
+                                <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweet.createdBy)}>
+                                    <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
+                                    <span className="card-item-txt">Unfollow</span>
+                                </div>
+                                :
+                                <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweet.createdBy)}>
+                                    <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
+                                    <span className="card-item-txt">Follow</span>
+                                </div>
+                        }
+                    </Modal>
+                    :
+                    ''
+                }
+
             </div>
             <p className="tweet-txt">
                 {tweet.content}
@@ -161,7 +201,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             <AddReply loggedinUser={loggedinUser} childInputRef={childInputRef} tweetToEdit={tweet} onUpdateTweet={onUpdateTweet} />
 
             {(tweet.replies.length && repliesCreatedByUsers) ?
-                <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} />
+                <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} removeReply={removeReply} toggleFollowUser={toggleFollowUser} />
                 :
                 ''
             }

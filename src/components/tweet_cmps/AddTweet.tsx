@@ -9,6 +9,7 @@ import { User } from "../../interfaces/user.interface"
 import { tweetService } from "../../services/tweet.service"
 import { addTweet } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
+import { Modal } from "../Modal"
 
 type Props = {
     loggedinUser: User
@@ -17,7 +18,7 @@ type Props = {
 export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [showWhoCanReplyModal, setShowWhoCanReplyModal] = useState(false)
     const [isEmojiClicked, setIsEmojiClicked] = useState(false)
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
@@ -28,9 +29,13 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     }, [])
 
     useEffect(() => {
-        if(!newTweet) return
+        if (!newTweet) return
         setTweetContent(newTweet?.content)
     }, [newTweet])
+
+    const toggleModal = () => {
+        setShowWhoCanReplyModal(prevShowWhoCanReplyModal => !prevShowWhoCanReplyModal)
+    }
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setTweetContent(ev.target.value)
@@ -59,8 +64,8 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
             <div className="control-btns">
                 <div className="settings">
                     <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    <div className="add-reaction-container" onClick={() => setIsEmojiClicked(prevState => !prevState)}>
-                    {/* <div className="add-reaction-container"> */}
+                    <div className="add-reaction-container">
+                        {/* <div className="add-reaction-container"> */}
                         <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                         {/* <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
                             <EmojiPicker />
@@ -68,22 +73,28 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                     </div>
                     <div className="public-settings">
                         {/* Choose between everyone can reply or only people i follow will can */}
-                        <div className="public-settings-signs-wrapper" onClick={() => setIsModalOpen(prevState => !prevState)}>
+                        <div className="public-settings-signs-wrapper" onClick={toggleModal}>
                             <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                             <span className='public-settings-txt'>Everyone can reply</span>
                         </div>
-                        <article className={`public-settings-modal modal ${(!isModalOpen) ? 'hide' : ''}`}>
-                            <h2 className='modal-title'>Who can reply?</h2>
-                            <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
-                            <div className="modal-item">
-                                <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                                <span className="card-item-txt">Everyone</span>
-                            </div>
-                            <div className="modal-item">
-                                <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                                <span className="card-item-txt">People you follow</span>
-                            </div>
-                        </article>
+                        {(showWhoCanReplyModal) ?
+                            <Modal modalClass="public-settings-modal">
+                                <h2 className='modal-title'>Who can reply?</h2>
+                                <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
+                                <div className="modal-item">
+                                    <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                    <span className="card-item-txt">Everyone</span>
+                                </div>
+                                <div className="modal-item">
+                                    <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                    <span className="card-item-txt">People you follow</span>
+                                </div>
+                            </Modal>
+                            :
+                            ''
+                        }
+
+
                     </div>
                 </div>
 

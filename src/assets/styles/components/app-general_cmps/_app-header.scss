@@ -21,7 +21,7 @@
         span {
             color: #1da1f2;
         }
-        >* {
+        > * {
             cursor: pointer;
         }
     }
@@ -47,12 +47,6 @@
             top: 65px;
             right: 0;
             width: 192px;
-            .logout {
-                margin-top: 10px;
-                padding-top: 22px;
-                border-top: 1px solid $clr-gray6;
-                color: $clr-red;
-            }
         }
     }
 

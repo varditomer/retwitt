@@ -34,6 +34,17 @@ export function setLoggedinUser(loggedinUser: User) {
     }
 }
 
+export function removeLoggedinUser() {
+    return async (dispatch: any) => {
+        try {
+            userService.removeLoggedinUser()
+            dispatch({ type: 'REMOVE_LOGGEDIN_USER'})
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+}
+
 export function updateUser(user: User) {
     return async (dispatch: any) => {
         try {

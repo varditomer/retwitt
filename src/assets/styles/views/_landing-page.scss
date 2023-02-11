@@ -1,0 +1,82 @@
+.landing-page {
+    background-color: white;
+    .main-content {
+        height: calc(100vh - 76px);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        .left-area {
+            padding: 30px;
+            @include flex-column;
+            display: flex;
+            background-color: #3490dc;
+            justify-content: space-around;
+            .catchphrases-container {
+                @include flex-column;
+                gap: 10px;
+            }
+            .catchphrase {
+                @include flex-vertically-center;
+                font-family: Poppins-SemiBold;
+                font-size: rem(30px);
+                color: $clr--white;
+                gap: 20px;
+            }
+            .retwitt-animation {
+                margin-inline: auto;
+                height: 60%;
+                // width: 80%;
+                border-radius: 30px;
+            }
+        }
+        .right-area {
+            @include flex-column;
+            justify-content: center;
+            padding-inline: 20%;
+            border: 4px solid white;
+            gap: 20px;
+
+            .retwitt-logo {
+                @include flex-vertically-center;
+                font-family: Poppins-SemiBold;
+                font-size: rem(30px);
+                color: $clr-gray1;
+                position: relative;
+                .retwitt-icon {
+                    height: 80px;
+                    width: 80px;
+                }
+                span {
+                    color: #1da1f2;
+                }
+            }
+            .call-to-action-title {
+                font-family: Poppins-Medium;
+                font-size: rem(30px);
+            }
+            .call-to-action-subtitle {
+                font-family: Poppins-SemiBold;
+                font-size: rem(20px);
+            }
+            .btn-landing {
+                @include custom-btn;
+                width: 90%;
+                height: 50px;
+                font-size: rem(20px);
+                font-family: Poppins-SemiBold;
+                margin-top: 10px;
+                &.demo {
+                    margin-top: 20px;
+                    background-color: transparent;
+                    border: 1px solid $clr-twitter;
+                    color: $clr-gray1;
+                }
+            }
+        }
+    }
+    footer {
+        margin: 0;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        background: darken(white, 10%);
+        // border-radius: 30px;
+    }
+}

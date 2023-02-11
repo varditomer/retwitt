@@ -6,7 +6,7 @@ export function NavLinks() {
     return (
         <ul className='nav-list' role='list'>
             <li>
-                <NavLink className='nav' to='/'>
+                <NavLink className='nav' to='/home'>
                     <SvgIcon iconName="home" wrapperStyle="icon" svgProp={{ stroke: "#828282", fill: "#828282" }} />
                     <span>Home</span>
                 </NavLink>

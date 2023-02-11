@@ -16,30 +16,55 @@
                 width: 40px;
             }
             .reply-body {
+                position: relative;
                 padding: 12px 12px 20px;
                 background-color: $bgc-input;
                 border-radius: $br-secondary;
                 width: 100%;
-                .user-info {
+                .reply-info-container {
                     @include flex-vertically-center;
-                    gap: 15px;
+                    justify-content: space-between;
 
-                    @include for-mobile-layout {
-                        align-items: flex-start;
-                        flex-direction: column;
-                        gap: 0px;
+                    .reply-info {
+                        @include flex-vertically-center;
+                        gap: 15px;
+                        @include for-mobile-layout {
+                            align-items: flex-start;
+                            flex-direction: column;
+                            gap: 0px;
+                        }
+
+                        .user-name {
+                            cursor: pointer;
+                            font-family: Poppins-Medium;
+                            color: $clr--black;
+                            font-size: rem(14px);
+                        }
+                        .reply-time {
+                            font-family: NotoSans-Medium;
+                            font-size: rem(12px);
+                            color: $clr-gray4;
+                        }
                     }
 
-                    .user-name {
+                    .options-container {
+                        @media (hover: hover) {
+                            visibility: hidden;
+                        }
+                        // position: unset;
+                        // position: absolute;
+                        // right: 16px;
+                        // top: 10px;
                         cursor: pointer;
-                        font-family: Poppins-Medium;
-                        color: $clr--black;
-                        font-size: rem(14px);
+                        @include hover-supported {
+                            .options-icon {
+                                @include custom-hover-svg-txt($outlineRadius: 3px);
+                            }
+                        }
                     }
-                    .user-followers {
-                        font-family: NotoSans-Medium;
-                        font-size: rem(12px);
-                        color: $clr-gray4;
+                    .reply-opt-modal {
+                        top: 40px;
+                        right: 0;
                     }
                 }
                 .reply-content {
@@ -100,15 +125,23 @@
             }
         }
         @include hover-supported {
-            &:hover {
-                background-color: darken($bgc-input, 10%);
-                outline: 10px solid darken($bgc-input, 10%);
-                border-radius: $br-primary;
+            .reply-head {
                 .reply-body {
-                    background-color: darken($bgc-input, 10%);
-                    &:hover {
-                        background-color: darken($bgc-input, 13%);
+                    .reply-info-container {
+                        .options-container {
+                            // background-color: black;
+                            visibility: visible;
+                        }
                     }
+                }
+            }
+            background-color: darken($bgc-input, 10%);
+            outline: 10px solid darken($bgc-input, 10%);
+            border-radius: $br-primary;
+            .reply-body {
+                background-color: darken($bgc-input, 10%);
+                &:hover {
+                    background-color: darken($bgc-input, 13%);
                 }
             }
         }
