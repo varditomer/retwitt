@@ -13,7 +13,7 @@ export interface Tweet {
     createdAt: number,
     createdBy: string,
     imgUrl: string,
-    public: boolean,
+    isEveryOneCanReply: boolean,
     retweet: boolean,
     hashtags: string[],
     content: string,

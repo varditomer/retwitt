@@ -12,7 +12,7 @@ import SvgIcon from "../../SvgIcon"
 import { Modal } from "../Modal"
 
 type Props = {
-    loggedinUser: User
+    loggedinUser: User,
 }
 
 export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
@@ -22,6 +22,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     const [isEmojiClicked, setIsEmojiClicked] = useState(false)
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
+    const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
 
     useEffect(() => {
         const emptyTweet = tweetService.getEmptyTweet()
@@ -39,9 +40,22 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setTweetContent(ev.target.value)
-        const tweetToSave = structuredClone(newTweet)
+        const tweetToSave: Tweet = structuredClone(newTweet)
         tweetToSave.content = ev.target.value
         setNewTweet(structuredClone(tweetToSave))
+    }
+
+    const toggleIsEveryOneCanReplySettings = (isEveryOneCanReply: boolean) => {
+        const tweetToSave: Tweet = structuredClone(newTweet)
+        setShowWhoCanReplyModal(false)
+        if(isEveryOneCanReply) {
+            setWhoCanReplyText('Everyone can reply')
+            tweetToSave.isEveryOneCanReply = true
+        } else {
+            setWhoCanReplyText('People you follow')
+            tweetToSave.isEveryOneCanReply = false
+        }
+        setNewTweet(tweetToSave)
     }
 
     const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
@@ -75,17 +89,17 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                         {/* Choose between everyone can reply or only people i follow will can */}
                         <div className="public-settings-signs-wrapper" onClick={toggleModal}>
                             <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                            <span className='public-settings-txt'>Everyone can reply</span>
+                            <span className='public-settings-txt'>{whoCanReplyText}</span>
                         </div>
                         {(showWhoCanReplyModal) ?
                             <Modal modalClass="public-settings-modal">
                                 <h2 className='modal-title'>Who can reply?</h2>
                                 <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
-                                <div className="modal-item">
+                                <div className="modal-item" onClick={()=>toggleIsEveryOneCanReplySettings(true)}>
                                     <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">Everyone</span>
                                 </div>
-                                <div className="modal-item">
+                                <div className="modal-item" onClick={()=>toggleIsEveryOneCanReplySettings(false)}>
                                     <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">People you follow</span>
                                 </div>

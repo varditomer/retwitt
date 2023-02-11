@@ -60,7 +60,7 @@ function getEmptyTweet(): Tweet {
         createdAt: Date.now(),
         createdBy: userService.getLoggedinUser()._id,
         imgUrl: '',
-        public: true,
+        isEveryOneCanReply: true,
         retweet: false,
         hashtags: [],
         content: '',

@@ -23,11 +23,9 @@ const App: React.FC = () => {
 
   const loggedinUser = useSelector((state: UserState) => state.userModule.loggedinUser)
 
-  // if (!loggedinUser) return <div>Loading...</div>
   return (
     <section className='main-app'>
       {loggedinUser ? <AppHeader loggedinUser={loggedinUser} /> : ''}
-      {/* <AppHeader loggedinUser={loggedinUser} /> */}
       <Routes>
         {routes.map(route => {
           if (route.children) {
@@ -39,7 +37,6 @@ const App: React.FC = () => {
         })}
       </Routes>
       {loggedinUser ? <Footer /> : ''}
-      {/* <Footer /> */}
     </section>
   )
 }

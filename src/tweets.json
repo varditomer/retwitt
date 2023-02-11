@@ -4,7 +4,7 @@
         "createdAt": 1674975957,
         "createdBy":  "u103",
         "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257357/map_notebook_wxpbb4.jpg",
-        "public": true,
+        "isEveryOneCanReply": true,
         "retweet": false,
         "hashtags": [
             "JS",
@@ -51,7 +51,7 @@
         "createdAt": 1674975957,
         "createdBy": "u102",
         "imgUrl": "https://res.cloudinary.com/retwitt/image/upload/v1675257386/canyon_tree_uukcrm.jpg",
-        "public": true,
+        "isEveryOneCanReply": false,
         "retweet": false,
         "hashtags": [
             "JS",
@@ -76,7 +76,7 @@
         "createdAt": 1674975957,
         "createdBy": "u102",
         "imgUrl": "",
-        "public": false,
+        "isEveryOneCanReply": true,
         "retweet": false,
         "hashtags": [
             "JS",
@@ -98,7 +98,7 @@
         "createdAt": 1674975957,
         "createdBy": "u101",
         "imgUrl": "",
-        "public": false,
+        "isEveryOneCanReply": false,
         "retweet": false,
         "hashtags": [
             "JS",
@@ -120,7 +120,7 @@
         "createdAt": 1674975957,
         "createdBy": "u101",
         "imgUrl": "https://picsum.photos/200/300/?random",
-        "public": false,
+        "isEveryOneCanReply": false,
         "retweet": false,
         "hashtags": [
             "JS",

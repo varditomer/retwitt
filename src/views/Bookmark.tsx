@@ -46,6 +46,7 @@ export const Bookmark: React.FC = () => {
 
   }, [loggedinUser, loggedinUser?.savedTweets, tweets])
 
+  if (!loggedinUser) return <div>Loading...</div>
 
   return (
     <section className="bookmark page">

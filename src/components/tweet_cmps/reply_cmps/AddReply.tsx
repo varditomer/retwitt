@@ -9,11 +9,13 @@ type Props = {
     tweetToEdit: Tweet,
     loggedinUser: User,
     childInputRef: React.RefObject<HTMLInputElement>,
-    onUpdateTweet: Function
+    onUpdateTweet: Function,
+    tweetCreatedByUser: User
+
 }
 
 
-export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInputRef, onUpdateTweet }) => {
+export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInputRef, onUpdateTweet, tweetCreatedByUser }) => {
 
     const [newReply, setNewReply] = useState<null | Reply>(null)
     const [replyContent, setReplyContent] = useState<string>('')
@@ -38,6 +40,7 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
     const onAddReply = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         if (!replyContent.length || !tweetToEdit) return
+        if (!tweetToEdit.isEveryOneCanReply && !tweetCreatedByUser.follows.includes(loggedinUser._id) && tweetToEdit.createdBy !== loggedinUser._id) return
         const tweetToSave = structuredClone(tweetToEdit)
 
         const replyToSave = structuredClone(newReply)
@@ -50,10 +53,16 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
     }
 
     return (
-        <form className="add-reply" onSubmit={onAddReply}>
-            <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
-            <input ref={childInputRef} onChange={handleChange} type="text" placeholder='Tweet your reply' className="reply-input" value={replyContent} />
-            <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
-        </form>
+        <>
+            {(!tweetToEdit.isEveryOneCanReply && !tweetCreatedByUser.follows.includes(loggedinUser._id) && tweetToEdit.createdBy !== loggedinUser._id) ?
+                <p className="bun-to-reply-msg">* User has set the replies only for people he follows.</p>
+                :
+                <form className="add-reply" onSubmit={onAddReply}>
+                    <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                    <input ref={childInputRef} onChange={handleChange} type="text" placeholder='Tweet your reply' className="reply-input" value={replyContent} />
+                    <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
+                </form>
+            }
+        </>
     )
 }
