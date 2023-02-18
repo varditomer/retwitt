@@ -12,6 +12,9 @@ import { Likes } from './components/general_cmps/Likes'
 import { Top } from './components/general_cmps/Top'
 import { People } from './components/general_cmps/People'
 import { LandingPage } from './views/LandingPage'
+import { LoginSignup } from './views/LoginSignup'
+import { Login } from './components/login-signup_cmps/Login'
+import { Signup } from './components/login-signup_cmps/Signup'
 
 
 
@@ -22,10 +25,20 @@ const routes = [
         path: "/",
         component: <LandingPage />,
     },
-    // {
-    //     path: "/",
-    //     component: <Home />,
-    // },
+    {
+        path: "/loginsignup",
+        component: <LoginSignup />,
+        children: [
+            {
+                path: "/loginsignup/login",
+                component: <Login />,
+            },
+            {
+                path: "/loginsignup/signup",
+                component: <Signup />,
+            },
+        ]
+    },
     {
         path: "/home",
         component: <Home />,

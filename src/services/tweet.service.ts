@@ -1,64 +1,40 @@
-import tweetsJson from '../tweets.json'
-import { Reply, Tweet } from '../interfaces/tweet.interface'
-import { storageService } from './localStorage.service'
-import { utilService } from './util.service'
-import { userService } from './user.service'
+import { Tweet } from "../interfaces/tweet.interface"
+import { httpService } from "./http.service"
+import { userService } from "./user.service"
 
-const TWEETS_STORAGE_KEY = 'tweets'
-let _gTweets: Tweet[] = _loadTweets()
+import { utilService } from "./util.service"
+
+const STORAGE_KEY = 'tweet'
 
 export const tweetService = {
     query,
-    getTweetById,
-    saveTweet,
-    removeTweet,
-    getEmptyTweet,
-    getEmptyReply
+    getById,
+    save,
+    getEmptyTweet
 }
 
-
-function query(): Tweet[] {
-    return structuredClone(_gTweets)
+async function query() {
+    const tweets = httpService.get(STORAGE_KEY)
+    return tweets
 }
 
-function getTweetById(tweetId: string): Tweet | null {
-    const tweet = _gTweets.find(tweet => tweet._id === tweetId) || null
-    if (!tweet) return null
-    return JSON.parse(JSON.stringify(tweet))
+function getById(tweetId: string) {
+    return httpService.delete(`tweet/${tweetId}`)
 }
 
-function saveTweet(tweet: Tweet) {
-    if (!tweet._id) {
-        tweet._id = utilService.makeId()
-        _gTweets.unshift(tweet)
-    } else {
-        const idx = _gTweets.findIndex(storedTweet => storedTweet._id === tweet._id)
-        _gTweets.splice(idx, 1, tweet)
+async function save(tweet: Tweet) {
+    let savedTweet: Tweet
+    if(tweet._id) savedTweet = await httpService.put(`tweet/${tweet._id}`, tweet)
+    else {
+        savedTweet = await httpService.post('tweet', tweet)
     }
-    storageService.saveToStorage(TWEETS_STORAGE_KEY, _gTweets)
-    return Promise.resolve(tweet)
-}
-
-function removeTweet(tweetId: string) {
-    const idx = _gTweets.findIndex(storedTweet => storedTweet._id === tweetId)
-    if (idx < 0) return
-    _gTweets.splice(idx, 1)
-    storageService.saveToStorage(TWEETS_STORAGE_KEY, _gTweets)
-}
-
-function _loadTweets(): Tweet[] {
-    let tweets = storageService.loadFromStorage(TWEETS_STORAGE_KEY)
-    if (!tweets) {
-        tweets = tweetsJson
-        storageService.saveToStorage(TWEETS_STORAGE_KEY, tweets)
-    }
-    return tweets as Tweet[]
+    return savedTweet
 }
 
 function getEmptyTweet(): Tweet {
     return {
         createdAt: Date.now(),
-        createdBy: userService.getLoggedinUser()._id,
+        createdBy: userService.getLoggedinUser()!._id,
         imgUrl: '',
         isEveryOneCanReply: true,
         retweet: false,
@@ -69,15 +45,4 @@ function getEmptyTweet(): Tweet {
         savedBy: [],
         likes: [],
     } as Tweet
-}
-
-function getEmptyReply(): Reply {
-    return {
-        _id: utilService.makeId(),
-        createdAt: Date.now(),
-        createdBy: userService.getLoggedinUser()._id,
-        content: '',
-        imgUrl: '',
-        likes: [],
-    }
 }

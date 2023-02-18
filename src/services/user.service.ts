@@ -1,82 +1,85 @@
-import usersJson from '../users.json'
-import { User } from "../interfaces/user.interface";
-import { storageService } from './localStorage.service';
-import { utilService } from './util.service';
+import { User, UserCredentials } from "../interfaces/user.interface"
+import { httpService } from "./http.service"
+// import { localStorageService } from './localStorage.service'
+import { sessionStorageService } from './sessionStorage.service'
 
-const STORAGE_KEY_USERS = 'users'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
+const STORAGE_KEY_USER = 'user'
 
-let _gUsers = _loadUsers()
 let _gLoggedinUser = _loadLoggedinUser()
 
+
 export const userService = {
-    query,
-    getUserById: getById,
-    saveUser,
-    removeUser,
+    getUsers,
+    update,
+    remove,
+    signup,
+    login,
+    logout,
     getLoggedinUser,
     setLoggedinUser,
-    removeLoggedinUser,
+    getEmptyUserCredentials,
 }
 
-function query(): User[] {
-    return structuredClone(_gUsers)
+async function getUsers() {
+    const users: User[] = await httpService.get(STORAGE_KEY_USER)
+    return users
 }
 
-function getById(userId: string): User | null {
-    const user = _gUsers.find(user => user._id === userId) || null
-    if (!user) return null
-    return structuredClone(user)
+async function update(user: User) {
+    const updatedUser: User = await httpService.put(`user/${user._id}`)
+    return updatedUser
 }
 
-function saveUser(user: User) {
-    if (!user._id) {
-        user._id = utilService.makeId()
-        _gUsers.push(user)
-    } else {
-        const idx = _gUsers.findIndex(storedUser => storedUser._id === user._id)
-        _gUsers.splice(idx, 1, user)
-    }
-    storageService.saveToStorage(STORAGE_KEY_USERS, _gUsers)
+async function remove(userId: string) {
+    return await httpService.delete(`user/${userId}`)
 }
 
-function removeUser(userId: string): string | null {
-    const idx = _gUsers.findIndex(storedUser => storedUser._id === userId)
-    if (idx < 0) return null
-    _gUsers.splice(idx, 1)
-    storageService.saveToStorage(STORAGE_KEY_USERS, _gUsers)
-    return userId
-}
-
-function getLoggedinUser(): User {
-    return structuredClone(_gLoggedinUser)
-}
-
-function setLoggedinUser(user: User): User {
-    _gLoggedinUser = structuredClone(user)
-    storageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, _gLoggedinUser)
+async function signup(credentials: UserCredentials) {
+    const user: User = await httpService.post('auth/signup', credentials)
+    // setLoggedinUser(user)
     return user
 }
 
-function removeLoggedinUser() {
-    storageService.clearStorage()
-}
-
-function _loadUsers(): User[] {
-    let users = storageService.loadFromStorage(STORAGE_KEY_USERS)
-    if (!users) {
-        users = usersJson
-        storageService.saveToStorage(STORAGE_KEY_USERS, users)
+async function login(userCred: any) {
+    const user = await httpService.post('auth/login', userCred)
+    console.log(`user:`, user)
+    if (user) {
+        // setLoggedinUser(user)
+        return user
+    } else {
+        console.log(`blabla:`,)
     }
-    return users as User[]
 }
 
-function _loadLoggedinUser(): User | null{
-    let loggedinUser = storageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
-    // if (!loggedinUser) {
-    //     loggedinUser = structuredClone(_gUsers[0])
-    //     storageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, loggedinUser)
-    // }
-    // return loggedinUser as User
+async function logout() {
+    sessionStorageService.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+    _gLoggedinUser = null
+    return await httpService.post('auth/logout')
+}
+
+function getLoggedinUser(): User | null {
+    const loggedinUser: User | null = structuredClone(_gLoggedinUser)
     return loggedinUser
+}
+
+function setLoggedinUser(user: User) {
+    sessionStorageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    _gLoggedinUser = user
+}
+
+function getEmptyUserCredentials(): UserCredentials {
+    return {
+        username: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+    }
+}
+
+function _loadLoggedinUser(): User | null {
+    const user: User | null = sessionStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
+    console.log(`user:`, user)
+    return user
+
 }

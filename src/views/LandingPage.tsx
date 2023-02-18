@@ -59,7 +59,7 @@ export const LandingPage: React.FC = () => {
                         <h2 className="call-to-action-subtitle">
                             Join ReTwitt today.
                         </h2>
-                        <button className="btn-landing">Login</button>
+                        <button className="btn-landing" onClick={()=>navigate('/loginsignup/login')}>Login \ Signup</button>
                         <button className="btn-landing demo" onClick={onStartDemo}>Start Demo</button>
                     </div>
                 </div>

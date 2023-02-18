@@ -6,7 +6,7 @@ import { ThunkDispatch } from "redux-thunk"
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
-import { tweetService } from "../../services/tweet.service"
+import { tweetService } from "../../services/tweet.service.local"
 import { addTweet } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
 import { Modal } from "../Modal"
@@ -39,6 +39,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     }
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        if (!newTweet) return
         setTweetContent(ev.target.value)
         const tweetToSave: Tweet = structuredClone(newTweet)
         tweetToSave.content = ev.target.value
@@ -46,6 +47,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     }
 
     const toggleIsEveryOneCanReplySettings = (isEveryOneCanReply: boolean) => {
+        if (!newTweet) return
         const tweetToSave: Tweet = structuredClone(newTweet)
         setShowWhoCanReplyModal(false)
         if(isEveryOneCanReply) {
@@ -60,6 +62,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
 
     const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
+        if (!newTweet) return
 
         const tweetToSave = structuredClone(newTweet)
         dispatch(addTweet(tweetToSave))

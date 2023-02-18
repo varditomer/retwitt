@@ -63,6 +63,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     }
 
     const toggleBookmarkTweet = () => {
+        if(!tweet._id) return
         const userToUpdate: User = structuredClone(loggedinUser)
         const tweetIdx = loggedinUser.savedTweets.findIndex(tweetId => tweetId === tweet._id)
         if (tweetIdx !== -1) userToUpdate.savedTweets.splice(tweetIdx, 1)

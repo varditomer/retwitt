@@ -40,7 +40,7 @@ export const UserDetails: React.FC<Props> = () => {
         const selectedUserTweets = tweets.filter(tweet => tweet.createdBy === user._id)
         setUserTweets(selectedUserTweets)
 
-        const selectedUserLikedTweets = tweets.filter(tweet => tweet.likes.includes(user._id))
+        const selectedUserLikedTweets = tweets.filter(tweet => tweet.likes.includes(user._id!))
         setUserLikedTweets(selectedUserLikedTweets)
 
         const tweetsToFilter: Tweet[] = structuredClone(tweets)
@@ -64,7 +64,7 @@ export const UserDetails: React.FC<Props> = () => {
         const userToUpdate: User = structuredClone(loggedinUser)
         const idx = loggedinUser.follows.findIndex(followedUserId => followedUserId === user._id)
         if (idx !== -1) userToUpdate.follows.splice(idx, 1)
-        else userToUpdate.follows.push(user._id)
+        else userToUpdate.follows.push(user._id!)
         dispatch(updateUser(userToUpdate))
         dispatch(setLoggedinUser(userToUpdate))
     }
@@ -86,8 +86,8 @@ export const UserDetails: React.FC<Props> = () => {
                             </div>
                             <div className="btn-container">
                                 <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
-                                    <SvgIcon iconName={loggedinUser.follows.includes(user?._id) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                                    {loggedinUser.follows.includes(user?._id) ?
+                                    <SvgIcon iconName={loggedinUser.follows.includes(user?._id!) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                                    {loggedinUser.follows.includes(user?._id!) ?
                                         <span>Unfollow</span>
                                         :
                                         <span>Follow</span>

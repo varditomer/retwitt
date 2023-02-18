@@ -1,3 +1,4 @@
+import { FormEventHandler } from "react";
 import { TWEET_STATE } from "../store/reducers/tweet.reducer";
 import { USER_STATE } from "../store/reducers/user.reducer";
 import { Tweet } from "./tweet.interface";
@@ -17,10 +18,14 @@ export interface INITIAL_STATE {
     loggedinUser?: User
 }
 
-export interface ReTwittContext {
+export interface UserDetailsContext {
     tweetsToShow: Tweet[],
     loggedinUser: User,
     users: User[],
     userLikedTweets?: Tweet[],
     userRepliedTweets?: Tweet[]
-  }
+}
+export interface LoginSignupContext {
+    handleRef: () => void,
+    navigateTo: (path: string) => void
+}

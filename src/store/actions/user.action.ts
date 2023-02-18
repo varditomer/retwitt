@@ -1,10 +1,11 @@
-import { User } from "../../interfaces/user.interface"
+import { User, UserCredentials } from "../../interfaces/user.interface"
 import { userService } from "../../services/user.service"
 
 export function loadUsers() {
     return async (dispatch: any) => {
         try {
-            const users = userService.query()
+            const users = await userService.getUsers()
+            console.log(`users:`, users)
             dispatch({ type: 'SET_USERS', payload: users })
         } catch (err) {
             console.log(`err:`, err)
@@ -23,22 +24,52 @@ export function loadLoggedinUser() {
     }
 }
 
-export function setLoggedinUser(loggedinUser: User) {
+export function signup(credentials: UserCredentials) {
     return async (dispatch: any) => {
         try {
-            userService.setLoggedinUser(loggedinUser)
-            dispatch({ type: 'SET_LOGGEDIN_USER', payload: loggedinUser })
+            const user = await userService.signup(credentials)
+            dispatch({ type: 'ADD_USER', payload: user })
+            userService.setLoggedinUser(user)
+            dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
+        } catch (err) {
+            console.log(`err:`, err)
+            throw err
+        }
+    }
+}
+
+export function login(credentials: UserCredentials) {
+    return async (dispatch: any) => {
+        try {
+            console.log(`login in backend:`,)
+            const user = await userService.login(credentials)
+            console.log(`user:`, user)
+            setLoggedinUser(user)
+        } catch (err) {
+            console.log(`err:`, err)
+            throw err
+        }
+    }
+}
+
+export function logout() {
+    return (dispatch: any) => {
+        try {
+            userService.logout()
+            dispatch({ type: 'REMOVE_LOGGEDIN_USER' })
+            
         } catch (err) {
             console.log(`err:`, err)
         }
     }
 }
 
-export function removeLoggedinUser() {
-    return async (dispatch: any) => {
+export function setLoggedinUser(user: User) {
+    return (dispatch: any) => {
         try {
-            userService.removeLoggedinUser()
-            dispatch({ type: 'REMOVE_LOGGEDIN_USER'})
+            console.log(`user:`, user)
+            userService.setLoggedinUser(user)
+            dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
         } catch (err) {
             console.log(`err:`, err)
         }
@@ -48,7 +79,7 @@ export function removeLoggedinUser() {
 export function updateUser(user: User) {
     return async (dispatch: any) => {
         try {
-            userService.saveUser(user)
+            userService.update(user)
             dispatch({ type: 'UPDATE_USER', payload: user })
         } catch (err) {
             console.log(`err:`, err)

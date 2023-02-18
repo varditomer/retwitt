@@ -1,0 +1,77 @@
+.login-signup {
+    position: relative;
+    max-width: calc(745px + 306px + 20px);
+    margin-inline: auto;
+    width: 100%;
+    padding-top: 20px;
+    .nav-links {
+        font-size: rem(30px);
+        font-family: Poppins-Medium;
+        color: $clr-gray2;
+        text-align: center;
+        margin-bottom: 30px;
+        .nav-links-list {
+            @include flex-vertically-center;
+            justify-content: center;
+            gap: 10px;
+            .active {
+                text-decoration: underline;
+                color: $clr-twitter;
+            }
+        }
+    }
+    .call-to-action {
+        font-family: Poppins-Medium;
+        font-size: rem(20px);
+        color: $clr-gray2;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 10px;
+        .emphasized {
+            color: $clr-twitter;
+        }
+
+    }
+    .back {
+        @include custom-btn;
+        position: absolute;
+        top: 20px;
+        right: 0;
+    }
+    form {
+        width: 100%;
+        display: grid;
+        gap: 20px;
+        // align-items: center;
+        // justify-content: center;
+        label {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            font-family: NotoSans-SemiBold;
+            align-items: center;
+            input {
+                flex-grow: 1;
+                background-color: $bgc-input;
+                border-radius: $br-secondary;
+                border: 1px solid $clr-gray7;
+                padding-inline-start: 12px;
+                height: 40px;
+                &::placeholder {
+                    color: $clr-gray4;
+                }
+                &:focus {
+                    outline-color: $clr-twitter;
+                }
+
+            }
+        }
+        .btn-submit {
+            @include custom-btn;
+            width: 50%;
+            height: 40px;
+            justify-self: end;
+        }
+    }
+}

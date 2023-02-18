@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router";
-import { ReTwittContext } from "../../interfaces/state.interface";
+
+import { UserDetailsContext } from "../../interfaces/state.interface";
 import { User } from "../../interfaces/user.interface";
-import { TweetList } from "../tweet_cmps/TweetList";
+
 import { WhoToFollowList } from "../who-to-follow_cmps/WhoToFollowList";
 
 
 export const People: React.FC = () => {
 
-    const { loggedinUser, users }: ReTwittContext = useOutletContext()
+    const { loggedinUser, users }: UserDetailsContext = useOutletContext()
     const [usersToExplore, setUsersToExplore] = useState<User[] | null>(null)
 
 
     useEffect(() => {
         if (!users.length || !loggedinUser) return
 
-        const currUsersToExplore = users.filter(user => ((!loggedinUser?.follows.includes(user._id)) && (!user.isGuest)))
+        const currUsersToExplore = users.filter(user => ((!loggedinUser?.follows.includes(user._id!)) && (!user.isGuest)))
         setUsersToExplore(currUsersToExplore)
 
     }, [users, loggedinUser])

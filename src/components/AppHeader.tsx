@@ -1,11 +1,15 @@
+// React / Redux:
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+// Interfaces:
 import { INITIAL_STATE } from '../interfaces/state.interface';
 import { User } from '../interfaces/user.interface';
-import { removeLoggedinUser } from '../store/actions/user.action';
+// Actions:
+import { logout } from '../store/actions/user.action';
+// Components & Hooks:
 import SvgIcon from '../SvgIcon';
 import { Modal } from './Modal';
 import { NavLinks } from './NavLinks';
@@ -22,7 +26,6 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
     const navigate = useNavigate()
 
     const navigateTo = () => {
-        console.log(`1:`,)
         setShowAccountModal(false)
         navigate(`/home/${loggedinUser._id}/tweets`)
     }
@@ -32,8 +35,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
     }
 
     const onLogout = () => {
-        console.log(`1:`,)
-        dispatch(removeLoggedinUser())
+        dispatch(logout())
         navigate('/')
     }
 

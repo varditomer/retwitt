@@ -1,5 +1,5 @@
 import { Tweet } from "../../interfaces/tweet.interface";
-import { tweetService } from "../../services/tweet.service";
+import { tweetService } from "../../services/tweet.service.local";
 
 export function loadTweets() {
     return async (dispatch: any) => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Reply, Tweet } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
-import { tweetService } from "../../../services/tweet.service"
+import { tweetService } from "../../../services/tweet.service.local"
 import SvgIcon from "../../../SvgIcon"
 
 
@@ -31,6 +31,7 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
     }, [newReply])
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        if (!newReply) return
         setReplyContent(ev.target.value)
         const replyToSave = structuredClone(newReply)
         replyToSave.content = ev.target.value
@@ -39,7 +40,7 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
 
     const onAddReply = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
-        if (!replyContent.length || !tweetToEdit) return
+        if (!replyContent.length || !tweetToEdit || !newReply) return
         if (!tweetToEdit.isEveryOneCanReply && !tweetCreatedByUser.follows.includes(loggedinUser._id) && tweetToEdit.createdBy !== loggedinUser._id) return
         const tweetToSave = structuredClone(tweetToEdit)
 
@@ -55,7 +56,7 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
     return (
         <>
             {(!tweetToEdit.isEveryOneCanReply && !tweetCreatedByUser.follows.includes(loggedinUser._id) && tweetToEdit.createdBy !== loggedinUser._id) ?
-                <p className="bun-to-reply-msg">* User has set the replies only for people he follows.</p>
+                <p className="bun-to-reply-msg">* User has set this tweet's replies only for people he follows.</p>
                 :
                 <form className="add-reply" onSubmit={onAddReply}>
                     <img src={loggedinUser.profileImg} alt="user image" className="user-img" />

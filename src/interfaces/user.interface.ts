@@ -1,9 +1,6 @@
-export interface User {
+export interface User extends UserCredentials{
     _id: string,
     createdAt: number,
-    firstName: string,
-    lastName: string,
-    userName: string,
     about: string,
     profileImg: string,
     coverImg: string,
@@ -13,9 +10,9 @@ export interface User {
     isGuest: boolean
 }
 
-export interface MiniUser {
-    _id: string,
+export interface UserCredentials {
+    username: string,
+    password?: string,
     firstName: string,
     lastName: string,
-    profileImg: string,
 }

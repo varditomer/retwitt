@@ -42,11 +42,6 @@ export function userReducer(state = USER_STATE, action: Action) {
                 ...state,
                 loggedinUser: action.payload
             }
-        case 'UPDATE_LOGGEDIN_USER':
-            return {
-                ...state,
-                loggedinUser: action.payload
-            }
         case 'REMOVE_LOGGEDIN_USER':
             return {
                 ...state,

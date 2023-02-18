@@ -1,9 +1,9 @@
 import { useLocation, useOutletContext } from "react-router";
-import { ReTwittContext } from "../../interfaces/state.interface";
+import { UserDetailsContext } from "../../interfaces/state.interface";
 import { TweetList } from "../tweet_cmps/TweetList";
 
 export const Media: React.FC = () => { //only tweets with media
-    const { tweetsToShow, loggedinUser, users }: ReTwittContext = useOutletContext()
+    const { tweetsToShow, loggedinUser, users }: UserDetailsContext = useOutletContext()
 
     const mediaTweets = tweetsToShow?.filter(tweet => tweet.imgUrl !== "")
     const { pathname } = useLocation()
