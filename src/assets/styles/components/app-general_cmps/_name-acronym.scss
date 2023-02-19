@@ -1,0 +1,16 @@
+.acronym {
+    @include flex-vertically-center;
+    justify-content: center;
+    padding: 8px;
+    aspect-ratio: 1/1;
+    color: darken($clr--white, 4%);
+    border-radius: 50%;
+    font-family: Poppins-SemiBold;
+    box-shadow: rgb(0 0 0 / 3%) 0px 0px 2px inset;
+    cursor: pointer;
+    background-color: #004d40;
+    line-height: rem(16px);
+    @include hover-supported {
+        background-color: darken(#004d40, 5%);
+    }
+}

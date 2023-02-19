@@ -5,11 +5,13 @@
     }
     .new-tweet {
         gap: 7px;
+        .acronym {
+        }
         .tweet-input {
             line-height: inherit;
             border: none;
             height: 40px;
-            width: 100%;
+            flex-grow: 1;
             padding-inline: 5px;
             color: $clr-gray1;
             border-radius: $br-secondary;

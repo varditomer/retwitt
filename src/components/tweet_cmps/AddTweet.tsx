@@ -10,6 +10,7 @@ import { tweetService } from "../../services/tweet.service.local"
 import { addTweet } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
 import { Modal } from "../Modal"
+import { NameAcronym } from "../NameAcronym"
 
 type Props = {
     loggedinUser: User,
@@ -50,7 +51,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
         if (!newTweet) return
         const tweetToSave: Tweet = structuredClone(newTweet)
         setShowWhoCanReplyModal(false)
-        if(isEveryOneCanReply) {
+        if (isEveryOneCanReply) {
             setWhoCanReplyText('Everyone can reply')
             tweetToSave.isEveryOneCanReply = true
         } else {
@@ -75,7 +76,10 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
         <form className="add-tweet card" onSubmit={onAddTweet}>
             <h2 className='card-title'>Tweet something</h2>
             <div className="card-header new-tweet">
-                <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                {loggedinUser.profileImg ?
+                    <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
+                    <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
+                }
                 <input onChange={handleChange} className="tweet-input" placeholder="What’s happening?" value={tweetContent} />
             </div>
             <div className="control-btns">
@@ -98,11 +102,11 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                             <Modal modalClass="public-settings-modal">
                                 <h2 className='modal-title'>Who can reply?</h2>
                                 <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
-                                <div className="modal-item" onClick={()=>toggleIsEveryOneCanReplySettings(true)}>
+                                <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(true)}>
                                     <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">Everyone</span>
                                 </div>
-                                <div className="modal-item" onClick={()=>toggleIsEveryOneCanReplySettings(false)}>
+                                <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(false)}>
                                     <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">People you follow</span>
                                 </div>

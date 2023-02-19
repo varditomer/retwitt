@@ -35,10 +35,10 @@
         .account-icons-container {
             @include flex-vertically-center;
             cursor: pointer;
-            > *:not(.user-img, .account-modal) {
+            > *:not(.user-img, .account-modal, .acronym) {
                 display: none;
             }
-            .user-img {
+            .user-img, .acronym {
                 height: 32px;
                 width: 32px;
             }

@@ -12,6 +12,7 @@ import { logout } from '../store/actions/user.action';
 // Components & Hooks:
 import SvgIcon from '../SvgIcon';
 import { Modal } from './Modal';
+import { NameAcronym } from './NameAcronym';
 import { NavLinks } from './NavLinks';
 
 
@@ -38,6 +39,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
         dispatch(logout())
         navigate('/')
     }
+    if (!loggedinUser) return <div>Loading...</div>
 
     return (
         <header className='main-header'>
@@ -51,7 +53,11 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                     <img src="" alt="" className="user-img" />
                     <div className='account'>
                         <div className="account-icons-container" onClick={toggleModal}>
-                            <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                            {loggedinUser.profileImg ?
+                                <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
+                                <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
+                            }
+                            {/* <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> */}
                             <span className="user-name">{loggedinUser.firstName} {loggedinUser.lastName}</span>
                             <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
                         </div>

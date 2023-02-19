@@ -1,7 +1,11 @@
+import { User, UserCredentials } from "../interfaces/user.interface";
+
 export const utilService = {
     makeId,
-    timeStampConverter
+    timeStampConverter,
+    fullNameAcronymConverter
 }
+
 function makeId(length = 5): string {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -37,6 +41,10 @@ function timeStampConverter(timestamp: number) {
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
 
     return (`${day} ${month} at ${formattedHours}:${formattedMinutes}`)
+}
 
-
+function fullNameAcronymConverter( {firstName, lastName}: Partial<UserCredentials>): string {
+    if(!firstName&&!lastName) return ''
+    else if (!firstName&&lastName) return lastName.charAt(0).toUpperCase()
+    else return firstName!.charAt(0).toUpperCase() + lastName!.charAt(0).toUpperCase()
 }
