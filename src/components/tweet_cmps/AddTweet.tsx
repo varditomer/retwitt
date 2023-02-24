@@ -17,6 +17,7 @@ type Props = {
 }
 
 export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
+
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
     const [showWhoCanReplyModal, setShowWhoCanReplyModal] = useState(false)
@@ -24,7 +25,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
-
+    
     useEffect(() => {
         const emptyTweet = tweetService.getEmptyTweet()
         setNewTweet(emptyTweet)
@@ -71,7 +72,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
         const emptyTweet = tweetService.getEmptyTweet()
         setNewTweet(emptyTweet)
     }
-
+    if (!loggedinUser) return <div>Loading...</div>
     return (
         <form className="add-tweet card" onSubmit={onAddTweet}>
             <h2 className='card-title'>Tweet something</h2>

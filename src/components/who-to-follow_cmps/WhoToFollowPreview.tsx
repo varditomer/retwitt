@@ -1,11 +1,12 @@
 import { MouseEvent } from "react"
 import { User } from "../../interfaces/user.interface"
 import SvgIcon from "../../SvgIcon"
+import { NameAcronym } from "../NameAcronym"
 
 type Props = {
     user: User,
     onNavigateTo: Function,
-    followUser: Function 
+    followUser: Function
 }
 
 export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, followUser }) => {
@@ -18,7 +19,11 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, follow
     return (
         <li className='person-card' onClick={() => onNavigateTo(user)}>
             <div className="card-header">
-                <img className="user-img" src={user.profileImg} alt="user image" />
+                {user.profileImg ?
+                    <img className="user-img" src={user.profileImg} alt="user image" />
+                    :
+                    <NameAcronym firstName={user.firstName} lastName={user.lastName} userId={user._id} />
+                }
                 <div className="user-info">
                     <span className="user-name">{user.firstName} {user.lastName}</span>
                     {(user.followers?.length) ? <span className="sub-info">{user.followers.length} Followers</span> : <span className="sub-info">No followers yet</span>}
@@ -31,7 +36,7 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, follow
             <p className="about">
                 {user.about}
             </p>
-            <img className="cover-img" src={user.coverImg} alt="user cover image" />
+            {user.coverImg && <img className="cover-img" src={user.coverImg} alt="user cover image" />}
         </li>
     )
 

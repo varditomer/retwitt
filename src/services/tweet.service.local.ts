@@ -57,25 +57,26 @@ function _loadTweets(): Tweet[] {
 
 function getEmptyTweet(): Tweet {
     return {
+        _id: '',
         createdAt: Date.now(),
-        createdBy: '',
+        createdBy: userServiceLocal.getLoggedinUser()!._id,
         imgUrl: '',
         isEveryOneCanReply: true,
         retweet: false,
         hashtags: [],
         content: '',
         replies: [],
-        reTweeted: [],
+        reTweetedBy: [],
         savedBy: [],
         likes: [],
-    } as Tweet
+    }
 }
 
 function getEmptyReply(): Reply {
     return {
         _id: utilService.makeId(),
         createdAt: Date.now(),
-        createdBy: '',
+        createdBy: userServiceLocal.getLoggedinUser()!._id,
         content: '',
         imgUrl: '',
         likes: [],

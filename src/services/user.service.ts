@@ -37,19 +37,12 @@ async function remove(userId: string) {
 
 async function signup(credentials: UserCredentials) {
     const user: User = await httpService.post('auth/signup', credentials)
-    // setLoggedinUser(user)
     return user
 }
 
 async function login(userCred: any) {
-    const user = await httpService.post('auth/login', userCred)
-    console.log(`user:`, user)
-    if (user) {
-        // setLoggedinUser(user)
-        return user
-    } else {
-        console.log(`blabla:`,)
-    }
+    const user: User = await httpService.post('auth/login', userCred)
+    return user
 }
 
 async function logout() {
@@ -64,7 +57,7 @@ function getLoggedinUser(): User | null {
 }
 
 function setLoggedinUser(user: User) {
-    sessionStorageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    sessionStorageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, user)
     _gLoggedinUser = user
 }
 
@@ -78,8 +71,6 @@ function getEmptyUserCredentials(): UserCredentials {
 }
 
 function _loadLoggedinUser(): User | null {
-    const user: User | null = sessionStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
-    console.log(`user:`, user)
+    const user = sessionStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
     return user
-
 }

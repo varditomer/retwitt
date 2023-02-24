@@ -1,48 +1,68 @@
-import { Tweet } from "../interfaces/tweet.interface"
+
+// Services
 import { httpService } from "./http.service"
 import { userService } from "./user.service"
-
 import { utilService } from "./util.service"
+// Interface
+import { Tweet, Reply } from "../interfaces/tweet.interface"
 
 const STORAGE_KEY = 'tweet'
 
 export const tweetService = {
     query,
     getById,
-    save,
-    getEmptyTweet
+    add,
+    update,
+    remove,
+    getEmptyTweet,
+    getEmptyReply
 }
 
 async function query() {
-    const tweets = httpService.get(STORAGE_KEY)
-    return tweets
+    return httpService.get(STORAGE_KEY)
 }
 
 function getById(tweetId: string) {
-    return httpService.delete(`tweet/${tweetId}`)
+    return httpService.get(`tweet/${tweetId}`)
 }
 
-async function save(tweet: Tweet) {
-    let savedTweet: Tweet
-    if(tweet._id) savedTweet = await httpService.put(`tweet/${tweet._id}`, tweet)
-    else {
-        savedTweet = await httpService.post('tweet', tweet)
-    }
-    return savedTweet
+async function add(tweetToAdd: Tweet) {
+    const addedTweet: Tweet = await httpService.post('tweet', tweetToAdd)
+    return addedTweet
+}
+
+async function update(tweet: Tweet) {
+    const updatedTweet: Tweet = await httpService.put(`tweet/${tweet._id}`, tweet)
+    return updatedTweet
+}
+
+async function remove(tweetId: string) {
+    return await httpService.delete(`tweet/${tweetId}`)
 }
 
 function getEmptyTweet(): Tweet {
     return {
-        createdAt: Date.now(),
         createdBy: userService.getLoggedinUser()!._id,
         imgUrl: '',
         isEveryOneCanReply: true,
         retweet: false,
-        hashtags: [],
         content: '',
+
+        hashtags: [],
         replies: [],
-        reTweeted: [],
+        reTweetedBy: [],
         savedBy: [],
         likes: [],
-    } as Tweet
+    }
+}
+
+function getEmptyReply(): Reply {
+    return {
+        _id: utilService.makeId(),
+        createdAt: Date.now(),
+        createdBy: userService.getLoggedinUser()!._id,
+        content: '',
+        imgUrl: '',
+        likes: [],
+    }
 }

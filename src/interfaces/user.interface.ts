@@ -12,7 +12,7 @@ export interface User extends UserCredentials{
 
 export interface UserCredentials {
     username: string,
-    password?: string,
+    password: string,
     firstName: string,
     lastName: string,
 }

@@ -3,22 +3,22 @@ export interface Reply {
     createdAt: number,
     createdBy: string,
     content: string,
-    imgUrl: string,
+    imgUrl?: string,
     likes: string[],
-
 }
 
 export interface Tweet {
     _id?: string,
-    createdAt: number,
+    createdAt?: number,
     createdBy: string,
-    imgUrl: string,
     isEveryOneCanReply: boolean,
-    retweet: boolean,
-    hashtags: string[],
+    imgUrl: string,
     content: string,
+    retweet: boolean,
+    
+    hashtags: string[],
     replies: Reply[],
-    reTweeted: string[],
+    reTweetedBy: string[],
     savedBy: string[],
     likes: string[],
 }

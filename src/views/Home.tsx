@@ -19,8 +19,7 @@ export const Home: React.FC = () => {
 
     useEffect(() => {
         if (!tweets.length || !loggedinUser) return
-
-        const followsUsersTweets = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy) || tweet.createdBy===loggedinUser._id)
+        const followsUsersTweets = tweets.filter(tweet => loggedinUser?.follows.includes(tweet.createdBy) || tweet.createdBy === loggedinUser._id)
         setTweetsToShow(followsUsersTweets)
 
     }, [tweets, loggedinUser])
@@ -28,24 +27,26 @@ export const Home: React.FC = () => {
     useEffect(() => {
         if (!users.length || !loggedinUser) return
 
-        const currUsersToFollow = users.filter(user => ((!loggedinUser?.follows.includes(user._id)) && (!user.isGuest)))
-        setUsersToFollow(currUsersToFollow)
+        let currUsersToFollow: User[] = []
 
+        currUsersToFollow = users.filter(user => ((!loggedinUser?.follows?.includes(user._id)) && (!user.isGuest) && (user._id !== loggedinUser._id)))
+        setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 
 
-    if (!loggedinUser || !users?.length || !tweetsToShow || !usersToFollow) return <div>Loading...</div>
+    // if (!loggedinUser || !users?.length || !tweetsToShow || !usersToFollow) return <div>Loading...</div>
+    if (!loggedinUser || !users?.length || !usersToFollow) return <div>Loading...</div>
 
     return (
         <section className="home page">
 
             <section className="large-area">
                 <AddTweet loggedinUser={loggedinUser} />
-                <TweetList tweets={tweetsToShow} loggedinUser={loggedinUser} users={users} />
+                {tweetsToShow && <TweetList tweets={tweetsToShow} loggedinUser={loggedinUser} users={users} />}
             </section>
             <div className="small-area">
                 <TrendList />
-                <WhoToFollowList users={usersToFollow} loggedinUser={loggedinUser} />
+                {usersToFollow && <WhoToFollowList users={usersToFollow} loggedinUser={loggedinUser} />}
             </div>
 
         </section>
