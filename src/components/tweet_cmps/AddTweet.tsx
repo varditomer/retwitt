@@ -6,6 +6,7 @@ import { ThunkDispatch } from "redux-thunk"
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
+import { uploadImg } from "../../services/img-upload.service"
 import { tweetService } from "../../services/tweet.service"
 import { addTweet } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
@@ -25,7 +26,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
-    
+
     useEffect(() => {
         const emptyTweet = tweetService.getEmptyTweet()
         setNewTweet(emptyTweet)
@@ -38,6 +39,16 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
 
     const toggleModal = () => {
         setShowWhoCanReplyModal(prevShowWhoCanReplyModal => !prevShowWhoCanReplyModal)
+    }
+
+    const onUploadImg = async (ev: React.ChangeEvent<HTMLInputElement>) => {
+        if (!newTweet) return
+        if (!ev.target.files) return
+        const file = ev.target.files[0]
+        const res = await uploadImg(file)
+        const tweetToSave: Tweet = structuredClone(newTweet)
+        tweetToSave.imgUrl = res.secure_url
+        setNewTweet(structuredClone(tweetToSave))
     }
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +78,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
         if (!newTweet) return
 
         const tweetToSave = structuredClone(newTweet)
+        console.log(`tweetToSave:`, tweetToSave)
         dispatch(addTweet(tweetToSave))
 
         const emptyTweet = tweetService.getEmptyTweet()
@@ -85,7 +97,10 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
             </div>
             <div className="control-btns">
                 <div className="settings">
-                    <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                    <div className="img-upload-container">
+                        <input type="file" onChange={onUploadImg} />
+                        <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                    </div>
                     <div className="add-reaction-container">
                         {/* <div className="add-reaction-container"> */}
                         <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />

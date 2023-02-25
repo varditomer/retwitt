@@ -29,6 +29,22 @@
         .settings {
             @include flex-vertically-center;
             gap: 10px;
+            .img-upload-container {
+                position: relative;
+                @include flex-vertically-center;
+                justify-content: center;
+                input {
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    top: 0;
+                    opacity: 0;
+                    cursor: pointer;
+                    font-size: 0;
+                    // cursor:pointer does not work on input file just because of the default button. 
+                    // Need to remove its appearance via font-size:0.
+                }
+            }
             .public-settings {
                 position: relative;
                 .public-settings-signs-wrapper {
@@ -44,7 +60,8 @@
                     width: 235px;
                 }
             }
-            .img-icon,
+            .img-upload-container,
+            // .img-icon,
             .public-settings-signs-wrapper {
                 cursor: pointer;
                 @include hover-supported {
