@@ -21,7 +21,6 @@ export const Login: React.FC = () => {
         if (!fields) return
         try {
             await dispatch(login(fields))
-            console.log(`12:`, )
             navigateTo('/home')
         } catch(err) {
             console.log(`username or password wrong:`, )

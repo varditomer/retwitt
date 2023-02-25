@@ -8,6 +8,7 @@ export function loadTweets() {
     return async (dispatch: any) => {
         try {
             const tweets = await tweetService.query()
+            console.log(`tweets:`, tweets)
             dispatch({ type: 'SET_TWEETS', payload: tweets })
         } catch (err) {
             console.log(`err:`, err)
@@ -37,12 +38,14 @@ export function addTweet(tweetToAdd: Tweet) {
     }
 }
 
-export function updateTweet(tweetToUpdate: Tweet) {
+export function updateTweet(tweetToUpdate: Tweet, tweetLastState: Tweet) {
     return async (dispatch: any) => {
         try {
-            const tweet = await tweetService.update(tweetToUpdate)
-            dispatch({ type: 'UPDATE_TWEET', payload: tweet })
+            // Optimistic update: 1st updating store, if backend update fail - restore to tweet's last state
+            dispatch({ type: 'UPDATE_TWEET', payload: tweetToUpdate })
+            await tweetService.update(tweetToUpdate)
         } catch (err) {
+            dispatch({ type: 'UPDATE_TWEET', payload: tweetLastState })
             console.log(`err:`, err)
         }
     }

@@ -27,7 +27,7 @@ async function getUsers() {
 }
 
 async function update(user: User) {
-    const updatedUser: User = await httpService.put(`user/${user._id}`)
+    const updatedUser: User = await httpService.put(`user/${user._id}`, user)
     return updatedUser
 }
 

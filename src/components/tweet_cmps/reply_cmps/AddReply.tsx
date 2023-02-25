@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { Reply, Tweet } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
-import { tweetService } from "../../../services/tweet.service.local"
+import { tweetService } from "../../../services/tweet.service"
 import SvgIcon from "../../../SvgIcon"
+import { NameAcronym } from "../../NameAcronym"
 
 
 type Props = {
@@ -59,7 +60,11 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
                 <p className="bun-to-reply-msg">* User has set this tweet's replies only for people he follows.</p>
                 :
                 <form className="add-reply" onSubmit={onAddReply}>
-                    <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                    {loggedinUser.profileImg ?
+                        <img src={loggedinUser.profileImg} alt="user image" className="user-img" />
+                        :
+                        <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
+                    }
                     <input ref={childInputRef} onChange={handleChange} type="text" placeholder='Tweet your reply' className="reply-input" value={replyContent} />
                     <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                 </form>

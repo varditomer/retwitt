@@ -6,7 +6,7 @@ import { ThunkDispatch } from "redux-thunk"
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
-import { tweetService } from "../../services/tweet.service.local"
+import { tweetService } from "../../services/tweet.service"
 import { addTweet } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
 import { Modal } from "../Modal"
@@ -79,7 +79,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
             <div className="card-header new-tweet">
                 {loggedinUser.profileImg ?
                     <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
-                    <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
+                    <NameAcronym className="user-img" firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
                 }
                 <input onChange={handleChange} className="tweet-input" placeholder="What’s happening?" value={tweetContent} />
             </div>

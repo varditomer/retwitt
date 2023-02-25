@@ -5,10 +5,11 @@ import { Reply } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
 import SvgIcon from "../../../SvgIcon"
 import { Modal } from "../../Modal"
+import { NameAcronym } from "../../NameAcronym"
 
 type Props = {
     reply: Reply
-    user: User,
+    replyCreatedByUser: User,
     loggedinUser: User,
     toggleLikeReply: Function,
     removeReply: Function,
@@ -18,7 +19,7 @@ type Props = {
 
 
 
-export const ReplyPreview: React.FC<Props> = ({ reply, user, loggedinUser, toggleLikeReply, removeReply, toggleFollowUser }) => {
+export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, loggedinUser, toggleLikeReply, removeReply, toggleFollowUser }) => {
 
     const convertedTime = useTimestampConverter(reply.createdAt)
 
@@ -31,7 +32,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, user, loggedinUser, toggl
     const navigate = useNavigate()
 
     const navigateTo = () => {
-        navigate(`/home/${user._id}/tweets`)
+        navigate(`/home/${replyCreatedByUser._id}/tweets`)
     }
 
     const isLikeClicked = () => {
@@ -45,7 +46,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, user, loggedinUser, toggl
     }
 
     const onToggleFollowUser = (userId: string) => {
-        if(reply.createdBy===loggedinUser._id) return
+        if (reply.createdBy === loggedinUser._id) return
         setShowReplyOptModal(false)
         toggleFollowUser(userId)
     }
@@ -54,11 +55,15 @@ export const ReplyPreview: React.FC<Props> = ({ reply, user, loggedinUser, toggl
     return (
         <div className="reply">
             <div className="reply-head">
-                <img className="user-img" src={user.profileImg} alt="user image" onClick={() => navigateTo()} />
+                {replyCreatedByUser.profileImg ?
+                    <img className="user-img" src={replyCreatedByUser.profileImg} alt="user image" onClick={() => navigateTo()} />
+                    :
+                    <NameAcronym className="user-img" firstName={replyCreatedByUser.firstName} lastName={replyCreatedByUser.lastName} userId={replyCreatedByUser._id} />
+                }
                 <div className="reply-body">
                     <div className="reply-info-container">
                         <div className="reply-info">
-                            <span className="user-name" onClick={() => navigateTo()}>{user.firstName} {user.lastName}</span>
+                            <span className="user-name" onClick={() => navigateTo()}>{replyCreatedByUser.firstName} {replyCreatedByUser.lastName}</span>
                             <span className="reply-time">{convertedTime}</span>
                         </div>
 

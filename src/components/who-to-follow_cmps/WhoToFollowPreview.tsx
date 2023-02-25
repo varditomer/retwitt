@@ -13,6 +13,7 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, follow
 
     const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation()
+        console.log(`user:`, user)
         followUser(user)
     }
 

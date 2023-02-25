@@ -11,6 +11,7 @@ import { removeTweet, updateTweet } from '../../store/actions/tweet.action'
 import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
 import SvgIcon from '../../SvgIcon'
 import { Modal } from '../Modal'
+import { NameAcronym } from '../NameAcronym'
 import { AddReply } from './reply_cmps/AddReply'
 import { ReplyList } from './reply_cmps/ReplytList'
 
@@ -50,7 +51,8 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     }
 
     const onUpdateTweet = (tweetToUpdate: Tweet) => {
-        dispatch(updateTweet(tweetToUpdate))
+        const tweetLastState: Tweet = structuredClone(tweet)
+        dispatch(updateTweet(tweetToUpdate, tweetLastState))
     }
 
 
@@ -63,7 +65,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     }
 
     const toggleBookmarkTweet = () => {
-        if(!tweet._id) return
+        if (!tweet._id) return
         const userToUpdate: User = structuredClone(loggedinUser)
         const tweetIdx = loggedinUser.savedTweets.findIndex(tweetId => tweetId === tweet._id)
         if (tweetIdx !== -1) userToUpdate.savedTweets.splice(tweetIdx, 1)
@@ -74,7 +76,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         const tweetToUpdate: Tweet = structuredClone(tweet)
         const userIdx = tweetToUpdate.savedBy.findIndex(savedById => savedById === loggedinUser._id)
         if (userIdx !== -1) tweetToUpdate.savedBy.splice(userIdx, 1)
-        else tweetToUpdate.savedBy.push(structuredClone(loggedinUser._id))
+        else tweetToUpdate.savedBy.push(loggedinUser._id)
         onUpdateTweet(tweetToUpdate)
     }
 
@@ -116,7 +118,10 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     return (
         <article className="tweet card">
             <div className="card-header tweet-header">
-                <img className="user-img" src={tweetCreatedByUser?.profileImg} alt="user image" onClick={() => navigateTo()} />
+                {tweetCreatedByUser.profileImg ?
+                    <img className="user-img" src={tweetCreatedByUser.profileImg} alt="user image" onClick={() => navigateTo()} /> :
+                    <NameAcronym firstName={tweetCreatedByUser.firstName} lastName={tweetCreatedByUser.lastName} userId={tweetCreatedByUser._id} />
+                }
                 <div className="user-info">
                     <span className="user-name" onClick={() => navigateTo()}>{tweetCreatedByUser?.firstName} {tweetCreatedByUser?.lastName}</span>
                     <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
@@ -167,11 +172,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             <p className="tweet-txt">
                 {tweet.content}
             </p>
-            {(tweet.imgUrl) ?
-                <img className="tweet-img" src={tweet.imgUrl} alt="" />
-                :
-                ''
-            }
+            {tweet.imgUrl && <img className="tweet-img" src={tweet.imgUrl} alt="" />}
 
             <div className="expose-info">
                 {tweet.likes?.length ? <span> {tweet.likes.length} Likes</span> : ''}

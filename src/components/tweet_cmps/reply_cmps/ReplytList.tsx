@@ -21,7 +21,7 @@ export const ReplyList: React.FC<Props> = ({ replies, repliesCreatedByUsers, log
         return (
             <section className="reply-list">
                 {replies.map((reply: Reply) =>
-                    <ReplyPreview key={reply._id} reply={reply} user={user(reply)} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} removeReply={removeReply} toggleFollowUser={toggleFollowUser} />
+                    <ReplyPreview key={reply._id} reply={reply} replyCreatedByUser={user(reply)} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} removeReply={removeReply} toggleFollowUser={toggleFollowUser} />
                 )}
             </section>
         )

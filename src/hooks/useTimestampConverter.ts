@@ -19,7 +19,7 @@ export const useTimestampConverter = (timestamp: number) => {
         "December",
       ]
   
-      const date = new Date(timestamp * 1000)
+      const date = new Date(timestamp)
       const day = date.getDate()
       const month = months[date.getMonth()]
       const hours = date.getHours()

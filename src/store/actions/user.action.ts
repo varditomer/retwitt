@@ -41,7 +41,6 @@ export function signup(credentials: UserCredentials) {
 export function login(credentials: UserCredentials) {
     return async (dispatch: any) => {
         try {
-            console.log(`credentials:`, credentials)
             const user = await userService.login(credentials)
             userService.setLoggedinUser(user)
             dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })

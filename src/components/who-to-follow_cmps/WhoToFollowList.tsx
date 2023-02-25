@@ -24,9 +24,9 @@ export const WhoToFollowList: React.FC<Props> = ({ users, loggedinUser }) => {
     const followUser = (user: User) => {
         const userToUpdate: User = structuredClone(loggedinUser)
         userToUpdate.follows.push(user._id)
-        
-        document.querySelector("body")?.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 
+        document.querySelector("body")?.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+        console.log(`userToUpdate:`, userToUpdate)
         dispatch(updateUser(userToUpdate))
         dispatch(setLoggedinUser(userToUpdate))
     }

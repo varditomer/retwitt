@@ -13,6 +13,31 @@
         width: 100%;
         object-fit: cover;
         aspect-ratio: 16/9;
+        &.not-set {
+            @include flex-vertically-center;
+            justify-content: center;
+            background-color: $clr-twitter;
+            font-family: NotoSans-Regular;
+            font-size: rem(60px);
+            color: $clr--white;
+            text-shadow: 0px 0px 0 rgb(242,242,242),
+                 -1px 0px 0 rgb(229,229,229),
+                 -2px 0px 0 rgb(216,216,216),
+                 -3px 0px 0 rgb(203,203,203),
+                 -4px 0px 0 rgb(190,190,190),
+                 -5px 0px 0 rgb(177,177,177),
+                 -6px 0px  0 rgb(164,164,164),
+                 -7px 0px 6px rgba(0,0,0,0.12),
+                 -7px 0px 1px rgba(0,0,0,0.5),
+                 0px 0px 6px rgba(0,0,0,.2);
+            .twitter {
+                
+                > * {
+                    height: 100px;
+                    width: 100px;
+                }
+            }
+        }
     }
     .user-profile {
         padding-top: 0;
@@ -56,6 +81,8 @@
                 top: -70px;
                 height: 111px;
                 width: 111px;
+                font-size: rem(60px);
+                font-family: Poppins-SemiBold;
             }
             .user-info-container {
                 display: flex;
@@ -112,7 +139,7 @@
                 }
             }
         }
-        .main-content{
+        .main-content {
             grid-template-columns: 1fr 2fr;
             .small-area {
                 display: flex;

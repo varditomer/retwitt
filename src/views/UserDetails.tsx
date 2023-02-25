@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { NameAcronym } from '../components/NameAcronym';
 import { INITIAL_STATE, TweetState, UserState } from '../interfaces/state.interface';
 import { Tweet } from '../interfaces/tweet.interface';
 import { User } from '../interfaces/user.interface';
@@ -35,7 +36,7 @@ export const UserDetails: React.FC<Props> = () => {
     }, [params.id, users])
 
     useEffect(() => {
-        if (!tweets.length || !user) return
+        if (!tweets || !user) return
 
         const selectedUserTweets = tweets.filter(tweet => tweet.createdBy === user._id)
         setUserTweets(selectedUserTweets)
@@ -73,31 +74,47 @@ export const UserDetails: React.FC<Props> = () => {
 
     return (
         <section className="user-details">
-            <img src={user?.coverImg} alt="" className="cover-img" />
+            {user.coverImg ?
+                <img src={user.coverImg} alt="" className="cover-img" />
+                :
+                <div className="cover-img not-set">
+                    <SvgIcon iconName='twitter_logo' wrapperStyle="twitter" svgProp={{ stroke: "white", fill: "white" }} />
+                    Coming soon...
+                </div>
+            }
             <section className="user-profile page">
                 <div className="card-header card">
-                    <img className="user-img" src={user?.profileImg} alt="user image" />
+                    {user.profileImg ?
+                        <img className="user-img" src={user.profileImg} alt="user image" />
+                        :
+                        <div className='user-img'>
+                            <NameAcronym firstName={user.firstName} lastName={user.lastName} userId={user._id} />
+                        </div>
+
+                    }
                     <div className="user-info-container">
                         <div className="user-statistics">
-                            <span className="user-name">{user?.firstName} {user?.lastName}</span>
+                            <span className="user-name">{user.firstName} {user.lastName}</span>
                             <div className="user-info">
                                 <span className="user-followers"><span className="emphasized">30k</span> Following </span>
                                 <span className="user-followers"><span className="emphasized">230k</span> Followers</span>
                             </div>
-                            <div className="btn-container">
-                                <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
-                                    <SvgIcon iconName={loggedinUser.follows.includes(user?._id!) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                                    {loggedinUser.follows.includes(user?._id!) ?
-                                        <span>Unfollow</span>
-                                        :
-                                        <span>Follow</span>
-                                    }
-                                </button>
-                            </div>
+                            {loggedinUser._id !== user._id &&
+                                <div className="btn-container">
+                                    <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
+                                        <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                                        {loggedinUser.follows.includes(user._id) ?
+                                            <span>Unfollow</span>
+                                            :
+                                            <span>Follow</span>
+                                        }
+                                    </button>
+                                </div>
+                            }
                         </div>
-                        <p className="about">
-                            {user?.about}
-                        </p>
+                        {user.about && <p className="about">
+                            {user.about}
+                        </p>}
                         <button className="btn-follow mobile-btn">
                             <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
                             <span>Follow</span>

@@ -59,7 +59,7 @@ function getEmptyTweet(): Tweet {
 function getEmptyReply(): Reply {
     return {
         _id: utilService.makeId(),
-        createdAt: Date.now(),
+        createdAt: new Date().getTime(),
         createdBy: userService.getLoggedinUser()!._id,
         content: '',
         imgUrl: '',
