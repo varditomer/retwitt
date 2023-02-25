@@ -16,7 +16,7 @@ export const People: React.FC = () => {
     useEffect(() => {
         if (!users.length || !loggedinUser) return
 
-        const currUsersToExplore = users.filter(user => ((!loggedinUser?.follows.includes(user._id!)) && (!user.isGuest)))
+        const currUsersToExplore = users.filter(user => ((!loggedinUser?.follows.includes(user._id!)) && (!user.isGuest)) && (loggedinUser._id!==user._id))
         setUsersToExplore(currUsersToExplore)
 
     }, [users, loggedinUser])
