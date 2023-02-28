@@ -76,7 +76,7 @@
     padding-top: 26px;
     gap: 20px;
     @include for-mobile-layout {
-        padding-inline: 10px;
+        padding-inline: 10px 25px;
     }
 }
 

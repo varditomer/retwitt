@@ -8,7 +8,6 @@ export function loadTweets() {
     return async (dispatch: any) => {
         try {
             const tweets = await tweetService.query()
-            console.log(`tweets:`, tweets)
             dispatch({ type: 'SET_TWEETS', payload: tweets })
         } catch (err) {
             console.log(`err:`, err)

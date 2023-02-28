@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { EditProfile } from '../components/EditProfile';
 import { NameAcronym } from '../components/NameAcronym';
 import { INITIAL_STATE, TweetState, UserState } from '../interfaces/state.interface';
 import { Tweet } from '../interfaces/tweet.interface';
@@ -24,6 +25,7 @@ export const UserDetails: React.FC<Props> = () => {
     const [userTweets, setUserTweets] = useState<Tweet[] | null>(null)
     const [userLikedTweets, setUserLikedTweets] = useState<Tweet[] | null>(null)
     const [userRepliedTweets, setUserRepliedTweets] = useState<Tweet[] | null>(null)
+    const [showEditProfileModal, setShowEditProfileModal] = useState(false)
 
     const navigate = useNavigate()
     const params = useParams()
@@ -70,10 +72,20 @@ export const UserDetails: React.FC<Props> = () => {
         dispatch(setLoggedinUser(userToUpdate))
     }
 
+
+
+    const toggleModal = () => {
+        setShowEditProfileModal(prevShowEditProfileModal => !prevShowEditProfileModal)
+    }
+
     if (!userTweets || !users || !user || !loggedinUser) return <div>Loading...</div>
 
     return (
         <section className="user-details">
+            {showEditProfileModal &&
+               <EditProfile user={user} toggleModal={toggleModal} />
+            }
+
             {user.coverImg ?
                 <img src={user.coverImg} alt="" className="cover-img" />
                 :
@@ -82,48 +94,70 @@ export const UserDetails: React.FC<Props> = () => {
                     Coming soon...
                 </div>
             }
-            <section className="user-profile page">
-                <div className="card-header card">
+
+            <section className="user-profile">
+
+                <article className="user-profile-card card">
+
                     {user.profileImg ?
                         <img className="user-img" src={user.profileImg} alt="user image" />
                         :
                         <div className='user-img'>
                             <NameAcronym firstName={user.firstName} lastName={user.lastName} userId={user._id} />
                         </div>
-
                     }
-                    <div className="user-info-container">
-                        <div className="user-statistics">
-                            <span className="user-name">{user.firstName} {user.lastName}</span>
+
+                    <div className="user-profile-details">
+
+                        <div className="head-line">
                             <div className="user-info">
-                                <span className="user-followers"><span className="emphasized">30k</span> Following </span>
-                                <span className="user-followers"><span className="emphasized">230k</span> Followers</span>
-                            </div>
-                            {loggedinUser._id !== user._id &&
-                                <div className="btn-container">
-                                    <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
-                                        <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                                        {loggedinUser.follows.includes(user._id) ?
-                                            <span>Unfollow</span>
-                                            :
-                                            <span>Follow</span>
-                                        }
-                                    </button>
+                                <span className="user-name">{user.firstName} {user.lastName}</span>
+                                <div className="user-statistics">
+                                    <span className="user-followers"><span className="emphasized">{user.follows.length}</span> Following </span>
+                                    <span className="user-followers"><span className="emphasized">{user.followers.length}</span> Followers</span>
                                 </div>
+                            </div>
+                            {(loggedinUser._id === user._id) ?
+                                <button className="btn-edit desktop-btn" onClick={toggleModal}>
+                                    Edit profile
+                                </button>
+                                :
+                                <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
+                                    <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                                    {loggedinUser.follows.includes(user._id) ?
+                                        <span>Unfollow</span>
+                                        :
+                                        <span>Follow</span>
+                                    }
+                                </button>
                             }
                         </div>
-                        {user.about && <p className="about">
-                            {user.about}
-                        </p>}
-                        <button className="btn-follow mobile-btn">
-                            <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                            <span>Follow</span>
-                        </button>
+                        {user.about &&
+                            <p className="about">
+                                {user.about}
+                            </p>
+                        }
+                        {(loggedinUser._id === user._id) ?
+                            <button className="btn-edit mobile-btn" onClick={toggleModal}>
+                                Edit profile
+                            </button>
+                            :
+                            <button className="btn-follow mobile-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
+                                <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                                {loggedinUser.follows.includes(user._id) ?
+                                    <span>Unfollow</span>
+                                    :
+                                    <span>Follow</span>
+                                }
+                            </button>
+                        }
                     </div>
-                </div>
+
+                </article>
+
             </section>
 
-            <section className="main-content page">
+            <section className="main-content">
                 <div className="small-area">
                     <section className="tweets-filter card">
                         <ul role='list'>

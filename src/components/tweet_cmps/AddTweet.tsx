@@ -114,7 +114,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                             <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                             <span className='public-settings-txt'>{whoCanReplyText}</span>
                         </div>
-                        {(showWhoCanReplyModal) ?
+                        {showWhoCanReplyModal &&
                             <Modal modalClass="public-settings-modal">
                                 <h2 className='modal-title'>Who can reply?</h2>
                                 <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
@@ -127,8 +127,6 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                                     <span className="card-item-txt">People you follow</span>
                                 </div>
                             </Modal>
-                            :
-                            ''
                         }
 
 

@@ -1,9 +1,9 @@
 .user-details {
     position: relative;
-    > *:not(:is(.cover-img)) {
-        max-width: calc(745px + 306px + 20px);
-        margin-inline: auto;
+    > *:not(.cover-img, .edit-profile-modal) {
+        padding-inline: 20px 35px;
     }
+
     .cover-img {
         position: absolute;
         top: 0;
@@ -11,8 +11,8 @@
         z-index: -1;
         height: 296.5px;
         width: 100%;
-        object-fit: cover;
-        aspect-ratio: 16/9;
+        object-fit: fill;
+        // aspect-ratio: 16/9;
         &.not-set {
             @include flex-vertically-center;
             justify-content: center;
@@ -20,18 +20,11 @@
             font-family: NotoSans-Regular;
             font-size: rem(60px);
             color: $clr--white;
-            text-shadow: 0px 0px 0 rgb(242,242,242),
-                 -1px 0px 0 rgb(229,229,229),
-                 -2px 0px 0 rgb(216,216,216),
-                 -3px 0px 0 rgb(203,203,203),
-                 -4px 0px 0 rgb(190,190,190),
-                 -5px 0px 0 rgb(177,177,177),
-                 -6px 0px  0 rgb(164,164,164),
-                 -7px 0px 6px rgba(0,0,0,0.12),
-                 -7px 0px 1px rgba(0,0,0,0.5),
-                 0px 0px 6px rgba(0,0,0,.2);
+            text-shadow: 0px 0px 0 rgb(242, 242, 242), -1px 0px 0 rgb(229, 229, 229), -2px 0px 0 rgb(216, 216, 216),
+                -3px 0px 0 rgb(203, 203, 203), -4px 0px 0 rgb(190, 190, 190), -5px 0px 0 rgb(177, 177, 177),
+                -6px 0px 0 rgb(164, 164, 164), -7px 0px 6px rgba(0, 0, 0, 0.12), -7px 0px 1px rgba(0, 0, 0, 0.5),
+                0px 0px 6px rgba(0, 0, 0, 0.2);
             .twitter {
-                
                 > * {
                     height: 100px;
                     width: 100px;
@@ -39,99 +32,180 @@
             }
         }
     }
-    .user-profile {
-        padding-top: 0;
-        margin-top: 242px;
-        min-height: unset;
 
-        .card-title {
-            font-size: rem(12px);
-            border-bottom: 1px solid $clr-gray6;
-            margin-bottom: 24px;
-            padding-bottom: 8px;
-        }
-        .card-header {
-            min-height: unset;
+    .user-profile {
+        margin-top: 242px;
+        padding-top: 0;
+        margin-bottom: 26px;
+        .user-profile-card {
+            position: relative;
             border-radius: $br-primary;
-            box-shadow: $bs-primary;
-            width: 100%;
             background-color: $clr--white;
             display: flex;
-            align-items: flex-start;
-            gap: 24px;
-            margin: 0;
-            .btn-follow {
-                margin-left: auto;
-                @include custom-btn;
-                padding: 10px;
-                gap: 4px;
-                max-height: 24px;
-                justify-self: end;
-                width: max-content;
-            }
-            .mobile-btn {
-                display: none;
-                margin: auto;
-            }
-            .desktop-btn {
-                display: flex;
-            }
+            flex-direction: column;
+            align-items: center;
+
             .user-img {
-                position: relative;
-                top: -70px;
-                height: 111px;
-                width: 111px;
-                font-size: rem(60px);
-                font-family: Poppins-SemiBold;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: -90px;
+                margin-inline: auto;
+                height: 116px;
+                width: 116px;
+                font-size: rem(50px);
+                outline: 3px solid $clr--white;
+                outline-offset: -3px;
+                border-radius: 4em;
             }
-            .user-info-container {
+            
+
+            .user-profile-details {
                 display: flex;
                 flex-direction: column;
-                gap: 22px;
-                .user-info {
-                    display: flex;
-                    gap: 22px;
-                }
-                .user-statistics {
+                flex: 1;
+                gap: 24px;
+                margin-top: 20px;
+
+                .head-line {
                     @include flex-vertically-center;
-                    gap: 26px;
-                    .user-name {
-                        font-family: Poppins-Medium;
-                        font-size: rem(24px);
-                        color: $clr-gray1;
-                        line-height: 1;
-                    }
-                    .user-followers {
-                        font-family: Poppins-Medium;
-                        font-size: rem(12px);
-                        color: $clr-gray3;
-                        .emphasized {
-                            font-family: Poppins-SemiBold;
+                    justify-content: space-between;
+                    .user-info {
+                        @include flex-vertically-center;
+                        gap: 24px;
+                        .user-name {
+                            font-family: Poppins-Medium;
+                            font-size: rem(24px);
                             color: $clr-gray1;
+                            line-height: 1.5;
+                        }
+                        .user-statistics {
+                            @include flex-vertically-center;
+                            gap: 24px;
+                            .user-followers {
+                                font-family: Poppins-Medium;
+                                font-size: rem(12px);
+                                color: $clr-gray3;
+                                .emphasized {
+                                    margin-inline-end: 2px;
+                                    font-family: Poppins-SemiBold;
+                                    color: $clr-gray1;
+                                }
+                            }
                         }
                     }
                 }
+
+                .btn-edit,
+                .btn-follow {
+                    @include custom-btn;
+                    width: 100px;
+                    height: 32px;
+                    gap: 4px;
+                    margin-inline: auto;
+                }
+                .mobile-btn {
+                    display: flex;
+                }
+                .desktop-btn {
+                    display: none;
+                }
+
                 .about {
                     color: $clr-gray3;
                     font-size: rem(18px);
                     max-width: 40ch;
-                    line-height: calc(25 / 18);
+                    line-height: 1.3611;
                 }
             }
         }
     }
+
     .main-content {
         min-height: unset;
         display: grid;
         gap: 20px;
-        padding-top: 26px;
         .small-area {
             display: none;
         }
     }
-    @include for-wide-layout {
+}
+@include for-mobile-layout {
+    .user-details {
+        > *:not(.cover-img) {
+            padding-inline: 10px 25px;
+        }
         .user-profile {
-            .card-header {
+            .user-profile-card {
+
+
+            }
+        }
+    }
+}
+
+@media (min-width: 700px) {
+    .user-details {
+        > *:not(.cover-img, .edit-profile-modal) {
+            padding-inline: 20px 35px;
+        }
+        .user-profile {
+            .user-profile-card {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 24px;
+
+                .user-img {
+                    position: relative;
+                    top: -70px;
+                    height: 111px;
+                    width: 111px;
+                    font-size: rem(60px);
+                    font-family: Poppins-SemiBold;
+                    left: unset;
+                    transform: unset;
+                }
+
+                .user-profile-details {
+                    margin-top: 0;
+
+                    .head-line {
+                        @include flex-vertically-center;
+                        justify-content: space-between;
+                        .user-info {
+                            @include flex-vertically-center;
+                            gap: 24px;
+                            .user-statistics {
+                                @include flex-vertically-center;
+                                gap: 24px;
+                            }
+                        }
+                    }
+                    .btn-edit,
+                    .btn-follow {
+                        margin-inline: unset;
+                    }
+    
+                    .mobile-btn {
+                        display: none;
+                    }
+                    .desktop-btn {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include for-wide-layout {
+    .user-details {
+        > *:not(.cover-img, .edit-profile-modal) {
+            max-width: calc(745px + 306px + 20px + 40px);
+            margin-inline: auto;
+        }
+        .user-profile {
+            .user-profile-card {
                 .user-img {
                     top: -70px;
                     height: 152px;
@@ -139,49 +213,11 @@
                 }
             }
         }
+
         .main-content {
             grid-template-columns: 1fr 2fr;
             .small-area {
                 display: flex;
-            }
-        }
-    }
-    @include for-mobile-layout {
-        .user-profile {
-            .card-header {
-                flex-direction: column;
-                gap: 0px;
-                position: relative;
-                .mobile-btn {
-                    display: flex;
-                }
-                .desktop-btn {
-                    display: none;
-                }
-                .user-info-container {
-                    margin-inline: auto;
-                    gap: 14px;
-                    .user-statistics {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 4px;
-                        .user-name {
-                            line-height: 1.5;
-                        }
-                    }
-                    .about {
-                        text-align: center;
-                    }
-                }
-                .user-img {
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    top: -100px;
-                    margin-inline: auto;
-                    height: 116px;
-                    width: 116px;
-                }
             }
         }
     }

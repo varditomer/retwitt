@@ -66,7 +66,6 @@ export function logout() {
 export function setLoggedinUser(user: User) {
     return (dispatch: any) => {
         try {
-            console.log(`user:`, user)
             userService.setLoggedinUser(user)
             dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
         } catch (err) {
@@ -78,8 +77,10 @@ export function setLoggedinUser(user: User) {
 export function updateUser(user: User) {
     return async (dispatch: any) => {
         try {
-            userService.update(user)
             dispatch({ type: 'UPDATE_USER', payload: user })
+            userService.setLoggedinUser(user)
+            dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
+            await userService.update(user)
         } catch (err) {
             console.log(`err:`, err)
         }

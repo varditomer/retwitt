@@ -106,7 +106,7 @@
     }
     @include for-mobile-layout {
         .header-container {
-            padding-inline: 10px;
+            padding-inline: 10px 25px;
             width: 100%;
         }
     }
