@@ -69,10 +69,6 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                                     <SvgIcon iconName="profile" wrapperStyle="profile" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">My Profile</span>
                                 </div>
-                                <div className="modal-item">
-                                    <SvgIcon iconName="settings" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                                    <span className="card-item-txt">Settings</span>
-                                </div>
                                 <div className="modal-item-container">
                                     <div className="modal-item negative" onClick={onLogout}>
                                         <SvgIcon iconName="logout" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />

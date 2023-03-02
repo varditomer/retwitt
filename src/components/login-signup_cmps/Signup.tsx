@@ -21,38 +21,88 @@ export const Signup: React.FC = () => {
         try {
             await dispatch(signup(fields))
             navigateTo('/home')
-        } catch(err) {
-            console.log(`can't signup:`, )
+        } catch (err) {
+            console.log(`can't signup:`,)
         }
     }
 
     return (
-        <form onSubmit={onSignup} className="card">
+        <form autoComplete="new-password" onSubmit={onSignup} className="login-signup-form card">
 
-            <label htmlFor="username">User name:
+            {/* <label htmlFor="username">User name:
+            <input ref={handleRef} {...register('username')} placeholder="Enter username" />
+        </label>
+        <label htmlFor="password">Password:
+            <input {...register('password')} placeholder="Enter password" type="password" />
+        </label> */}
+            <div className='input-item-container'>
+                <div className="title-container">
+                    <span className="title">User name</span>
+                </div>
                 <input ref={handleRef} {...register('username')} placeholder="Enter username" />
-            </label>
-            <label htmlFor="password">Password:
+            </div>
+            <div className='input-item-container'>
+                <div className="title-container">
+                    <span className="title">Password</span>
+                </div>
                 <input {...register('password')} placeholder="Enter password" type="password" />
-            </label>
-            <label htmlFor="firstName">First name:
-                <input {...register('firstName')} placeholder="Enter first name" />
-            </label>
-            <label htmlFor="lastName">Last name:
-                <input {...register('lastName')} placeholder="Enter last name" />
-            </label>
-            {/* <label htmlFor="about">About:
-                <input {...register('about')} placeholder="Enter profile about" />
-            </label>
-            <label htmlFor="profileImg">Profile Img URL:
-                <input {...register('profileImg')} placeholder="Enter profile img url" />
-            </label>
-            <label htmlFor="coverImg">Cover Img URL:
-                <input {...register('coverImg')} placeholder="Enter cover img url" />
-            </label> */}
-
+            </div>
+            <div className='input-item-container'>
+                <div className="title-container">
+                    <span className="title">First name</span>
+                    <div className={`counter ${(fields['firstName'].length) >= 35 ? 'out-of-space' : ''}`}>
+                        <span className="emphasized">
+                            {fields['firstName'].length} {' '}
+                        </span>
+                        <span className={(fields['firstName'].length) === 40 ? 'emphasized' : ''}>
+                            / 40
+                        </span>
+                    </div>
+                </div>
+                <input {...register('firstName')} placeholder="Enter first name" maxLength={40} />
+            </div>
+            <div className='input-item-container'>
+                <div className="title-container">
+                    <span className="title">Last name</span>
+                    <div className={`counter ${(fields['lastName'].length) >= 35 ? 'out-of-space' : ''}`}>
+                        <span className="emphasized">
+                            {fields['lastName'].length} {' '}
+                        </span>
+                        <span className={(fields['lastName'].length) === 40 ? 'emphasized' : ''}>
+                            / 40
+                        </span>
+                    </div>
+                </div>
+                <input {...register('lastName')} placeholder="Enter last name" maxLength={40} />
+            </div>
             <button type="submit" className="btn-submit">Signup</button>
         </form>
+        // <form onSubmit={onSignup} className="card">
+
+        //     <label htmlFor="username">User name:
+        //         <input ref={handleRef} {...register('username')} placeholder="Enter username" />
+        //     </label>
+        //     <label htmlFor="password">Password:
+        //         <input {...register('password')} placeholder="Enter password" type="password" />
+        //     </label>
+        //     <label htmlFor="firstName">First name:
+        //         <input {...register('firstName')} placeholder="Enter first name" />
+        //     </label>
+        //     <label htmlFor="lastName">Last name:
+        //         <input {...register('lastName')} placeholder="Enter last name" />
+        //     </label>
+        //     {/* <label htmlFor="about">About:
+        //         <input {...register('about')} placeholder="Enter profile about" />
+        //     </label>
+        //     <label htmlFor="profileImg">Profile Img URL:
+        //         <input {...register('profileImg')} placeholder="Enter profile img url" />
+        //     </label>
+        //     <label htmlFor="coverImg">Cover Img URL:
+        //         <input {...register('coverImg')} placeholder="Enter cover img url" />
+        //     </label> */}
+
+        //     <button type="submit" className="btn-submit">Signup</button>
+        // </form>
     )
 
 }

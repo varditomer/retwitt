@@ -53,7 +53,10 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal }) => {
         const res = await uploadImg(file)
         resetFileInput()
         const imgUrl = res.secure_url
-        ev.target.name === 'coverImg' ? setCoverImg(imgUrl) : setProfileImg(imgUrl)
+        let convertedImgUrl = imgUrl.split('upload')
+        convertedImgUrl.splice(1, 0, 'upload')
+        convertedImgUrl = convertedImgUrl.join('')
+        ev.target.name === 'coverImg' ? setCoverImg(convertedImgUrl) : setProfileImg(convertedImgUrl)
     }
 
     const resetFileInput = () => {
@@ -91,38 +94,65 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal }) => {
                     <input type="file" onChange={handleFileChange} name='coverImg' ref={coverImgInput} />
                     <SvgIcon iconName='add_photo' wrapperStyle="add-photo-container" svgProp={{ stroke: "white", fill: "white" }} />
                 </div>
-            </div>
 
-            <div className="profile-img-edit-container">
-                {profileImg ?
-                    <img className="profile-img-edit" src={profileImg} alt="user image" />
-                    :
-                    <NameAcronym firstName={user.firstName} lastName={user.lastName} userId={user._id} className="profile-img-edit" />
-                }
-                <div className="input-container">
-                    <input type="file" onChange={handleFileChange} name='profileImg' ref={profileImgInput} />
-                    <SvgIcon iconName='add_photo' wrapperStyle="add-photo-container" svgProp={{ stroke: "white", fill: "white" }} />
+                <div className="profile-img-edit-container">
+                    {profileImg ?
+                        <img className="profile-img-edit" src={profileImg} alt="user image" />
+                        :
+                        <NameAcronym firstName={user.firstName} lastName={user.lastName} userId={user._id} className="profile-img-edit" />
+                    }
+                    <div className="input-container">
+                        <input type="file" onChange={handleFileChange} name='profileImg' ref={profileImgInput} />
+                        <SvgIcon iconName='add_photo' wrapperStyle="add-photo-container" svgProp={{ stroke: "white", fill: "white" }} />
+                    </div>
                 </div>
-            </div>
 
+            </div>
 
             <form id="profileForm" onSubmit={onEdit} className="edit-profile-form">
 
-                <label className='modal-subtitle profile' htmlFor="firstName">First name:
-                    <input {...register('firstName')} placeholder="Enter first name" />
-                </label>
-                <label className='modal-subtitle profile' htmlFor="lastName">Last name:
-                    <input {...register('lastName')} placeholder="Enter last name" />
-                </label>
-                <label className='modal-subtitle profile' htmlFor="about">About:
-                    <input {...register('about')} placeholder="Enter profile about" />
-                </label>
-                {/* <label className='modal-subtitle' htmlFor="profileImg">Profile Img URL:
-                    <input {...register('profileImg')} placeholder="Enter profile img url" />
-                </label>
-                <label className='modal-subtitle' htmlFor="coverImg">Cover Img URL:
-                    <input {...register('coverImg')} placeholder="Enter cover img url" />
-                </label> */}
+                <div className='input-item-container'>
+                    <div className="title-container">
+                        <span className="title">First name</span>
+                        <div className={`counter ${(fields['firstName'].length) >= 35 ? 'out-of-space' : ''}`}>
+                            <span className="emphasized">
+                                {fields['firstName'].length} {' '}
+                            </span>
+                            <span className={(fields['firstName'].length) === 40 ? 'emphasized' : ''}>
+                                / 40
+                            </span>
+                        </div>
+                    </div>
+                    <input {...register('firstName')} placeholder="Enter first name" maxLength={40} />
+                </div>
+                <div className='input-item-container'>
+                    <div className="title-container">
+                        <span className="title">Last name</span>
+                        <div className={`counter ${(fields['lastName'].length) >= 35 ? 'out-of-space' : ''}`}>
+                            <span className="emphasized">
+                                {fields['lastName'].length} {' '}
+                            </span>
+                            <span className={(fields['lastName'].length) === 40 ? 'emphasized' : ''}>
+                                / 40
+                            </span>
+                        </div>
+                    </div>
+                    <input {...register('lastName')} placeholder="Enter last name" maxLength={40} />
+                </div>
+                <div className='input-item-container'>
+                    <div className="title-container">
+                        <span className="title">About</span>
+                        <div className={`counter ${(fields['about'].length) >= 145 ? 'out-of-space' : ''}`}>
+                            <span className="emphasized">
+                                {fields['about'].length} {' '}
+                            </span>
+                            <span className={(fields['about'].length) === 150 ? 'emphasized' : ''}>
+                                / 150
+                            </span>
+                        </div>
+                    </div>
+                    <input {...register('about')} placeholder="Enter profile about" maxLength={150} />
+                </div>
             </form>
         </Modal>
     )

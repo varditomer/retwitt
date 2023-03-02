@@ -81,9 +81,12 @@ export const UserDetails: React.FC<Props> = () => {
     if (!userTweets || !users || !user || !loggedinUser) return <div>Loading...</div>
 
     return (
-        <section className="user-details">
+        <section className={`user-details ${showEditProfileModal? 'blur':''}`}>
             {showEditProfileModal &&
                <EditProfile user={user} toggleModal={toggleModal} />
+            }
+            {showEditProfileModal &&
+               <div className="black-screen"></div>
             }
 
             {user.coverImg ?

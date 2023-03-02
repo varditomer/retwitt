@@ -61,7 +61,9 @@ body {
     flex-grow: 1;
   }
 }
-
+.user-img {
+  border-radius: 4em;
+}
 a {
   color: inherit; /* blue colors for links too */
   text-decoration: inherit; /* no underline */
@@ -73,6 +75,7 @@ picture,
 svg {
   max-width: 100%;
   display: block;
+  object-fit: cover;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

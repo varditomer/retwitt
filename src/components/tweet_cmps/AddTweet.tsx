@@ -1,14 +1,15 @@
 import EmojiPicker from "emoji-picker-react"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { INITIAL_STATE } from "../../interfaces/state.interface"
+import { INITIAL_STATE, TweetState } from "../../interfaces/state.interface"
 import { Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
 import { uploadImg } from "../../services/img-upload.service"
 import { tweetService } from "../../services/tweet.service"
-import { addTweet } from "../../store/actions/tweet.action"
+import { addTweet, updateHashtags } from "../../store/actions/tweet.action"
 import SvgIcon from "../../SvgIcon"
 import { Modal } from "../Modal"
 import { NameAcronym } from "../NameAcronym"
@@ -26,6 +27,8 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
+    const hashtagsCounts = useSelector((state: TweetState) => state.tweetModule.hashtagsCounts)
+
 
     useEffect(() => {
         const emptyTweet = tweetService.getEmptyTweet()
@@ -76,9 +79,16 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
     const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         if (!newTweet) return
+        console.log(`newTweet:`, newTweet)
+
 
         const tweetToSave = structuredClone(newTweet)
-        console.log(`tweetToSave:`, tweetToSave)
+        const matches = tweetToSave.content.match(/#(\w+)/g)
+        const hashTags = matches?.map(match => match.slice(1))
+        if (hashTags) {
+            console.log(`hashTags:`, hashTags)
+            dispatch(updateHashtags(hashTags, hashtagsCounts))
+        }
         dispatch(addTweet(tweetToSave))
 
         const emptyTweet = tweetService.getEmptyTweet()

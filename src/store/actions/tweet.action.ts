@@ -1,7 +1,9 @@
 // Services
 import { tweetService } from "../../services/tweet.service"
 // Interfaces
-import { Tweet } from "../../interfaces/tweet.interface"
+import { ObjMap, Tweet } from "../../interfaces/tweet.interface"
+import { TweetState } from "../../interfaces/state.interface"
+import { useSelector } from "react-redux"
 
 
 export function loadTweets() {
@@ -48,6 +50,39 @@ export function updateTweet(tweetToUpdate: Tweet, tweetLastState: Tweet) {
             console.log(`err:`, err)
         }
     }
+}
+//hashtagsCounts = [{'sport', 1}, {'sad',3}]
+//newHashtags = ['fun']
+//newHashtagsCounts = [{'sport', 2}, {'sad',3}, {'fun',1} ]
+//sortedNewHashtagsCounts = [{'sad',3}, {'sport', 2}, {'fun',1}]
+export function updateHashtags(newHashtags: string[], hashtagsCounts: ObjMap[]) {
+    return async (dispatch: any) => {
+        try {
+            console.log(`newHashtags:`, newHashtags)
+            console.log(`hashtagsCounts:`, hashtagsCounts)
+            let newHashtagsCounts = hashtagsCounts.map(hashtagObj => {
+                const idx = newHashtags.findIndex(hashtag => hashtag === hashtagObj.key)
+                if (idx !== -1) {
+                    newHashtags.splice(idx, 1)
+                    return { key: hashtagObj.key, occurrences: hashtagObj.occurrences + 1 }
+                }
+                else return hashtagObj
+            })
+            if (newHashtags.length) {
+                newHashtags.forEach(hashtag => {
+                    newHashtagsCounts.push({ key: hashtag, occurrences: 1 })
+                })
+            }
+            console.log(`newHashtagsCounts:`, newHashtagsCounts)
+            newHashtagsCounts.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
+            console.log(`newHashtagsCounts:`, newHashtagsCounts)
+            dispatch({ type: 'UPDATE_HASHTAGS', payload: newHashtagsCounts })
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+
+
 }
 
 

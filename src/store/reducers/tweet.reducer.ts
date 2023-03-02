@@ -1,12 +1,14 @@
-import { Tweet } from "../../interfaces/tweet.interface"
+import { ObjMap, Tweet } from "../../interfaces/tweet.interface"
 
 
 export interface TWEET_STATE {
     tweets: Tweet[]
+    hashtagsCounts: ObjMap[]
 }
 
-const TWEET_STATE = {
-    tweets: []
+const TWEET_STATE: TWEET_STATE = {
+    tweets: [],
+    hashtagsCounts: []
 }
 
 type Action = {
@@ -35,6 +37,11 @@ export function tweetReducer(state = TWEET_STATE, action: Action) {
             return {
                 ...state,
                 tweets: state.tweets.map((tweet: Tweet) => (tweet._id === action.payload._id) ? action.payload : tweet)
+            }
+        case 'UPDATE_HASHTAGS':
+            return {
+                ...state,
+                hashtagsCounts: action.payload
             }
         default:
             return state

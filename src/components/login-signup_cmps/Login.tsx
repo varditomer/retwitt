@@ -22,20 +22,32 @@ export const Login: React.FC = () => {
         try {
             await dispatch(login(fields))
             navigateTo('/home')
-        } catch(err) {
-            console.log(`username or password wrong:`, )
+        } catch (err) {
+            console.log(`username or password wrong:`,)
         }
     }
 
     return (
-        <form onSubmit={onLogin} className="card">
+        <form onSubmit={onLogin} className="login-signup-form card">
 
-            <label htmlFor="username">User name:
+            {/* <label htmlFor="username">User name:
                 <input ref={handleRef} {...register('username')} placeholder="Enter username" />
             </label>
             <label htmlFor="password">Password:
                 <input {...register('password')} placeholder="Enter password" type="password" />
-            </label>
+            </label> */}
+            <div className='input-item-container'>
+                <div className="title-container">
+                    <span className="title">User name</span>
+                </div>
+                <input ref={handleRef} {...register('username')} placeholder="Enter username" />
+            </div>
+            <div className='input-item-container'>
+                <div className="title-container">
+                    <span className="title">Password</span>
+                </div>
+                <input {...register('password')} placeholder="Enter password" type="password" />
+            </div>
             <button type="submit" className="btn-submit">Login</button>
         </form>
     )

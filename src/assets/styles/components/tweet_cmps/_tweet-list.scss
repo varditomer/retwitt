@@ -9,6 +9,11 @@
             position: absolute;
             right: -71px;
             top: 40px;
+            .reply-set {
+                padding: 0;
+                margin: 0;
+                font-family: NotoSans-Medium;
+            }
         }
         .options-container {
             @media (hover: hover) {

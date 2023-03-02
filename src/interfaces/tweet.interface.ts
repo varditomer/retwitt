@@ -22,3 +22,8 @@ export interface Tweet {
     savedBy: string[],
     likes: string[],
 }
+
+export interface ObjMap {
+    key: string,
+    occurrences: number
+}

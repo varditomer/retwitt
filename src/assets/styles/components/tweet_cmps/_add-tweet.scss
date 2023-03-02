@@ -5,6 +5,9 @@
     }
     .new-tweet {
         gap: 7px;
+        .user-img {
+            border-radius: 4em;
+        }
         .tweet-input {
             line-height: inherit;
             border: none;

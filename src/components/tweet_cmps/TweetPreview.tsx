@@ -111,6 +111,14 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         onUpdateTweet(tweetToUpdate)
     }
 
+    const toggleIsEveryOneCanReplySettings = (isEveryOneCanReply: boolean) => {
+        setShowTweetOptModal(false)
+        const tweetToUpdate: Tweet = structuredClone(tweet)
+        if (isEveryOneCanReply) tweetToUpdate.isEveryOneCanReply = true
+        else tweetToUpdate.isEveryOneCanReply = false
+        onUpdateTweet(tweetToUpdate)
+    }
+
 
 
     if (!tweet || !tweet._id || !tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
@@ -134,9 +142,22 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                 {showTweetOptModal ?
                     <Modal modalClass='tweet-modal'>
                         {(tweet.createdBy === loggedinUser._id) ?
-                            <div className="modal-item">
-                                <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                                <span className="card-item-txt">Who can reply</span>
+                            <div className="reply-set-container">
+                                <span className="reply-set">
+                                    Toggle who can reply:
+                                </span>
+
+                                {(tweet.isEveryOneCanReply) ?
+                                    <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(false)}>
+                                        <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                        <span className="card-item-txt">People you follow</span>
+                                    </div>
+                                    :
+                                    <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(true)}>
+                                        <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                        <span className="card-item-txt">Every one can reply</span>
+                                    </div>
+                                }
                             </div>
                             :
                             ''

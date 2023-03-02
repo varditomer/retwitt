@@ -19,12 +19,9 @@ export const Home: React.FC = () => {
 
     useEffect(() => {
         if (!tweets.length || !loggedinUser) return
-        console.log(`tweets:`, tweets)
         const followsUsersTweets = tweets.filter(tweet => {
-            console.log(`tweet:`, tweet)
             return (loggedinUser?.follows.includes(tweet.createdBy) || tweet.createdBy === loggedinUser._id)
         })
-        console.log(`followsUsersTweets:`, followsUsersTweets)
         setTweetsToShow(followsUsersTweets)
 
     }, [tweets, loggedinUser])
