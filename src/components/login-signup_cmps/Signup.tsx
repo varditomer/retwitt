@@ -29,12 +29,6 @@ export const Signup: React.FC = () => {
     return (
         <form autoComplete="new-password" onSubmit={onSignup} className="login-signup-form card">
 
-            {/* <label htmlFor="username">User name:
-            <input ref={handleRef} {...register('username')} placeholder="Enter username" />
-        </label>
-        <label htmlFor="password">Password:
-            <input {...register('password')} placeholder="Enter password" type="password" />
-        </label> */}
             <div className='input-item-container'>
                 <div className="title-container">
                     <span className="title">User name</span>
@@ -77,32 +71,6 @@ export const Signup: React.FC = () => {
             </div>
             <button type="submit" className="btn-submit">Signup</button>
         </form>
-        // <form onSubmit={onSignup} className="card">
-
-        //     <label htmlFor="username">User name:
-        //         <input ref={handleRef} {...register('username')} placeholder="Enter username" />
-        //     </label>
-        //     <label htmlFor="password">Password:
-        //         <input {...register('password')} placeholder="Enter password" type="password" />
-        //     </label>
-        //     <label htmlFor="firstName">First name:
-        //         <input {...register('firstName')} placeholder="Enter first name" />
-        //     </label>
-        //     <label htmlFor="lastName">Last name:
-        //         <input {...register('lastName')} placeholder="Enter last name" />
-        //     </label>
-        //     {/* <label htmlFor="about">About:
-        //         <input {...register('about')} placeholder="Enter profile about" />
-        //     </label>
-        //     <label htmlFor="profileImg">Profile Img URL:
-        //         <input {...register('profileImg')} placeholder="Enter profile img url" />
-        //     </label>
-        //     <label htmlFor="coverImg">Cover Img URL:
-        //         <input {...register('coverImg')} placeholder="Enter cover img url" />
-        //     </label> */}
-
-        //     <button type="submit" className="btn-submit">Signup</button>
-        // </form>
     )
 
 }

@@ -21,50 +21,44 @@ export const LoginSignup: React.FC = () => {
 
     return (
         <section className='login-signup'>
+
             <header className="login-signup-header">
+
                 <ul className='nav-list' role='list'>
                     <li>
                         <NavLink to='login'>
-                                <span className="filter-title">Login</span>
-                            </NavLink>
+                            <span className="filter-title">Login</span>
+                        </NavLink>
                         <div className="border"></div>
                     </li>
                     <li>
-                         <NavLink to='signup'>
-                                <span className="filter-title">Signup</span>
-                            </NavLink>
+                        <NavLink to='signup'>
+                            <span className="filter-title">Signup</span>
+                        </NavLink>
                         <div className="border"></div>
                     </li>
                 </ul>
 
-                {/* <div className="nav-links">
-                    <ul className="nav-links-list" role='list'>
-                        <li>
-                            <NavLink to='login'>
-                                <span className="filter-title">Login</span>
-                            </NavLink>
-                        </li>
-                        /
-                        <li>
-                            <NavLink to='signup'>
-                                <span className="filter-title">Signup</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div> */}
-                {/* <button className="back" onClick={() => navigate('/')}> */}
-                    <SvgIcon iconName="back" wrapperStyle="back" svgProp={{ stroke: "#828282", fill: "#828282" }} handleClick={() => navigate('/')}/>
-                {/* </button> */}
+                <SvgIcon iconName="back" wrapperStyle="back" svgProp={{ stroke: "#828282", fill: "#828282" }} handleClick={() => navigate('/')} />
+
             </header>
+
             <section className="main-content">
 
                 <h2 className="call-to-action">
                     {(page === 'login') ?
+                        <>Signup or <span className="emphasized"> Login </span> now <span className="one-line">and become a ReTweeter <SvgIcon iconName="twitter_logo" wrapperStyle="" /></span></>
+                        :
+                        <><span className="emphasized">Signup </span> or Login now <span className="one-line">and become a ReTweeter <SvgIcon iconName="twitter_logo" wrapperStyle="" /></span> </>
+                    }
+                    {/* {(page === 'login') ?
                         <>
                             Signup or
                             <span className="emphasized"> Login </span>
-                            now and become a ReTweeter
-                            <SvgIcon iconName="twitter_logo" wrapperStyle="expand_more" />
+                            <span className="">
+                                now and become a ReTweeter
+                                <SvgIcon iconName="twitter_logo" wrapperStyle="expand_more" />
+                            </span>
                         </>
                         :
                         <>
@@ -72,7 +66,7 @@ export const LoginSignup: React.FC = () => {
                             or Login now and become a ReTweeter
                             <SvgIcon iconName="twitter_logo" wrapperStyle="expand_more" />
                         </>
-                    }
+                    } */}
 
                 </h2>
                 <Outlet
@@ -82,6 +76,12 @@ export const LoginSignup: React.FC = () => {
                     }}
                 />
             </section>
+
+            <footer className="landing-footer">
+                <p className="copyrights">
+                    Created by <span className="emphasized">Tomer Vardi</span> © 2023
+                </p>
+            </footer>
 
         </section>
     )

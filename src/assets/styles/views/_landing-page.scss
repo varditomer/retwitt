@@ -37,7 +37,6 @@
             @include flex-column;
             justify-content: center;
             padding-inline: 20%;
-            border: 4px solid white;
             gap: 20px;
 
             .retwitt-logo {
@@ -90,7 +89,7 @@
         margin: 0;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         color: $clr-gray1;
-        background-color: $clr--white;
+        background-color: darken(white, 5%);
         .emphasized {
             font-family: Poppins-SemiBold;
         }

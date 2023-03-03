@@ -1,9 +1,5 @@
 .login-signup {
-    position: relative;
-    width: 100%;
-    // padding-top: 20px;
     .login-signup-header {
-        margin-bottom: 20px;
         height: 76px;
         @include flex-vertically-center;
         justify-content: center;
@@ -22,8 +18,15 @@
         }
     }
     .main-content {
+        min-height: calc(100vh - 76px);
         max-width: calc(745px + 306px + 20px);
         margin-inline: auto;
+        @include flex-column;
+        gap: 40px;
+        padding: 20px;
+        @include for-mobile-layout {
+            gap: 15px;
+        }
     }
     .nav-list {
         display: flex;
@@ -33,6 +36,9 @@
         font-size: rem(24px);
         color: $clr-gray3;
         letter-spacing: -0.035em;
+        @include for-mobile-layout {
+            gap: 20px;
+        }
         li {
             position: relative;
             a {
@@ -59,64 +65,43 @@
         }
     }
     .call-to-action {
+        @include flex-vertically-center;
+        flex-wrap: wrap;
         font-family: Poppins-Medium;
         font-size: rem(20px);
         color: $clr-gray2;
-        display: flex;
-        align-items: center;
+        width: 100%;
         gap: 5px;
-        margin-bottom: 10px;
+        background-color: $clr--white;
+        padding: 20px;
+        border-radius: 20px;
+        @include for-mobile-layout {
+            padding: 15px;
+        }
         .emphasized {
             color: $clr-twitter;
+            font-family: Poppins-SemiBold;
+        }
+        .one-line {
+            display: flex;
+            gap: 5px;
         }
     }
 
-    // form {
-    //     width: 100%;
-    //     display: grid;
-    //     gap: 20px;
-    //     // align-items: center;
-    //     // justify-content: center;
-    //     label {
-    //         width: 100%;
-    //         display: flex;
-    //         gap: 10px;
-    //         font-family: NotoSans-SemiBold;
-    //         align-items: center;
-    //         input {
-    //             flex-grow: 1;
-    //             background-color: $bgc-input;
-    //             border-radius: $br-secondary;
-    //             border: 1px solid $clr-gray7;
-    //             padding-inline-start: 12px;
-    //             height: 40px;
-    //             &::placeholder {
-    //                 color: $clr-gray4;
-    //             }
-    //             &:focus {
-    //                 outline-color: $clr-twitter;
-    //             }
-    //         }
-    //     }
-    //     .btn-submit {
-    //         @include custom-btn;
-    //         width: 50%;
-    //         height: 40px;
-    //         justify-self: end;
-    //     }
-    // }
     .login-signup-form {
         @include flex-vertically-center;
         gap: 20px;
+        padding: 20px;
         flex-direction: column;
-        padding-inline: 15px;
+        @include for-mobile-layout {
+            padding: 15px;
+        }
         .input-item-container {
             height: 55px;
             width: 100%;
             position: relative;
             background-color: darken(white, 2%);
             border-radius: 12px;
-            // outline: 1px solid lightgray;
             box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
             outline: 1px solid rgba(29, 161, 242, 0.09);
             @include hover-supported {
@@ -178,13 +163,30 @@
                     color: $clr--black !important;
                 }
             }
-           
         }
         .btn-submit {
             @include custom-btn;
             width: 50%;
+            font-size: rem(14px);
             height: 40px;
-            justify-self: end;
+            align-self: end;
+        }
+    }
+    .landing-footer {
+        position: fixed;
+        @include flex-vertically-center;
+        justify-content: center;
+        font-family: Poppins-Medium;
+        font-size: rem(18px);
+        height: 76px;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        color: $clr-gray1;
+        background-color: $clr--white;
+        .emphasized {
+            font-family: Poppins-SemiBold;
         }
     }
 }
