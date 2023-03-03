@@ -29,7 +29,9 @@ export const LandingPage: React.FC = () => {
 
     return (
         <section className="landing-page">
-            <div className="main-content">
+
+            <div className="main-container">
+
                 <div className="left-area">
                     <img src="src\assets\icons\twitter_logo_animation.gif" alt="" className='retwitt-animation' />
                     <div className="catchphrases-container">
@@ -47,6 +49,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="right-area">
                     <div className="retwitt-logo">
                         <img src="src\assets\icons\twitter_gif_no_bgc.gif" alt="" className='retwitt-icon' />
@@ -63,12 +66,15 @@ export const LandingPage: React.FC = () => {
                         <button className="btn-landing demo" onClick={onStartDemo}>Start Demo</button>
                     </div>
                 </div>
+
             </div>
-            <footer>
-                <div className="copyrights">
-                    created by &nbsp; <span className="emphasized">Tomer Vardi</span> &nbsp; - © 2023
-                </div>
+
+            <footer className="landing-footer">
+                <p className="copyrights">
+                    Created by <span className="emphasized">Tomer Vardi</span> © 2023
+                </p>
             </footer>
+
         </section>
     )
 }
