@@ -3,9 +3,9 @@ import { NavLinks } from "./NavLinks";
 export const AppFooter: React.FC = () => {
     return (
         <footer className="app-footer">
-            <div className="copyrights">
-                created by &nbsp; <span className="emphasized">Tomer Vardi</span> &nbsp; - © 2023
-            </div>
+            <p className="copyrights">
+                Created by <span className="emphasized">Tomer Vardi</span> © 2023
+            </p>
             <NavLinks />
         </footer>
     )

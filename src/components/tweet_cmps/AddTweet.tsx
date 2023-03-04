@@ -111,13 +111,13 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
                         <input type="file" onChange={onUploadImg} />
                         <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                     </div>
-                    <div className="add-reaction-container">
-                        {/* <div className="add-reaction-container"> */}
+                    {/* <div className="add-reaction-container">
+                        <div className="add-reaction-container">
                         <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                        {/* <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
+                        <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
                             <EmojiPicker />
-                        </div> */}
-                    </div>
+                        </div>
+                    </div> */}
                     <div className="public-settings">
                         {/* Choose between everyone can reply or only people i follow will can */}
                         <div className="public-settings-signs-wrapper" onClick={toggleModal}>

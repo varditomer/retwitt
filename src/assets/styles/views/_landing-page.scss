@@ -81,17 +81,16 @@
         position: fixed;
         @include flex-vertically-center;
         justify-content: center;
-        font-family: Poppins-Medium;
-        font-size: rem(18px);
+        font-family: Montserrat-Medium;
         height: 76px;
         bottom: 0;
         width: 100%;
         margin: 0;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        color: $clr-gray1;
+        color: $clr-gray3;
         background-color: darken(white, 5%);
         .emphasized {
-            font-family: Poppins-SemiBold;
+            font-family: Montserrat-Bold;
         }
     }
 }

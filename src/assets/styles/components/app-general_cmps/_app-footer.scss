@@ -45,21 +45,19 @@
         z-index: 50;
     }
     @include for-wide-layout {
+        position: relative;
+        @include flex-vertically-center;
+        justify-content: center;
         padding: 26px 0;
         background-color: transparent;
-        position: relative;
         bottom: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-family: Montserrat-Medium;
-        letter-spacing: 1;
-        color: $clr-gray5;
+        color: $clr-gray3;
         .copyrights {
             display: inherit;
             .emphasized {
-                text-decoration: underline;
                 font-family: Montserrat-Bold;
+                margin-inline: 5px;
             }
         }
         .nav-list {
