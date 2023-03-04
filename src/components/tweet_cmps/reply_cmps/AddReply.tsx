@@ -42,9 +42,6 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
     const onAddReply = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         if (!replyContent.length || !tweetToEdit || !newReply) return
-        // if(!tweetToEdit.isEveryOneCanReply && !tweetCreatedByUser.follows.includes(loggedinUser._id)) return
-        console.log(`tweetToEdit.isEveryOneCanReply:`, tweetToEdit.isEveryOneCanReply)
-        console.log(`tweetCreatedByUser.follows.includes(loggedinUser._id):`, tweetCreatedByUser.follows.includes(loggedinUser._id))
         if (!tweetToEdit.isEveryOneCanReply && !tweetCreatedByUser.follows.includes(loggedinUser._id) && tweetToEdit.createdBy !== loggedinUser._id) return
         const tweetToSave = structuredClone(tweetToEdit)
 

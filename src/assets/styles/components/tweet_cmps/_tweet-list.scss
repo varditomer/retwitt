@@ -1,6 +1,14 @@
 .tweet-list {
     @include flex-column;
     gap: 20px;
+    .retweet-head {
+        @include flex-vertically-center;
+        gap: 10px;
+        font-family: NotoSans-Medium;
+        margin-bottom: 10px;
+        font-size: rem(14px);
+        color: $clr-gray3;
+    }
 
     .tweet {
         position: relative;
@@ -16,9 +24,7 @@
             }
         }
         .options-container {
-            @media (hover: hover) {
-                visibility: hidden;
-            }
+            visibility: hidden;
             position: absolute;
             right: 16px;
             top: 10px;
@@ -111,6 +117,9 @@
                 }
                 &.retweet:is(.active) {
                     color: $clr-green2;
+                    svg {
+                        stroke: $clr-green2;
+                    }
                 }
                 &.like:is(.active) {
                     color: $clr-red;

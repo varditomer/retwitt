@@ -1,8 +1,8 @@
 import { NavLinks } from "./NavLinks";
 
-export function Footer() {
+export const AppFooter: React.FC = () => {
     return (
-        <footer>
+        <footer className="app-footer">
             <div className="copyrights">
                 created by &nbsp; <span className="emphasized">Tomer Vardi</span> &nbsp; - © 2023
             </div>

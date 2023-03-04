@@ -20,7 +20,8 @@ export function loadTweets() {
 export function removeTweet(tweetId: string) {
     return async (dispatch: any) => {
         try {
-            tweetService.remove(tweetId)
+            console.log(`tweetId:`, tweetId)
+            await tweetService.remove(tweetId)
             dispatch({ type: 'REMOVE_TWEET', payload: tweetId })
         } catch (err) {
             console.log(`err:`, err)
@@ -51,6 +52,21 @@ export function updateTweet(tweetToUpdate: Tweet, tweetLastState: Tweet) {
         }
     }
 }
+
+export function addRetweet(retweetedTweetId: string) {
+    return async (dispatch: any) => {
+        try {
+            const retweet = await tweetService.retweet(retweetedTweetId)
+            dispatch({ type: 'ADD_TWEET', payload: retweet })
+            return retweet._id
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+}
+
+
+
 //hashtagsCounts = [{'sport', 1}, {'sad',3}]
 //newHashtags = ['fun']
 //newHashtagsCounts = [{'sport', 2}, {'sad',3}, {'fun',1} ]

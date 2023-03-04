@@ -18,6 +18,7 @@ export const Home: React.FC = () => {
     const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
 
     useEffect(() => {
+        if (!!tweets.length) setTweetsToShow(null)
         if (!tweets.length || !loggedinUser) return
         const followsUsersTweets = tweets.filter(tweet => {
             return (loggedinUser?.follows.includes(tweet.createdBy) || tweet.createdBy === loggedinUser._id)
@@ -36,9 +37,7 @@ export const Home: React.FC = () => {
     }, [users, loggedinUser])
 
 
-    // if (!loggedinUser || !users?.length || !tweetsToShow || !usersToFollow) return <div>Loading...</div>
     if (!loggedinUser || !users?.length || !usersToFollow) return <div>Loading...</div>
-
     return (
         <section className="home page">
 

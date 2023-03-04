@@ -23,7 +23,7 @@ export const Login: React.FC = () => {
             await dispatch(login(fields))
             navigateTo('/home')
         } catch (err) {
-            console.log(`username or password wrong:`,)
+            console.log(`Username or password are incorrect`)
         }
     }
 

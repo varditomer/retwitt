@@ -4,7 +4,7 @@ import { httpService } from "./http.service"
 import { userService } from "./user.service"
 import { utilService } from "./util.service"
 // Interface
-import { Tweet, Reply } from "../interfaces/tweet.interface"
+import { Tweet, Reply, Retweet } from "../interfaces/tweet.interface"
 
 const STORAGE_KEY = 'tweet'
 
@@ -15,7 +15,8 @@ export const tweetService = {
     update,
     remove,
     getEmptyTweet,
-    getEmptyReply
+    getEmptyReply,
+    retweet
 }
 
 async function query() {
@@ -36,6 +37,12 @@ async function update(tweet: Tweet) {
     return updatedTweet
 }
 
+async function retweet(retweetedTweetId: string) {
+    const newRetweet = getNewRetweet(retweetedTweetId)
+    const addedRetweet: Retweet = await httpService.post('tweet/retweet', newRetweet)
+    return addedRetweet
+}
+
 async function remove(tweetId: string) {
     return await httpService.delete(`tweet/${tweetId}`)
 }
@@ -45,12 +52,12 @@ function getEmptyTweet(): Tweet {
         createdBy: userService.getLoggedinUser()!._id,
         imgUrl: '',
         isEveryOneCanReply: true,
-        retweet: false,
+        isRetweet: false,
         content: '',
 
         hashtags: [],
         replies: [],
-        reTweetedBy: [],
+        retweetedBy: [],
         savedBy: [],
         likes: [],
     }
@@ -64,5 +71,13 @@ function getEmptyReply(): Reply {
         content: '',
         imgUrl: '',
         likes: [],
+    }
+}
+
+function getNewRetweet(retweetedTweetId: string): Retweet {
+    return {
+        createdBy: userService.getLoggedinUser()!._id,
+        retweetedTweetId,
+        isRetweet: true
     }
 }

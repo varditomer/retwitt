@@ -2,7 +2,7 @@ import './assets/styles/main.scss'
 import { Route, Routes } from 'react-router-dom'
 import { AppHeader } from './components/AppHeader'
 import routes from './routes'
-import { Footer } from './components/Footer'
+import { AppFooter } from './components/AppFooter'
 import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { INITIAL_STATE, UserState } from './interfaces/state.interface'
@@ -36,7 +36,7 @@ const App: React.FC = () => {
           return <Route key={route.path} element={route.component} path={route.path} />
         })}
       </Routes>
-      {loggedinUser ? <Footer /> : ''}
+      {loggedinUser ? <AppFooter /> : ''}
     </section>
   )
 }

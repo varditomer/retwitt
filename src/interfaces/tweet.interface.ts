@@ -14,13 +14,27 @@ export interface Tweet {
     isEveryOneCanReply: boolean,
     imgUrl: string,
     content: string,
-    retweet: boolean,
-    
+
+    isRetweet: boolean,
+
     hashtags: string[],
     replies: Reply[],
-    reTweetedBy: string[],
+    retweetedBy: [
+        {
+            retweeterId: string,
+            retweetId: string
+        }?
+    ]
     savedBy: string[],
     likes: string[],
+}
+
+export interface Retweet {
+    _id?: string,
+    createdAt?: number,
+    createdBy: string,
+    retweetedTweetId: string
+    isRetweet: boolean
 }
 
 export interface ObjMap {

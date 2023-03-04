@@ -24,19 +24,19 @@ export const Bookmark: React.FC = () => {
     setTweetsToShow(savedTweets)
 
 
-    const selectedUserLikedTweets = tweets.filter(tweet => tweet.likes.includes(loggedinUser._id))
+    const selectedUserLikedTweets = tweets.filter(tweet => tweet.likes?.includes(loggedinUser._id))
     setUserLikedTweets(selectedUserLikedTweets)
 
     const tweetsToFilter: Tweet[] = structuredClone(tweets)
 
     // This code filter & make shallow copy (breaks only tweets pointers but not inner replies pointers) 
     // of tweets by tweets that the loggedin user replied on them.
-    const selectedUserRepliedTweets = tweetsToFilter.filter(tweet => tweet.replies.some(reply => reply.createdBy === loggedinUser._id))
+    const selectedUserRepliedTweets = tweetsToFilter.filter(tweet => tweet.replies?.some(reply => reply.createdBy === loggedinUser._id))
     // But next I want to remove others users's replies on them,
     // but because filter method only makes a shallow copy
     // this manipulation will filter others users's replies from the original tweets.
     // So i'm working from the start on structredClone of the original tweets
-    selectedUserRepliedTweets.forEach(tweet => tweet.replies = tweet.replies.filter(reply => {
+    selectedUserRepliedTweets.forEach(tweet => tweet.replies = tweet.replies?.filter(reply => {
       return reply.createdBy === loggedinUser._id
     }))
 

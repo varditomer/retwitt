@@ -1,4 +1,3 @@
-import { MouseEvent } from "react"
 import { User } from "../../interfaces/user.interface"
 import SvgIcon from "../../SvgIcon"
 import { NameAcronym } from "../NameAcronym"
@@ -13,7 +12,6 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, follow
 
     const handleClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation()
-        console.log(`user:`, user)
         followUser(user)
     }
 

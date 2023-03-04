@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { INITIAL_STATE } from '../../interfaces/state.interface'
-import { Reply, Tweet } from '../../interfaces/tweet.interface'
+import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
+import { tweetService } from '../../services/tweet.service'
 import { utilService } from '../../services/util.service'
-import { removeTweet, updateTweet } from '../../store/actions/tweet.action'
+import { removeTweet, updateTweet, addRetweet } from '../../store/actions/tweet.action'
 import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
 import SvgIcon from '../../SvgIcon'
 import { Modal } from '../Modal'
@@ -20,10 +21,12 @@ type Props = {
     tweet: Tweet
     loggedinUser: User
     tweetCreatedByUser: User,
-    repliesCreatedByUsers?: User[]
+    repliesCreatedByUsers?: User[],
+    retweet?: Retweet,
+    retweetCreatedByUser?: User,
 }
 
-export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreatedByUser, repliesCreatedByUsers }) => {
+export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreatedByUser, repliesCreatedByUsers, retweet, retweetCreatedByUser }) => {
 
     const childInputRef = useRef<HTMLInputElement>(null)
 
@@ -41,7 +44,10 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     const navigateTo = () => {
         navigate(`/home/${tweet.createdBy}/tweets`)
     }
-
+    const isRetweetClicked = () => {
+        const retweetedByIdx = tweet.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+        return (retweetedByIdx !== -1)
+    }
     const isLikeClicked = () => {
         return tweet.likes.includes(loggedinUser._id)
     }
@@ -92,7 +98,37 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     const onRemoveTweet = () => {
         if (!tweet._id || tweet.createdBy !== loggedinUser._id) return
         setShowTweetOptModal(false)
+
+        if (tweet.retweetedBy.length) {
+            tweet.retweetedBy.forEach(retweetedBy => {
+                dispatch(removeTweet(retweetedBy?.retweetId!))
+            })
+        }
         dispatch(removeTweet(tweet._id))
+    }
+
+    const onRetweet = async () => {
+        const tweetToUpdate = structuredClone(tweet)
+
+        const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+        if (retweetedByIdx !== -1) {
+            await dispatch(removeTweet(tweetToUpdate.retweetedBy[retweetedByIdx]?.retweetId!))
+            tweetToUpdate.retweetedBy.splice(retweetedByIdx, 1)
+            return onUpdateTweet(tweetToUpdate)
+        }
+
+        // Optimistic tweet update
+        tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
+        onUpdateTweet(tweetToUpdate)
+
+        const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
+        // Update tweet again with the retweetId that was created on the backend
+        if (retweetId) {
+            const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+            tweetToUpdate.retweetedBy[retweetedByIdx]!.retweetId = retweetId
+            onUpdateTweet(tweetToUpdate)
+        }
+
     }
 
     const toggleFollowUser = (userId: string) => {
@@ -124,111 +160,117 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     if (!tweet || !tweet._id || !tweet.createdAt || !loggedinUser || !tweetCreatedByUser) return <div>Loading...</div>
 
     return (
-        <article className="tweet card">
-            <div className="card-header tweet-header">
-                {tweetCreatedByUser.profileImg ?
-                    <img className="user-img" src={tweetCreatedByUser.profileImg} alt="user image" onClick={() => navigateTo()} /> :
-                    <NameAcronym firstName={tweetCreatedByUser.firstName} lastName={tweetCreatedByUser.lastName} userId={tweetCreatedByUser._id} />
-                }
-                <div className="user-info">
-                    <span className="user-name" onClick={() => navigateTo()}>{tweetCreatedByUser?.firstName} {tweetCreatedByUser?.lastName}</span>
-                    <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
-                </div>
+        <section>
+            {retweet && <div className="retweet-head">
+                <SvgIcon iconName="sync" wrapperStyle="" svgProp={{ stroke: "#828282", fill: "#828282" }} />
+                <span>{retweetCreatedByUser?.firstName} {retweetCreatedByUser?.lastName} Retweeted</span>
+            </div>}
+            <article className="tweet card">
+                <div className="card-header tweet-header">
+                    {tweetCreatedByUser.profileImg ?
+                        <img className="user-img" src={tweetCreatedByUser.profileImg} alt="user image" onClick={() => navigateTo()} /> :
+                        <NameAcronym firstName={tweetCreatedByUser.firstName} lastName={tweetCreatedByUser.lastName} userId={tweetCreatedByUser._id} />
+                    }
+                    <div className="user-info">
+                        <span className="user-name" onClick={() => navigateTo()}>{tweetCreatedByUser?.firstName} {tweetCreatedByUser?.lastName}</span>
+                        <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
+                    </div>
 
-                <div className="options-container" onClick={toggleModal}>
-                    <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                </div>
+                    <div className="options-container" onClick={toggleModal}>
+                        <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                    </div>
 
-                {showTweetOptModal ?
-                    <Modal modalClass='tweet-modal'>
-                        {(tweet.createdBy === loggedinUser._id) ?
-                            <div className="reply-set-container">
-                                <span className="reply-set">
-                                    Toggle who can reply:
-                                </span>
+                    {showTweetOptModal ?
+                        <Modal modalClass='tweet-modal'>
+                            {(tweet.createdBy === loggedinUser._id) ?
+                                <div className="reply-set-container">
+                                    <span className="reply-set">
+                                        Toggle who can reply:
+                                    </span>
 
-                                {(tweet.isEveryOneCanReply) ?
-                                    <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(false)}>
-                                        <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                                        <span className="card-item-txt">People you follow</span>
-                                    </div>
-                                    :
-                                    <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(true)}>
-                                        <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                                        <span className="card-item-txt">Every one can reply</span>
-                                    </div>
-                                }
-                            </div>
-                            :
-                            ''
-                        }
-
-                        <div className="modal-item">
-                            <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
-                            <span className="card-item-txt">Copy tweet text</span>
-                        </div>
-                        {(tweet.createdBy === loggedinUser._id) ?
-                            <div className={`modal-item negative`} onClick={onRemoveTweet}>
-                                <SvgIcon iconName="remove" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
-                                <span className="card-item-txt">Delete tweet</span>
-                            </div>
-                            :
-                            (loggedinUser.follows.includes(tweet.createdBy)) ?
-                                <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweet.createdBy)}>
-                                    <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
-                                    <span className="card-item-txt">Unfollow</span>
+                                    {(tweet.isEveryOneCanReply) ?
+                                        <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(false)}>
+                                            <SvgIcon iconName="people" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                            <span className="card-item-txt">People you follow</span>
+                                        </div>
+                                        :
+                                        <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(true)}>
+                                            <SvgIcon iconName="earth" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                            <span className="card-item-txt">Every one can reply</span>
+                                        </div>
+                                    }
                                 </div>
                                 :
-                                <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweet.createdBy)}>
-                                    <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
-                                    <span className="card-item-txt">Follow</span>
+                                ''
+                            }
+
+                            <div className="modal-item">
+                                <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
+                                <span className="card-item-txt">Copy tweet text</span>
+                            </div>
+                            {(tweet.createdBy === loggedinUser._id) ?
+                                <div className={`modal-item negative`} onClick={onRemoveTweet}>
+                                    <SvgIcon iconName="remove" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
+                                    <span className="card-item-txt">Delete tweet</span>
                                 </div>
-                        }
-                    </Modal>
+                                :
+                                (loggedinUser.follows.includes(tweet.createdBy)) ?
+                                    <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweet.createdBy)}>
+                                        <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
+                                        <span className="card-item-txt">Unfollow</span>
+                                    </div>
+                                    :
+                                    <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweet.createdBy)}>
+                                        <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
+                                        <span className="card-item-txt">Follow</span>
+                                    </div>
+                            }
+                        </Modal>
+                        :
+                        ''
+                    }
+
+                </div>
+                <p className="tweet-txt">
+                    {tweet.content}
+                </p>
+                {tweet.imgUrl && <img className="tweet-img" src={tweet.imgUrl} alt="" />}
+
+                <div className="expose-info">
+                    {tweet.likes.length ? <span> {tweet.likes.length} Likes</span> : ''}
+                    {tweet.replies.length ? <span> {tweet.replies.length} Replies</span> : ''}
+                    {tweet.retweetedBy.length ? <span> {tweet.retweetedBy.length} Retweets</span> : ''}
+                    {tweet.savedBy.length ? <span> {tweet.savedBy.length} Saved</span> : ''}
+                </div>
+
+                <div className="action-btns">
+                    <button className='action-btn' onClick={() => childInputRef.current?.focus()}>
+                        <SvgIcon iconName="comment" wrapperStyle="comment" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                        <span className="action-type">Comment</span>
+                    </button>
+                    <button className={`action-btn retweet ${(isRetweetClicked()) ? 'active' : ''}`} onClick={onRetweet}>
+                        <SvgIcon iconName="sync" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                        <span className="action-type">Retweet</span>
+                    </button>
+                    <button className={`action-btn like ${(isLikeClicked()) ? 'active' : ''}`} onClick={toggleLikeTweet}>
+                        <SvgIcon iconName="like" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                        <span className="action-type">Like</span>
+                    </button>
+                    <button className={`action-btn bookmark ${(isBookmarked()) ? 'active' : ''}`} onClick={toggleBookmarkTweet}>
+                        <SvgIcon iconName="bookmark" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                        <span className="action-type">Save</span>
+                    </button>
+                </div>
+
+                <AddReply loggedinUser={loggedinUser} childInputRef={childInputRef} tweetToEdit={tweet} onUpdateTweet={onUpdateTweet} tweetCreatedByUser={tweetCreatedByUser} />
+
+                {(tweet.replies.length && repliesCreatedByUsers) ?
+                    <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} removeReply={removeReply} toggleFollowUser={toggleFollowUser} />
                     :
                     ''
                 }
 
-            </div>
-            <p className="tweet-txt">
-                {tweet.content}
-            </p>
-            {tweet.imgUrl && <img className="tweet-img" src={tweet.imgUrl} alt="" />}
-
-            <div className="expose-info">
-                {tweet.likes?.length ? <span> {tweet.likes.length} Likes</span> : ''}
-                {tweet.replies?.length ? <span> {tweet.replies.length} Replies</span> : ''}
-                <span>59k Retweets</span>
-                {tweet.savedBy.length ? <span> {tweet.savedBy.length} Saved</span> : ''}
-            </div>
-
-            <div className="action-btns">
-                <button className='action-btn' onClick={() => childInputRef.current?.focus()}>
-                    <SvgIcon iconName="comment" wrapperStyle="comment" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    <span className="action-type">Comment</span>
-                </button>
-                <button className='action-btn retweet'>
-                    <SvgIcon iconName="sync" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    <span className="action-type">Retweet</span>
-                </button>
-                <button className={`action-btn like ${(isLikeClicked()) ? 'active' : ''}`} onClick={toggleLikeTweet}>
-                    <SvgIcon iconName="like" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    <span className="action-type">Like</span>
-                </button>
-                <button className={`action-btn bookmark ${(isBookmarked()) ? 'active' : ''}`} onClick={toggleBookmarkTweet}>
-                    <SvgIcon iconName="bookmark" wrapperStyle="" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                    <span className="action-type">Save</span>
-                </button>
-            </div>
-
-            <AddReply loggedinUser={loggedinUser} childInputRef={childInputRef} tweetToEdit={tweet} onUpdateTweet={onUpdateTweet} tweetCreatedByUser={tweetCreatedByUser} />
-
-            {(tweet.replies.length && repliesCreatedByUsers) ?
-                <ReplyList replies={tweet.replies} repliesCreatedByUsers={repliesCreatedByUsers} loggedinUser={loggedinUser} toggleLikeReply={toggleLikeReply} removeReply={removeReply} toggleFollowUser={toggleFollowUser} />
-                :
-                ''
-            }
-
-        </article>
+            </article>
+        </section>
     )
 }
