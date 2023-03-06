@@ -4,7 +4,7 @@ import { httpService } from "./http.service"
 import { userService } from "./user.service"
 import { utilService } from "./util.service"
 // Interface
-import { Tweet, Reply, Retweet } from "../interfaces/tweet.interface"
+import { Tweet, Reply, Retweet, hashtags } from "../interfaces/tweet.interface"
 
 const STORAGE_KEY = 'tweet'
 
@@ -16,7 +16,9 @@ export const tweetService = {
     remove,
     getEmptyTweet,
     getEmptyReply,
-    retweet
+    retweet,
+    queryHashtags,
+    updateHashtags
 }
 
 async function query() {
@@ -24,27 +26,37 @@ async function query() {
 }
 
 function getById(tweetId: string) {
-    return httpService.get(`tweet/${tweetId}`)
+    return httpService.get(`${STORAGE_KEY}/${tweetId}`)
 }
 
 async function add(tweetToAdd: Tweet) {
-    const addedTweet: Tweet = await httpService.post('tweet', tweetToAdd)
+    const addedTweet: Tweet = await httpService.post(`${STORAGE_KEY}`, tweetToAdd)
     return addedTweet
 }
 
 async function update(tweet: Tweet) {
-    const updatedTweet: Tweet = await httpService.put(`tweet/${tweet._id}`, tweet)
+    const updatedTweet: Tweet = await httpService.put(`${STORAGE_KEY}/${tweet._id}`, tweet)
     return updatedTweet
 }
 
 async function retweet(retweetedTweetId: string) {
     const newRetweet = getNewRetweet(retweetedTweetId)
-    const addedRetweet: Retweet = await httpService.post('tweet/retweet', newRetweet)
+    const addedRetweet: Retweet = await httpService.post(`${STORAGE_KEY}/retweet`, newRetweet)
     return addedRetweet
 }
 
+
 async function remove(tweetId: string) {
-    return await httpService.delete(`tweet/${tweetId}`)
+    return await httpService.delete(`${STORAGE_KEY}/${tweetId}`)
+}
+
+async function queryHashtags() {
+    return httpService.get(`${STORAGE_KEY}/hashtag`)
+}
+
+async function updateHashtags(hashtagsToUpdate: hashtags) {
+    console.log(`hashtagsCounts:`, hashtagsToUpdate)
+    return await httpService.put(`${STORAGE_KEY}/hashtag`, hashtagsToUpdate)
 }
 
 function getEmptyTweet(): Tweet {

@@ -1,9 +1,7 @@
 // Services
 import { tweetService } from "../../services/tweet.service"
 // Interfaces
-import { ObjMap, Tweet } from "../../interfaces/tweet.interface"
-import { TweetState } from "../../interfaces/state.interface"
-import { useSelector } from "react-redux"
+import { hashtag, hashtags, Tweet } from "../../interfaces/tweet.interface"
 
 
 export function loadTweets() {
@@ -65,34 +63,68 @@ export function addRetweet(retweetedTweetId: string) {
     }
 }
 
-
-
-//hashtagsCounts = [{'sport', 1}, {'sad',3}]
-//newHashtags = ['fun']
-//newHashtagsCounts = [{'sport', 2}, {'sad',3}, {'fun',1} ]
-//sortedNewHashtagsCounts = [{'sad',3}, {'sport', 2}, {'fun',1}]
-export function updateHashtags(newHashtags: string[], hashtagsCounts: ObjMap[]) {
+export function loadHashtags() {
     return async (dispatch: any) => {
         try {
-            console.log(`newHashtags:`, newHashtags)
-            console.log(`hashtagsCounts:`, hashtagsCounts)
-            let newHashtagsCounts = hashtagsCounts.map(hashtagObj => {
-                const idx = newHashtags.findIndex(hashtag => hashtag === hashtagObj.key)
-                if (idx !== -1) {
-                    newHashtags.splice(idx, 1)
-                    return { key: hashtagObj.key, occurrences: hashtagObj.occurrences + 1 }
+            const hashtags: hashtags = await tweetService.queryHashtags()
+            console.log(`hashtags:`, hashtags)
+            dispatch({ type: 'SET_HASHTAGS', payload: hashtags })
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+}
+
+export function removeHashtags(hashtagsToRemove: string[], currHashtags: hashtags) {
+    return async (dispatch: any) => {
+        try {
+            const newHashtags = currHashtags.hashtags.map(hashtagObj => {
+                if (hashtagsToRemove.includes(hashtagObj.key)) {
+                    return {
+                        key: hashtagObj.key,
+                        occurrences: hashtagObj.occurrences - 1
+                    } as hashtag
                 }
                 else return hashtagObj
-            })
-            if (newHashtags.length) {
-                newHashtags.forEach(hashtag => {
-                    newHashtagsCounts.push({ key: hashtag, occurrences: 1 })
+            }).filter(hashtag => hashtag.occurrences !== 0)
+            const updatedHashtags: hashtags = {
+                _id: currHashtags._id,
+                hashtags: newHashtags
+            }
+            updatedHashtags.hashtags.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
+            dispatch({ type: 'UPDATE_HASHTAGS', payload: updatedHashtags })
+            await tweetService.updateHashtags(updatedHashtags)
+
+        } catch (err) {
+            console.log(`err:`, err)
+        }
+    }
+}
+
+
+export function updateHashtags(newHashtags: string[], currHashtags: hashtags) {
+    return async (dispatch: any) => {
+        try {
+            const updatedHashtags: hashtags = {
+                _id: currHashtags._id,
+                hashtags: currHashtags.hashtags.map(hashtagObj => {
+                    const idx = newHashtags.findIndex(hashtag => hashtag === hashtagObj.key)
+                    if (idx !== -1) {
+                        newHashtags.splice(idx, 1)
+                        return { key: hashtagObj.key, occurrences: hashtagObj.occurrences + 1 }
+                    }
+                    else return hashtagObj
                 })
             }
-            console.log(`newHashtagsCounts:`, newHashtagsCounts)
-            newHashtagsCounts.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
-            console.log(`newHashtagsCounts:`, newHashtagsCounts)
-            dispatch({ type: 'UPDATE_HASHTAGS', payload: newHashtagsCounts })
+            if (newHashtags.length) {
+                newHashtags.forEach(hashtag => {
+                    updatedHashtags.hashtags.push({ key: hashtag, occurrences: 1 })
+                })
+            }
+            updatedHashtags.hashtags.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
+            dispatch({ type: 'UPDATE_HASHTAGS', payload: updatedHashtags })
+            await tweetService.updateHashtags(updatedHashtags)
+
         } catch (err) {
             console.log(`err:`, err)
         }

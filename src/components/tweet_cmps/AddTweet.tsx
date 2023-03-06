@@ -1,11 +1,10 @@
-import EmojiPicker from "emoji-picker-react"
+// import EmojiPicker from "emoji-picker-react"
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { INITIAL_STATE, TweetState } from "../../interfaces/state.interface"
-import { Tweet } from "../../interfaces/tweet.interface"
+import { INITIAL_STATE } from "../../interfaces/state.interface"
+import { hashtags, Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
 import { uploadImg } from "../../services/img-upload.service"
 import { tweetService } from "../../services/tweet.service"
@@ -16,18 +15,18 @@ import { NameAcronym } from "../NameAcronym"
 
 type Props = {
     loggedinUser: User,
+    hashtags: hashtags
 }
 
-export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
+export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
     const [showWhoCanReplyModal, setShowWhoCanReplyModal] = useState(false)
-    const [isEmojiClicked, setIsEmojiClicked] = useState(false)
+    // const [isEmojiClicked, setIsEmojiClicked] = useState(false)
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
-    const hashtagsCounts = useSelector((state: TweetState) => state.tweetModule.hashtagsCounts)
 
 
     useEffect(() => {
@@ -78,16 +77,17 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser }) => {
 
     const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
-        if (!newTweet) return
-        console.log(`newTweet:`, newTweet)
-
+        console.log(`hashtags:`, hashtags)
+        if (!newTweet || !hashtags) return
 
         const tweetToSave = structuredClone(newTweet)
         const matches = tweetToSave.content.match(/#(\w+)/g)
-        const hashTags = matches?.map(match => match.slice(1))
-        if (hashTags) {
-            console.log(`hashTags:`, hashTags)
-            dispatch(updateHashtags(hashTags, hashtagsCounts))
+        const newHashtags = matches?.map(match => match.toLowerCase().slice(1))
+        if (newHashtags) {
+            const uniqueHashtags = [...new Set(newHashtags)] // The Set object lets you store unique values of any type, including strings.
+            console.log(`uniqueHashtags:`, uniqueHashtags)
+            dispatch(updateHashtags(uniqueHashtags, hashtags))
+            tweetToSave.hashtags = uniqueHashtags
         }
         dispatch(addTweet(tweetToSave))
 

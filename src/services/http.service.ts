@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { Retweet, Tweet } from "../interfaces/tweet.interface";
+import { hashtags, Retweet, Tweet } from "../interfaces/tweet.interface";
 import { User, UserCredentials } from "../interfaces/user.interface";
 
 const BASE_URL: string = (process.env.NODE_ENV === 'production') ?
@@ -11,13 +11,13 @@ const axios = Axios.create({
 })
 
 export const httpService = {
-    get(endpoint: string, data: Tweet | User | string | null = null) {
+    get(endpoint: string, data: Tweet | hashtags | User | string | null = null) {
         return ajax(endpoint, 'GET', data)
     },
     post(endpoint: string, data: Tweet | Retweet | UserCredentials | string | null = null) {
         return ajax(endpoint, 'POST', data)
     },
-    put(endpoint: string, data: Tweet | User | string | null = null) {
+    put(endpoint: string, data: Tweet | hashtags | User | string | null = null) {
         return ajax(endpoint, 'PUT', data)
     },
     delete(endpoint: string, data: Tweet | User | string | null = null) {
@@ -25,7 +25,7 @@ export const httpService = {
     }
 }
 
-async function ajax(endpoint: string, method = 'GET', data: Tweet | Retweet | User | UserCredentials | string | null = null) {
+async function ajax(endpoint: string, method = 'GET', data: Tweet | hashtags | Retweet | User | UserCredentials | string | null = null) {
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,

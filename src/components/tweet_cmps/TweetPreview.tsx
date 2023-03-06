@@ -1,14 +1,15 @@
 import { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { INITIAL_STATE } from '../../interfaces/state.interface'
+import { INITIAL_STATE, TweetState } from '../../interfaces/state.interface'
 import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 import { tweetService } from '../../services/tweet.service'
 import { utilService } from '../../services/util.service'
-import { removeTweet, updateTweet, addRetweet } from '../../store/actions/tweet.action'
+import { removeTweet, updateTweet, addRetweet, removeHashtags } from '../../store/actions/tweet.action'
 import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
 import SvgIcon from '../../SvgIcon'
 import { Modal } from '../Modal'
@@ -31,6 +32,9 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     const childInputRef = useRef<HTMLInputElement>(null)
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
+
+    const hashtags = useSelector((state: TweetState) => state.tweetModule.hashtags)
+
 
     const [showTweetOptModal, setShowTweetOptModal] = useState(false)
 
@@ -103,6 +107,13 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             tweet.retweetedBy.forEach(retweetedBy => {
                 dispatch(removeTweet(retweetedBy?.retweetId!))
             })
+        }
+
+        const matches = tweet.content.match(/#(\w+)/g)
+        const hashtagsToRemove = matches?.map(match => match.toLowerCase().slice(1))
+        if (hashtagsToRemove) {
+            dispatch(removeHashtags(hashtagsToRemove, hashtags))
+
         }
         dispatch(removeTweet(tweet._id))
     }

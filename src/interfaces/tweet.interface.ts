@@ -37,7 +37,12 @@ export interface Retweet {
     isRetweet: boolean
 }
 
-export interface ObjMap {
+export interface hashtags {
+    _id?: string,
+    hashtags: hashtag[]
+}
+
+export interface hashtag {
     key: string,
     occurrences: number
 }
