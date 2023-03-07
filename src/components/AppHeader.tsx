@@ -1,9 +1,10 @@
 // React / Redux:
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { useClickOutside } from '../hooks/useClickOutside';
 // Interfaces:
 import { INITIAL_STATE } from '../interfaces/state.interface';
 import { User } from '../interfaces/user.interface';
@@ -26,6 +27,10 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
 
     const navigate = useNavigate()
 
+    let modalTriggerRef = useRef<HTMLDivElement>(null)
+    let modalRef = useRef<HTMLDivElement>(null)
+    useClickOutside(modalRef, modalTriggerRef, () => setShowAccountModal(false))
+
     const navigateTo = () => {
         setShowAccountModal(false)
         navigate(`/home/${loggedinUser._id}/tweets`)
@@ -39,6 +44,11 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
         dispatch(logout())
         navigate('/')
     }
+
+
+
+
+
     if (!loggedinUser) return <div>Loading...</div>
 
     return (
@@ -52,7 +62,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                 <div className="user">
                     <img src="" alt="" className="user-img" />
                     <div className='account'>
-                        <div className="account-icons-container" onClick={toggleModal}>
+                        <div className="account-icons-container" onClick={toggleModal} ref={modalTriggerRef}>
                             {loggedinUser.profileImg ?
                                 <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
                                 <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
@@ -64,7 +74,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
 
 
                         {showAccountModal ?
-                            <Modal modalClass='account-modal'>
+                            <Modal modalClass='account-modal' modalRef={modalRef}>
                                 <div className="modal-item" onClick={navigateTo}>
                                     <SvgIcon iconName="profile" wrapperStyle="profile" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">My Profile</span>

@@ -6,7 +6,7 @@ import { useFormRegister } from "../../hooks/useFormRegister"
 import { INITIAL_STATE, LoginSignupContext } from "../../interfaces/state.interface"
 import { userService } from "../../services/user.service"
 
-import { login, signup } from "../../store/actions/user.action"
+import { login } from "../../store/actions/user.action"
 
 export const Login: React.FC = () => {
 

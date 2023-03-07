@@ -7,10 +7,9 @@
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         width: 100%;
         .back {
-            // @include custom-btn;
             position: absolute;
             top: calc(76px / 2 - (40px / 2));
-            right: 20px;
+            left: 20px;
             cursor: pointer;
             @include hover-supported {
                 @include custom-hover-svg-txt($outlineRadius: 2px);
@@ -72,9 +71,7 @@
         color: $clr-gray2;
         width: 100%;
         gap: 5px;
-        background-color: $clr--white;
         padding: 20px;
-        border-radius: 20px;
         @include for-mobile-layout {
             padding: 15px;
         }
@@ -92,10 +89,11 @@
         @include flex-vertically-center;
         gap: 20px;
         padding: 20px;
-        flex-direction: column;
         @include for-mobile-layout {
+            gap: 15px;
             padding: 15px;
         }
+        flex-direction: column;
         .input-item-container {
             height: 55px;
             width: 100%;
@@ -104,13 +102,17 @@
             border-radius: 12px;
             box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
             outline: 1px solid rgba(29, 161, 242, 0.09);
+
             @include hover-supported {
                 background-color: rgba(29, 161, 242, 0.05);
             }
             .title-container {
+                position: relative;
+                z-index: 30;
                 @include flex-vertically-center;
                 justify-content: space-between;
                 padding-inline: 10px;
+                padding-top: 6px;
                 color: $clr-gray1;
                 font-family: Poppins-Medium;
                 font-size: rem(16px);
@@ -122,6 +124,7 @@
                 background-color: rgba(29, 161, 242, 0.05);
                 .title-container {
                     font-family: Poppins-Medium;
+                    
                     .counter {
                         visibility: visible;
                         color: black;
@@ -141,35 +144,41 @@
                     color: $clr--black;
                 }
             }
-            input {
-                all: unset;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: calc(100% - 20px);
-                border-radius: 12px;
-                padding-inline: 10px;
-                padding-top: 30px;
-                padding-bottom: 6px;
-                line-height: 1;
-                font-family: NotoSans-Regular;
-                font-size: rem(14px);
-                margin-inline: auto;
-                color: $clr-gray1;
-                cursor: pointer;
+            input,
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus,
+            input:-webkit-autofill:active {
+                all: unset !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: calc(100% - 20px) !important;
+                border-radius: 12px !important;
+                padding-inline: 10px !important;
+                padding-top: 30px !important;
+                padding-bottom: 6px !important;
+                line-height: 1 !important;
+                font-family: NotoSans-Regular !important;
+                font-size: rem(14px) !important;
+                margin-inline: auto !important;
+                color: $clr-gray1 !important;
+                -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+                cursor: pointer !important;
                 &:focus {
-                    outline: 1px solid $clr-twitter;
-                    font-family: NotoSans-SemiBold;
+                    outline: 1px solid $clr-twitter !important;
+                    font-family: NotoSans-SemiBold !important;
                     color: $clr--black !important;
                 }
             }
         }
         .btn-submit {
             @include custom-btn;
-            width: 50%;
-            font-size: rem(14px);
-            height: 40px;
-            align-self: end;
+            width: 100%;
+            border-radius: 12px;
+            height: 55px;
+            font-size: rem(18px);
+            box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
         }
     }
     .landing-footer {

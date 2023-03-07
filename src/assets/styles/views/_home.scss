@@ -1,6 +1,40 @@
 .home {
     .small-area {
-        display: none;
+        // border-bottom-right-radius: 20px;
+        // border-top-right-radius: 20px;
+        .toggle-show-small-area {
+            display: none;
+        }
+        @include for-mobile-layout {
+            position: absolute;
+            top: 102px;
+            left: -50%;
+            width: 50%;
+            padding: 30px 15px;
+            background-color: $clr-gray4;
+            box-shadow: $bs-primary;
+            transition: left 0.5s;
+            &.show {
+                left: 0;
+            }
+            .toggle-show-small-area {
+                @include custom-btn;
+                border-radius: 0;
+                display: block;
+                position: absolute;
+                top: 0px;
+                right: -50px;
+                width: 50px;
+                .arrow {
+                    transition: transform 0.5s;
+                }
+                &.rotate {
+                    .arrow {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
     }
     @include for-wide-layout {
         grid-template-columns: 2fr 1fr;

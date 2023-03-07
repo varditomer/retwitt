@@ -7,16 +7,18 @@ import { WhoToFollowList } from '../components/who-to-follow_cmps/WhoToFollowLis
 import { useEffect, useState } from 'react';
 import { Tweet } from '../interfaces/tweet.interface';
 import { User } from '../interfaces/user.interface';
+import SvgIcon from '../SvgIcon';
 
 
 export const Home: React.FC = () => {
 
-    const {tweets, hashtags} = useSelector((state: TweetState) => state.tweetModule)
+    const { tweets, hashtags } = useSelector((state: TweetState) => state.tweetModule)
     const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
 
 
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
     const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
+    const [showSmallArea, setShowSmallArea] = useState(false)
 
     useEffect(() => {
         if (!!tweets.length) setTweetsToShow(null)
@@ -37,18 +39,28 @@ export const Home: React.FC = () => {
         setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 
+    const toggleShowSmallArea = () => {
+        setShowSmallArea(prevShowSmallArea => !prevShowSmallArea)
+    }
+
 
     if (!loggedinUser || !users?.length || !usersToFollow) return <div>Loading...</div>
     return (
         <section className="home page">
 
+
+
             <section className="large-area">
                 <AddTweet loggedinUser={loggedinUser} hashtags={hashtags} />
                 {tweetsToShow && <TweetList tweets={tweetsToShow} loggedinUser={loggedinUser} users={users} />}
             </section>
-            <div className="small-area">
-                <TrendList hashtags={hashtags.hashtags}/>
+            <div className={`small-area ${showSmallArea ? 'show' : ''}`}>
+                <TrendList hashtags={hashtags.hashtags} />
                 {usersToFollow && <WhoToFollowList users={usersToFollow} loggedinUser={loggedinUser} />}
+
+                <button className={`toggle-show-small-area ${showSmallArea ? 'rotate' : ''}`} onClick={toggleShowSmallArea}>
+                        <SvgIcon iconName='arrow_circle_right' wrapperStyle="arrow" svgProp={{ stroke: "white", fill: "white" }} />
+                </button>
             </div>
 
         </section>
