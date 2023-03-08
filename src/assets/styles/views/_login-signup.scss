@@ -17,9 +17,9 @@
         }
     }
     .main-content {
-        min-height: calc(100vh - 76px);
         max-width: calc(745px + 306px + 20px);
         margin-inline: auto;
+        margin-bottom: 76px;
         @include flex-column;
         gap: 40px;
         padding: 20px;
