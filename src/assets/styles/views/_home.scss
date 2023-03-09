@@ -1,35 +1,27 @@
 .home {
+    display: flex;
+    flex-direction: column-reverse;
+
     .small-area {
-        // border-bottom-right-radius: 20px;
-        // border-top-right-radius: 20px;
-        .toggle-show-small-area {
-            display: none;
-        }
-        @include for-mobile-layout {
-            position: absolute;
-            top: 102px;
-            left: -50%;
-            width: 50%;
-            padding: 30px 15px;
-            background-color: $clr-gray4;
-            box-shadow: $bs-primary;
-            transition: left 0.5s;
-            &.show {
-                left: 0;
-            }
-            .toggle-show-small-area {
-                @include custom-btn;
-                border-radius: 0;
-                display: block;
-                position: absolute;
-                top: 0px;
-                right: -50px;
-                width: 50px;
-                .arrow {
-                    transition: transform 0.5s;
+        > * {
+            max-height: 48px;
+            overflow-y: hidden;
+            transition: max-height 0.6s ease-in-out;
+            .card-title {
+                @include flex-vertically-center;
+                justify-content: space-between;
+                .expand-more {
+                    transition: transform 0.6s;
+                    cursor: pointer;
+                    @include hover-supported {
+                        @include custom-hover-svg-txt($outlineRadius: 4px);
+                    }
                 }
-                &.rotate {
-                    .arrow {
+            }
+            &:has(.expand) {
+                max-height: 300px;
+                .card-title {
+                    .expand-more {
                         transform: rotate(180deg);
                     }
                 }
@@ -37,9 +29,16 @@
         }
     }
     @include for-wide-layout {
+        display: grid;
         grid-template-columns: 2fr 1fr;
         .small-area {
             display: flex;
+            >*{
+                max-height: unset;
+                .expand-more {
+                    display: none;
+                }
+            }
         }
     }
 }
