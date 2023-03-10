@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+// import { FormEventHandler } from "react";
 import { TWEET_STATE } from "../store/reducers/tweet.reducer";
 import { USER_STATE } from "../store/reducers/user.reducer";
 import { Tweet } from "./tweet.interface";

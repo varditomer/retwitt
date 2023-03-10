@@ -1,8 +1,9 @@
 // import EmojiPicker from "emoji-picker-react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
+import { useClickOutside } from "../../hooks/useClickOutside"
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { hashtags, Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
@@ -23,10 +24,13 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
     const [showWhoCanReplyModal, setShowWhoCanReplyModal] = useState(false)
-    // const [isEmojiClicked, setIsEmojiClicked] = useState(false)
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
+
+    let modalTriggerRef = useRef<HTMLDivElement>(null)
+    let modalRef = useRef<HTMLDivElement>(null)
+    useClickOutside(modalRef, modalTriggerRef, () => setShowWhoCanReplyModal(false))
 
 
     useEffect(() => {
@@ -77,7 +81,6 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
 
     const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
-        console.log(`hashtags:`, hashtags)
         if (!newTweet || !hashtags) return
 
         const tweetToSave = structuredClone(newTweet)
@@ -85,7 +88,6 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
         const newHashtags = matches?.map(match => match.toLowerCase().slice(1))
         if (newHashtags) {
             const uniqueHashtags = [...new Set(newHashtags)] // The Set object lets you store unique values of any type, including strings.
-            console.log(`uniqueHashtags:`, uniqueHashtags)
             dispatch(updateHashtags(uniqueHashtags, hashtags))
             tweetToSave.hashtags = uniqueHashtags
         }
@@ -94,7 +96,9 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
         const emptyTweet = tweetService.getEmptyTweet()
         setNewTweet(emptyTweet)
     }
+    
     if (!loggedinUser) return <div>Loading...</div>
+
     return (
         <form className="add-tweet card" onSubmit={onAddTweet}>
             <h2 className='card-title'>Tweet something</h2>
@@ -120,12 +124,12 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
                     </div> */}
                     <div className="public-settings">
                         {/* Choose between everyone can reply or only people i follow will can */}
-                        <div className="public-settings-signs-wrapper" onClick={toggleModal}>
+                        <div className="public-settings-signs-wrapper" onClick={toggleModal} ref={modalTriggerRef}>
                             <SvgIcon iconName="earth" wrapperStyle="public-settings-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                             <span className='public-settings-txt'>{whoCanReplyText}</span>
                         </div>
                         {showWhoCanReplyModal &&
-                            <Modal modalClass="public-settings-modal">
+                            <Modal modalClass="public-settings-modal" modalRef={modalRef}>
                                 <h2 className='modal-title'>Who can reply?</h2>
                                 <h3 className='modal-subtitle'>Choose who can reply to this Tweet.</h3>
                                 <div className="modal-item" onClick={() => toggleIsEveryOneCanReplySettings(true)}>

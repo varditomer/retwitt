@@ -14,10 +14,11 @@ import { NameAcronym } from "./NameAcronym"
 
 type Props = {
     user: User,
-    toggleModal: () => void
+    toggleModal: () => void,
+    modalRef: React.RefObject<HTMLDivElement>,
 }
 
-export const EditProfile: React.FC<Props> = ({ user, toggleModal }) => {
+export const EditProfile: React.FC<Props> = ({ user, toggleModal, modalRef }) => {
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
@@ -67,7 +68,7 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal }) => {
 
     if (!user) return <div>Loading...</div>
     return (
-        <Modal modalClass="edit-profile-modal">
+        <Modal modalClass="edit-profile-modal" modalRef={modalRef}>
 
             <div className="header">
                 <div className="left-area">

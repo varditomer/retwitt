@@ -62,11 +62,11 @@ function getEmptyTweet(): Tweet {
         createdBy: userServiceLocal.getLoggedinUser()!._id,
         imgUrl: '',
         isEveryOneCanReply: true,
-        retweet: false,
+        isRetweet: false,
         hashtags: [],
         content: '',
         replies: [],
-        reTweetedBy: [],
+        retweetedBy: [],
         savedBy: [],
         likes: [],
     }

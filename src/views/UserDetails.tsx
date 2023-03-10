@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { EditProfile } from '../components/EditProfile';
 import { NameAcronym } from '../components/NameAcronym';
+import { useClickOutside } from '../hooks/useClickOutside';
 import { INITIAL_STATE, TweetState, UserState } from '../interfaces/state.interface';
 import { Tweet } from '../interfaces/tweet.interface';
 import { User } from '../interfaces/user.interface';
@@ -26,6 +27,10 @@ export const UserDetails: React.FC<Props> = () => {
     const [userLikedTweets, setUserLikedTweets] = useState<Tweet[] | null>(null)
     const [userRepliedTweets, setUserRepliedTweets] = useState<Tweet[] | null>(null)
     const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+
+    let modalTriggerRef = useRef<HTMLDivElement>(null)
+    let modalRef = useRef<HTMLDivElement>(null)
+    useClickOutside(modalRef, modalTriggerRef, () => setShowEditProfileModal(false))
 
     const navigate = useNavigate()
     const params = useParams()
@@ -83,7 +88,7 @@ export const UserDetails: React.FC<Props> = () => {
     return (
         <section className={`user-details ${showEditProfileModal? 'blur':''}`}>
             {showEditProfileModal &&
-               <EditProfile user={user} toggleModal={toggleModal} />
+               <EditProfile user={user} toggleModal={toggleModal} modalRef={modalRef} />
             }
             {showEditProfileModal &&
                <div className="black-screen"></div>
@@ -121,9 +126,11 @@ export const UserDetails: React.FC<Props> = () => {
                                 </div>
                             </div>
                             {(loggedinUser._id === user._id) ?
+                            <div className="edit-profile-container"  ref={modalTriggerRef}>
                                 <button className="btn-edit desktop-btn" onClick={toggleModal}>
                                     Edit profile
                                 </button>
+                            </div>
                                 :
                                 <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
                                     <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />

@@ -55,7 +55,6 @@ async function queryHashtags() {
 }
 
 async function updateHashtags(hashtagsToUpdate: hashtags) {
-    console.log(`hashtagsCounts:`, hashtagsToUpdate)
     return await httpService.put(`${STORAGE_KEY}/hashtag`, hashtagsToUpdate)
 }
 

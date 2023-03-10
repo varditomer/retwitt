@@ -1,20 +1,20 @@
 // React / Redux:
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
-import { AnyAction } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { useClickOutside } from '../hooks/useClickOutside';
+import { useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { AnyAction } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
+import { useClickOutside } from '../hooks/useClickOutside'
 // Interfaces:
-import { INITIAL_STATE } from '../interfaces/state.interface';
-import { User } from '../interfaces/user.interface';
+import { INITIAL_STATE } from '../interfaces/state.interface'
+import { User } from '../interfaces/user.interface'
 // Actions:
-import { logout } from '../store/actions/user.action';
+import { logout } from '../store/actions/user.action'
 // Components & Hooks:
-import SvgIcon from '../SvgIcon';
-import { Modal } from './Modal';
-import { NameAcronym } from './NameAcronym';
-import { NavLinks } from './NavLinks';
+import SvgIcon from '../SvgIcon'
+import { Modal } from './Modal'
+import { NameAcronym } from './NameAcronym'
+import { NavLinks } from './NavLinks'
 
 
 type Props = {
@@ -45,17 +45,13 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
         navigate('/')
     }
 
-
-
-
-
     if (!loggedinUser) return <div>Loading...</div>
 
     return (
         <header className='main-header'>
             <div className="header-container">
                 <div className="logo" onClick={() => navigate(`/home`)}>
-                    <img src="src\assets\icons\twitter_gif_no_bgc.gif" alt="" className='twitter' />
+                    <img src="./src/assets/icons/twitter_gif_no_bgc.gif" alt="" className='twitter' />
                     <span>ReTwitt</span>
                 </div>
                 <NavLinks />
@@ -67,7 +63,6 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                                 <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
                                 <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
                             }
-                            {/* <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> */}
                             <span className="user-name">{loggedinUser.firstName} {loggedinUser.lastName}</span>
                             <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />
                         </div>
@@ -89,8 +84,6 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                             :
                             ''
                         }
-
-
                     </div>
                 </div>
             </div>

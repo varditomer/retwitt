@@ -55,6 +55,10 @@
                     gap: 6px;
                 }
                 .public-settings-txt {
+                    @include for-mobile-layout {
+                        display: none;
+                    }
+                    display: block;
                     color: $clr-gray2;
                     font-size: rem(12px);
                 }

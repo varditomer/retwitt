@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useNavigate } from "react-router"
+import { useClickOutside } from "../../../hooks/useClickOutside"
 import { useTimestampConverter } from "../../../hooks/useTimestampConverter"
 import { Reply } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
@@ -24,6 +25,10 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
     const convertedTime = useTimestampConverter(reply.createdAt)
 
     const [showReplyOptModal, setShowReplyOptModal] = useState(false)
+
+    let modalTriggerRef = useRef<HTMLDivElement>(null)
+    let modalRef = useRef<HTMLDivElement>(null)
+    useClickOutside(modalRef, modalTriggerRef, () => setShowReplyOptModal(false))
 
     const toggleModal = () => {
         setShowReplyOptModal(prevShowReplyOptModal => !prevShowReplyOptModal)
@@ -67,12 +72,12 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                             <span className="reply-time">{convertedTime}</span>
                         </div>
 
-                        <div className="options-container" onClick={toggleModal}>
+                        <div className="options-container" onClick={toggleModal} ref={modalTriggerRef}>
                             <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                         </div>
 
                         {(showReplyOptModal) ?
-                            <Modal modalClass="reply-opt-modal">
+                            <Modal modalClass="reply-opt-modal"  modalRef={modalRef}>
                                 <div className="modal-item">
                                     <SvgIcon iconName="copy_txt" wrapperStyle="card-item-icon" svgProp={{ stroke: "#333333", fill: "#333333" }} />
                                     <span className="card-item-txt">Copy reply text</span>

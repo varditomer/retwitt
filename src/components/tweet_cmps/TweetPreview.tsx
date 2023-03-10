@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
+import { useClickOutside } from '../../hooks/useClickOutside'
 import { INITIAL_STATE, TweetState } from '../../interfaces/state.interface'
 import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
@@ -37,6 +38,11 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
 
     const [showTweetOptModal, setShowTweetOptModal] = useState(false)
+
+    let modalTriggerRef = useRef<HTMLDivElement>(null)
+    let modalRef = useRef<HTMLDivElement>(null)
+    useClickOutside(modalRef, modalTriggerRef, () => setShowTweetOptModal(false))
+
 
     const toggleModal = () => {
         setShowTweetOptModal(prevShowTweetOptModal => !prevShowTweetOptModal)
@@ -187,12 +193,12 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                         <span className="sub-info">{utilService.timeStampConverter(tweet.createdAt)}</span>
                     </div>
 
-                    <div className="options-container" onClick={toggleModal}>
+                    <div className="options-container" onClick={toggleModal} ref={modalTriggerRef}>
                         <SvgIcon iconName="options" wrapperStyle="options-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                     </div>
 
                     {showTweetOptModal ?
-                        <Modal modalClass='tweet-modal'>
+                        <Modal modalClass='tweet-modal' modalRef={modalRef}>
                             {(tweet.createdBy === loggedinUser._id) ?
                                 <div className="reply-set-container">
                                     <span className="reply-set">

@@ -3,7 +3,7 @@ import { hashtags, Retweet, Tweet } from "../interfaces/tweet.interface";
 import { User, UserCredentials } from "../interfaces/user.interface";
 
 const BASE_URL: string = (process.env.NODE_ENV === 'production') ?
-    '/api'
+    '/api/'
     : '//localhost:3030/api/'
 
 const axios = Axios.create({

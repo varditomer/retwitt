@@ -18,7 +18,6 @@ export function loadTweets() {
 export function removeTweet(tweetId: string) {
     return async (dispatch: any) => {
         try {
-            console.log(`tweetId:`, tweetId)
             await tweetService.remove(tweetId)
             dispatch({ type: 'REMOVE_TWEET', payload: tweetId })
         } catch (err) {
@@ -67,7 +66,6 @@ export function loadHashtags() {
     return async (dispatch: any) => {
         try {
             const hashtags: hashtags = await tweetService.queryHashtags()
-            console.log(`hashtags:`, hashtags)
             dispatch({ type: 'SET_HASHTAGS', payload: hashtags })
         } catch (err) {
             console.log(`err:`, err)

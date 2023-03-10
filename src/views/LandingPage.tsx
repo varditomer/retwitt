@@ -33,7 +33,7 @@ export const LandingPage: React.FC = () => {
             <div className="main-container">
 
                 <div className="left-area">
-                    <img src="src\assets\icons\twitter_logo_animation.gif" alt="" className='retwitt-animation' />
+                    <img src="./src/assets/icons/twitter_logo_animation.gif" alt="" className='retwitt-animation' />
                     <div className="catchphrases-container">
                         <div className="catchphrase">
                             <SvgIcon iconName="search_big" wrapperStyle="catchphrase-icon" svgProp={{ stroke: "#ffffff", fill: "#ffffff" }} />
@@ -52,7 +52,7 @@ export const LandingPage: React.FC = () => {
 
                 <div className="right-area">
                     <div className="retwitt-logo">
-                        <img src="src\assets\icons\twitter_gif_no_bgc.gif" alt="" className='retwitt-icon' />
+                        <img src="./src/assets/icons/twitter_gif_no_bgc.gif" alt="" className='retwitt-icon' />
                         <span>ReTwitt</span>
                     </div>
                     <h1 className="call-to-action-title">

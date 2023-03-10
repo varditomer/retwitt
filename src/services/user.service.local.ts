@@ -74,6 +74,6 @@ function _loadUsers(): User[] {
 }
 
 function _loadLoggedinUser(): User | null{
-    let loggedinUser = sessionStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
+    const loggedinUser = sessionStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
     return loggedinUser
 }

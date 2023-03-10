@@ -1,6 +1,5 @@
 import { User, UserCredentials } from "../interfaces/user.interface"
 import { httpService } from "./http.service"
-// import { localStorageService } from './localStorage.service'
 import { sessionStorageService } from './sessionStorage.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
