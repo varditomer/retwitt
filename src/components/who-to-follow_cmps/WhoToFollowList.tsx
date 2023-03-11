@@ -1,13 +1,18 @@
+// React / Redux
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
+// Interfaces
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { User } from "../../interfaces/user.interface"
+// Actions
 import { setLoggedinUser, updateUser } from "../../store/actions/user.action"
-import SvgIcon from "../../SvgIcon"
+// Components
+import { SvgIcon } from "../../SvgIcon"
 import { WhoToFollowPreview } from "./WhoToFollowPreview"
+
 
 type Props = {
     users: User[]

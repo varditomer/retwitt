@@ -1,4 +1,6 @@
-import { RefObject, useEffect } from "react";
+// React / Redux
+import { RefObject, useEffect } from "react"
+
 
 export const useClickOutside = <T extends HTMLElement = HTMLElement>(
     modalTriggerRef: RefObject<T>,
@@ -10,14 +12,14 @@ export const useClickOutside = <T extends HTMLElement = HTMLElement>(
             if (!modalTriggerRef.current?.contains(ev.target) && !modalRef.current?.contains(ev.target))  {
                 cb()
             }
-        };
+        }
 
-        document.addEventListener("click", handler);
+        document.addEventListener("click", handler)
 
 
         return () => {
-            document.removeEventListener("click", handler);
+            document.removeEventListener("click", handler)
         }
 
-    });
+    })
 }

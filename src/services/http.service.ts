@@ -1,6 +1,9 @@
-import Axios from "axios";
-import { hashtags, Retweet, Tweet } from "../interfaces/tweet.interface";
-import { User, UserCredentials } from "../interfaces/user.interface";
+// Dependencies
+import Axios from "axios"
+// Interfaces
+import { hashtags, Retweet, Tweet } from "../interfaces/tweet.interface"
+import { User, UserCredentials } from "../interfaces/user.interface"
+
 
 const BASE_URL: string = (process.env.NODE_ENV === 'production') ?
     '/api/'
@@ -39,11 +42,6 @@ async function ajax(endpoint: string, method = 'GET', data: Tweet | hashtags | R
         console.dir(err)
         if (err.response && err.response.status === 401) {
             sessionStorage.clear()
-            // window.location.assign('/')
-            // Depends on routing startegy - hash or history
-            // window.location.assign('/#/login')
-            // window.location.assign('/login')
-            // router.push('/login')
         }
         throw err
     }

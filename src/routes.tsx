@@ -19,8 +19,7 @@ import { Signup } from './components/login-signup_cmps/Signup'
 
 
 
-
-const routes = [
+export const routes = [
     {
         path: "/",
         component: <LandingPage />,
@@ -39,6 +38,9 @@ const routes = [
             },
         ]
     },
+]
+
+export const privateRoutes = [
     {
         path: "/home",
         component: <Home />,
@@ -112,6 +114,5 @@ const routes = [
     }
 ]
 
-export default routes
 
 

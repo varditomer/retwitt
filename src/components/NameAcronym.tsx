@@ -1,13 +1,15 @@
+// React / Redux
 import { useNavigate } from "react-router"
-// import { UserCredentials } from "../interfaces/user.interface"
+
 
 type Props = {
     firstName: string,
     lastName: string,
     userId: string,
     className?: string
+    handleClick?: ()=> void
 }
-export const NameAcronym: React.FC<Props> = ({ firstName, lastName, userId, className }) => {
+export const NameAcronym: React.FC<Props> = ({ firstName, lastName, userId, className, handleClick }) => {
     const navigate = useNavigate()
     if (!firstName || !lastName || !userId) return <div>Loading...</div>
     return (

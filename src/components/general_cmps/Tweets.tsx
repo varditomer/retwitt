@@ -1,8 +1,13 @@
-import { useOutletContext } from "react-router";
-import { UserDetailsContext } from "../../interfaces/state.interface";
-import { TweetList } from "../tweet_cmps/TweetList";
+// React / Redux
+import { useOutletContext } from "react-router"
+// Interfaces
+import { UserDetailsContext } from "../../interfaces/state.interface"
+// Components
+import { TweetList } from "../tweet_cmps/TweetList"
 
-export const Tweets: React.FC = () => { //tweets sorted by createdAt
+
+//tweets sorted by createdAt
+export const Tweets: React.FC = () => { 
     
     const { tweetsToShow, loggedinUser, users }: UserDetailsContext = useOutletContext()
 

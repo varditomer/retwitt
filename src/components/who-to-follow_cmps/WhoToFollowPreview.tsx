@@ -1,6 +1,9 @@
+// Interfaces
 import { User } from "../../interfaces/user.interface"
-import SvgIcon from "../../SvgIcon"
+// Components
+import { SvgIcon } from "../../SvgIcon"
 import { NameAcronym } from "../NameAcronym"
+
 
 type Props = {
     user: User,

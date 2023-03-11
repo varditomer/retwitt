@@ -1,12 +1,15 @@
-import { useSelector } from 'react-redux';
-import { TweetState, UserState } from '../interfaces/state.interface';
-import { TweetList } from '../components/tweet_cmps/TweetList';
-import { AddTweet } from '../components/tweet_cmps/AddTweet';
-import { TrendList } from '../components/tweet_cmps/TrendList';
-import { WhoToFollowList } from '../components/who-to-follow_cmps/WhoToFollowList';
-import { useEffect, useState } from 'react';
-import { Tweet } from '../interfaces/tweet.interface';
-import { User } from '../interfaces/user.interface';
+// React / Redux
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+// Interfaces
+import { Tweet } from '../interfaces/tweet.interface'
+import { User } from '../interfaces/user.interface'
+import { TweetState, UserState } from '../interfaces/state.interface'
+// Components
+import { TweetList } from '../components/tweet_cmps/TweetList'
+import { AddTweet } from '../components/tweet_cmps/AddTweet'
+import { TrendList } from '../components/tweet_cmps/TrendList'
+import { WhoToFollowList } from '../components/who-to-follow_cmps/WhoToFollowList'
 
 
 export const Home: React.FC = () => {
@@ -17,11 +20,11 @@ export const Home: React.FC = () => {
 
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
     const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
-    const [showSmallArea, setShowSmallArea] = useState(false)
 
     useEffect(() => {
-        if (!!tweets.length) setTweetsToShow(null)
+        if (!tweets.length) setTweetsToShow([])
         if (!tweets.length || !loggedinUser) return
+
         const followsUsersTweets = tweets.filter(tweet => {
             return (loggedinUser?.follows.includes(tweet.createdBy) || tweet.createdBy === loggedinUser._id)
         })
@@ -38,11 +41,7 @@ export const Home: React.FC = () => {
         setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 
-    const toggleShowSmallArea = () => {
-        setShowSmallArea(prevShowSmallArea => !prevShowSmallArea)
-    }
-
-
+console.log(`tweetsToShow:`, tweetsToShow)
     if (!loggedinUser || !users?.length || !usersToFollow || !tweetsToShow) return <div>Loading...</div>
 
     return (

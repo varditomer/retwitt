@@ -1,12 +1,14 @@
+// React / Redux
 import { applyMiddleware, combineReducers, compose, legacy_createStore as createStore } from 'redux'
-
 import thunk from 'redux-thunk'
+// Reducers
 import { tweetReducer } from './reducers/tweet.reducer'
 import { userReducer } from './reducers/user.reducer'
 
+
 declare global {
     interface Window {
-      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose
     }
 }
 
@@ -16,6 +18,6 @@ const rootReducer = combineReducers({
     userModule: userReducer,
 }) 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))

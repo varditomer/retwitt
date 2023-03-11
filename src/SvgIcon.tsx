@@ -1,5 +1,8 @@
-import { MouseEventHandler } from "react";
-import { useDynamicSvgImport } from "./hooks/useDynamicSvgImport";
+// React / Redux
+import { MouseEventHandler } from "react"
+// Custom hooks
+import { useDynamicSvgImport } from "./hooks/useDynamicSvgImport"
+
 
 interface IProps {
   iconName: string
@@ -8,8 +11,8 @@ interface IProps {
   handleClick?: MouseEventHandler<HTMLDivElement>
 }
 
-function SvgIcon(props: IProps) {
-  const { iconName, wrapperStyle, svgProp, handleClick } = props
+export const SvgIcon: React.FC<IProps> = ({ iconName, wrapperStyle, svgProp, handleClick }) => {
+
   const { loading, SvgIcon } = useDynamicSvgImport(iconName)
   
   return (
@@ -23,7 +26,5 @@ function SvgIcon(props: IProps) {
         </div>
       )}
     </>
-  );
+  )
 }
-
-export default SvgIcon;

@@ -1,6 +1,9 @@
+// Interfaces
 import { Reply } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
+// Components
 import { ReplyPreview } from "./ReplyPreview"
+
 
 type Props = {
     replies: Reply[]
@@ -12,9 +15,7 @@ type Props = {
 
 }
 
-
-
-export const ReplyList: React.FC<Props> = ({ replies, repliesCreatedByUsers, loggedinUser, toggleLikeReply, removeReply, toggleFollowUser }) => {
+export const ReplyList: React.FC<Props> = ({ replies, repliesCreatedByUsers, loggedinUser, toggleLikeReply, removeReply, toggleFollowUser }) => {    
     
     const user = (reply: Reply): User => repliesCreatedByUsers.find(user => user._id === reply.createdBy)!
 

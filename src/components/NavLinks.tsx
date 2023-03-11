@@ -1,8 +1,10 @@
-import SvgIcon from '../SvgIcon';
-import { NavLink } from 'react-router-dom';
+// React / Redux
+import { NavLink } from 'react-router-dom'
+// Components
+import { SvgIcon } from '../SvgIcon'
 
 
-export function NavLinks() {
+export const NavLinks: React.FC = () => {
     return (
         <ul className='nav-list' role='list'>
             <li>

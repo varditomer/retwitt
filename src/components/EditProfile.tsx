@@ -1,16 +1,22 @@
+// React / Redux
 import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { useFormRegister } from "../hooks/useFormRegister"
+// Interfaces
 import { INITIAL_STATE } from "../interfaces/state.interface"
 import { User } from "../interfaces/user.interface"
-import { uploadImg } from "../services/img-upload.service"
-import { userService } from "../services/user.service"
+// Actions
 import { updateUser } from "../store/actions/user.action"
-import SvgIcon from "../SvgIcon"
+// Custom hooks
+import { useFormRegister } from "../hooks/useFormRegister"
+// Services
+import { uploadImg } from "../services/img-upload.service"
+// Components
+import { SvgIcon } from "../SvgIcon"
 import { Modal } from "./Modal"
 import { NameAcronym } from "./NameAcronym"
+
 
 type Props = {
     user: User,
@@ -63,7 +69,7 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal, modalRef }) =>
     const resetFileInput = () => {
         // 👇️ reset input value
         if (!coverImgInput.current) return
-        coverImgInput.current.value = '';
+        coverImgInput.current.value = ''
     }
 
     if (!user) return <div>Loading...</div>

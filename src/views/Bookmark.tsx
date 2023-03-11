@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink, Outlet } from 'react-router-dom';
-import { TweetState, UserState } from '../interfaces/state.interface';
-import { Tweet } from '../interfaces/tweet.interface';
+// React / Redux
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { NavLink, Outlet } from 'react-router-dom'
+// Interfaces
+import { TweetState, UserState } from '../interfaces/state.interface'
+// Actions
+import { Tweet } from '../interfaces/tweet.interface'
 
 
 export const Bookmark: React.FC = () => {

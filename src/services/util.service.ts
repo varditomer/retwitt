@@ -1,4 +1,5 @@
-import { User, UserCredentials } from "../interfaces/user.interface";
+// Interface
+import { UserCredentials } from "../interfaces/user.interface"
 
 export const utilService = {
     makeId,
@@ -7,12 +8,12 @@ export const utilService = {
 }
 
 function makeId(length = 5): string {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var text = ""
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+        text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
-    return text;
+    return text
 }
 
 function timeStampConverter(timestamp: number) {

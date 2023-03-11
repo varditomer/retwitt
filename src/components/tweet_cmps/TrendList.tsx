@@ -1,6 +1,10 @@
+// React / Redux
 import { useState } from "react"
+// Interfaces
 import { hashtag } from "../../interfaces/tweet.interface"
-import SvgIcon from "../../SvgIcon"
+// Components
+import { SvgIcon } from "../../SvgIcon"
+
 
 type Props = {
     hashtags: hashtag[]

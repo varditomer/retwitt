@@ -1,9 +1,13 @@
-import { useOutletContext } from "react-router";
-import { UserDetailsContext } from "../../interfaces/state.interface";
-import { TweetList } from "../tweet_cmps/TweetList";
+// React / Redux
+import { useOutletContext } from "react-router"
+// Interfaces
+import { UserDetailsContext } from "../../interfaces/state.interface"
+// Components
+import { TweetList } from "../tweet_cmps/TweetList"
 
 
-export const Likes: React.FC = () => { //tweets sorted by most likes
+//tweets sorted by most likes
+export const Likes: React.FC = () => { 
     const { userLikedTweets, loggedinUser, users }: UserDetailsContext = useOutletContext()
 
     if (!userLikedTweets) return <div>Loading...</div>

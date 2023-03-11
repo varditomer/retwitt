@@ -1,18 +1,24 @@
-// import EmojiPicker from "emoji-picker-react"
+// React / Redux
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { useClickOutside } from "../../hooks/useClickOutside"
+// Interfaces
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { hashtags, Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
+// Actions
+import { addTweet, updateHashtags } from "../../store/actions/tweet.action"
+// Custom hooks
+import { useClickOutside } from "../../hooks/useClickOutside"
+// Services
 import { uploadImg } from "../../services/img-upload.service"
 import { tweetService } from "../../services/tweet.service"
-import { addTweet, updateHashtags } from "../../store/actions/tweet.action"
-import SvgIcon from "../../SvgIcon"
+// Components
+import { SvgIcon } from "../../SvgIcon"
 import { Modal } from "../Modal"
 import { NameAcronym } from "../NameAcronym"
+
 
 type Props = {
     loggedinUser: User,

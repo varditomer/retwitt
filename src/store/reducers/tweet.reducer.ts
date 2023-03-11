@@ -1,3 +1,4 @@
+// Interfaces
 import { hashtags, Tweet } from "../../interfaces/tweet.interface"
 
 

@@ -1,12 +1,17 @@
+// React / Redux
 import { useDispatch } from "react-redux"
 import { useOutletContext } from "react-router"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { useFormRegister } from "../../hooks/useFormRegister"
+// Interfaces
 import { INITIAL_STATE, LoginSignupContext } from "../../interfaces/state.interface"
+// Actions
+import { login } from "../../store/actions/user.action"
+// Custom hooks
+import { useFormRegister } from "../../hooks/useFormRegister"
+// Services
 import { userService } from "../../services/user.service"
 
-import { login } from "../../store/actions/user.action"
 
 export const Login: React.FC = () => {
 

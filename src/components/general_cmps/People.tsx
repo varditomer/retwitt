@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router";
-
-import { UserDetailsContext } from "../../interfaces/state.interface";
-import { User } from "../../interfaces/user.interface";
-
-import { WhoToFollowList } from "../who-to-follow_cmps/WhoToFollowList";
+// React / Redux
+import { useEffect, useState } from "react"
+import { useOutletContext } from "react-router"
+// Interfaces
+import { UserDetailsContext } from "../../interfaces/state.interface"
+import { User } from "../../interfaces/user.interface"
+// Components
+import { WhoToFollowList } from "../who-to-follow_cmps/WhoToFollowList"
 
 
 export const People: React.FC = () => {

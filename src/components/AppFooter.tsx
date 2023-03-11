@@ -1,4 +1,6 @@
-import { NavLinks } from "./NavLinks";
+// Components
+import { NavLinks } from "./NavLinks"
+
 
 export const AppFooter: React.FC = () => {
     return (

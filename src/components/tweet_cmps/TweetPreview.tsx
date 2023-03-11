@@ -1,22 +1,29 @@
+// React / Redux
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { useClickOutside } from '../../hooks/useClickOutside'
+// Interfaces
 import { INITIAL_STATE, TweetState } from '../../interfaces/state.interface'
-import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
+import { Retweet, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
-import { tweetService } from '../../services/tweet.service'
-import { utilService } from '../../services/util.service'
+// Actions
 import { removeTweet, updateTweet, addRetweet, removeHashtags } from '../../store/actions/tweet.action'
 import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
-import SvgIcon from '../../SvgIcon'
+// Custom hooks
+import { useClickOutside } from '../../hooks/useClickOutside'
+// Services
+import { utilService } from '../../services/util.service'
+// Components
+import { SvgIcon } from '../../SvgIcon'
 import { Modal } from '../Modal'
 import { NameAcronym } from '../NameAcronym'
 import { AddReply } from './reply_cmps/AddReply'
 import { ReplyList } from './reply_cmps/ReplytList'
+
+
 
 
 type Props = {

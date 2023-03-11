@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router";
-import { UserDetailsContext } from "../../interfaces/state.interface";
-import { Tweet } from "../../interfaces/tweet.interface";
-import { TweetList } from "../tweet_cmps/TweetList";
+// React / Redux
+import { useEffect, useState } from "react"
+import { useOutletContext } from "react-router"
+// Interfaces
+import { UserDetailsContext } from "../../interfaces/state.interface"
+import { Tweet } from "../../interfaces/tweet.interface"
+// Components
+import { TweetList } from "../tweet_cmps/TweetList"
 
 
-export const Top: React.FC = () => { //tweets sorted by most likes
+//tweets sorted by most likes
+export const Top: React.FC = () => { 
     const { tweetsToShow, loggedinUser, users }: UserDetailsContext = useOutletContext()
     const [topTweets, setTopTweets] = useState<Tweet[] | null>(null)
 

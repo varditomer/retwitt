@@ -1,16 +1,15 @@
+// React / Redux
 import { useEffect, useState } from 'react'
-import SvgIcon from '../SvgIcon';
-import { NavLink, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { TweetState, UserState } from '../interfaces/state.interface';
-import { Tweet } from '../interfaces/tweet.interface';
-import { SearchTweet } from '../components/tweet_cmps/SearchTweet';
+import { NavLink, Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+// Interfaces
+import { TweetState, UserState } from '../interfaces/state.interface'
+import { Tweet } from '../interfaces/tweet.interface'
+// Components
+import { SearchTweet } from '../components/tweet_cmps/SearchTweet'
 
 
-
-type Props = {}
-
-export const Explore: React.FC<Props> = () => {
+export const Explore: React.FC = () => {
 
   const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
   const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)

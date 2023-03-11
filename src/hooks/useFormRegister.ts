@@ -1,38 +1,40 @@
-import { ChangeEvent, useEffect, useState } from "react";
+// React / Redux
+import { ChangeEvent, useEffect, useState } from "react"
+
 
 interface returnTypeRegister<T> {
-	type?: string;
-	onChange: (ev: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-	name: keyof T;
-	id: keyof T;
-	value: string | number | undefined;
+	type?: string
+	onChange: (ev: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+	name: keyof T
+	id: keyof T
+	value: string | number | undefined
 }
 
 
 export const useFormRegister = <T>(initialState: T, cb: Function) => {
-	const [fields, setFields] = useState(initialState);
+	const [fields, setFields] = useState(initialState)
 
 	useEffect(() => {
 		if (!fields) return
-		cb?.(fields);
-	}, [fields]);
+		cb?.(fields)
+	}, [fields])
 
 	const handleChange = async (
 		ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		const target = ev.target;
-		const field = target.name;
+		const target = ev.target
+		const field = target.name
 		let value: any
 		switch (target.type) {
 			case 'number':
 				value = +target.value || ''
-				break;
+				break
 			default:
 				value = target.value
-				break;
+				break
 		}
-		setFields(prefFields => ({ ...prefFields, [field]: value }));
-	};
+		setFields(prefFields => ({ ...prefFields, [field]: value }))
+	}
 
 	const register = (field: keyof T): returnTypeRegister<T> => {
 
@@ -42,10 +44,10 @@ export const useFormRegister = <T>(initialState: T, cb: Function) => {
 			id: field,
 			value: fields[field] as any,
 		}
-	};
+	}
 
 	const resetForm = () => {
-		setFields(() => initialState);
-	};
-	return { register, resetForm, fields };
-};
+		setFields(() => initialState)
+	}
+	return { register, resetForm, fields }
+}

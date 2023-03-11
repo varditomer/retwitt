@@ -1,6 +1,9 @@
+// Interfaces
 import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
-import { User } from '../../interfaces/user.interface';
-import { TweetPreview } from './TweetPreview';
+import { User } from '../../interfaces/user.interface'
+// Components
+import { TweetPreview } from './TweetPreview'
+
 
 type Props = {
     tweets: Tweet[]
@@ -17,12 +20,14 @@ export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
         return tweets.find(tweet => tweet._id === retweetedTweetId)!
     }
 
-    if (!tweets.length || !loggedinUser || !users.length) return <div>Loading...</div>
+    if (!tweets || !loggedinUser || !users) return <div>Loading...</div>
+
 
 
     return (
         <section className="tweet-list">
             {tweets?.map((tweetOrRetweet: Tweet | Retweet) => {
+
                 if (tweetOrRetweet.isRetweet) {
                     const retweet = tweetOrRetweet as Retweet
                     const retweetedTweet: Tweet = getRetweetedTweet(retweet.retweetedTweetId)
@@ -35,8 +40,7 @@ export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
                         retweet={retweet}
                         retweetCreatedByUser={getCreatedByUser(retweet.createdBy)}
                     />
-                }
-                else {
+                } else {
                     const tweet = tweetOrRetweet as Tweet
                     return <TweetPreview
                         key={tweet._id}
@@ -52,11 +56,3 @@ export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
         </section>
     )
 }
-
-    // <TweetPreview
-                //     key={tweet._id}
-                //     tweet={tweet}
-                //     loggedinUser={loggedinUser}
-                //     tweetCreatedByUser={getTweetCreatedByUser(tweet)}
-                //     repliesCreatedByUsers={(tweet.replies.length) ? getUsersForReplies(tweet.replies) : undefined}
-                // />

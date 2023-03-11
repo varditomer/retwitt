@@ -1,12 +1,17 @@
+// React / Redux
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router"
-import { useClickOutside } from "../../../hooks/useClickOutside"
-import { useTimestampConverter } from "../../../hooks/useTimestampConverter"
+// Interfaces
 import { Reply } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
-import SvgIcon from "../../../SvgIcon"
+// Custom hooks
+import { useClickOutside } from "../../../hooks/useClickOutside"
+import { useTimestampConverter } from "../../../hooks/useTimestampConverter"
+// Components
+import { SvgIcon } from "../../../SvgIcon"
 import { Modal } from "../../Modal"
 import { NameAcronym } from "../../NameAcronym"
+
 
 type Props = {
     reply: Reply

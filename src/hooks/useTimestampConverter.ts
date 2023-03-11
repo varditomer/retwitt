@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+// React / Redux
+import { useState, useEffect } from 'react'
+
 
 export const useTimestampConverter = (timestamp: number) => {
     const [convertedTime, setConvertedTime] = useState("")
@@ -28,7 +30,7 @@ export const useTimestampConverter = (timestamp: number) => {
       const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
   
       setConvertedTime(`${day} ${month} at ${formattedHours}:${formattedMinutes}`)
-    }, [timestamp]);
+    }, [timestamp])
   
-    return convertedTime;
+    return convertedTime
   }

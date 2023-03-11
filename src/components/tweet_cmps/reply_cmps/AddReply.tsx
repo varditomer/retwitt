@@ -1,8 +1,12 @@
+// React / Redux
 import { useEffect, useState } from "react"
+// Interfaces
 import { Reply, Tweet } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
+// Services
 import { tweetService } from "../../../services/tweet.service"
-import SvgIcon from "../../../SvgIcon"
+// Components
+import { SvgIcon } from "../../../SvgIcon"
 import { NameAcronym } from "../../NameAcronym"
 
 

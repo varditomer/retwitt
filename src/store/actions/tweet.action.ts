@@ -1,7 +1,7 @@
-// Services
-import { tweetService } from "../../services/tweet.service"
 // Interfaces
 import { hashtag, hashtags, Tweet } from "../../interfaces/tweet.interface"
+// Services
+import { tweetService } from "../../services/tweet.service"
 
 
 export function loadTweets() {
@@ -127,8 +127,6 @@ export function updateHashtags(newHashtags: string[], currHashtags: hashtags) {
             console.log(`err:`, err)
         }
     }
-
-
 }
 
 

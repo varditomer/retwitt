@@ -1,7 +1,8 @@
-// import EmojiPicker from "emoji-picker-react"
+// React / Redux
 import { useRef } from "react"
-import { User } from "../../interfaces/user.interface"
-import SvgIcon from "../../SvgIcon"
+// Components
+import { SvgIcon } from "../../SvgIcon"
+
 
 type Props = {
     searchTweetBy: string

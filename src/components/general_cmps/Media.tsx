@@ -1,8 +1,13 @@
-import { useLocation, useOutletContext } from "react-router";
-import { UserDetailsContext } from "../../interfaces/state.interface";
-import { TweetList } from "../tweet_cmps/TweetList";
+// React / Redux
+import { useLocation, useOutletContext } from "react-router"
+// Interfaces
+import { UserDetailsContext } from "../../interfaces/state.interface"
+// Components
+import { TweetList } from "../tweet_cmps/TweetList"
 
-export const Media: React.FC = () => { //only tweets with media
+
+//only tweets with media
+export const Media: React.FC = () => { 
     const { tweetsToShow, loggedinUser, users }: UserDetailsContext = useOutletContext()
 
     const mediaTweets = tweetsToShow?.filter(tweet => tweet.imgUrl !== "")

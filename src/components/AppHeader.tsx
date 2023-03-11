@@ -1,17 +1,17 @@
-// React / Redux:
+// React / Redux
 import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { useClickOutside } from '../hooks/useClickOutside'
-// Interfaces:
+// Interfaces
 import { INITIAL_STATE } from '../interfaces/state.interface'
 import { User } from '../interfaces/user.interface'
-// Actions:
+// Actions
 import { logout } from '../store/actions/user.action'
-// Components & Hooks:
-import SvgIcon from '../SvgIcon'
+// Components
+import { SvgIcon } from '../SvgIcon'
 import { Modal } from './Modal'
 import { NameAcronym } from './NameAcronym'
 import { NavLinks } from './NavLinks'
@@ -51,7 +51,8 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
         <header className='main-header'>
             <div className="header-container">
                 <div className="logo" onClick={() => navigate(`/home`)}>
-                    <img src="./src/assets/icons/twitter_gif_no_bgc.gif" alt="" className='twitter' />
+                    {/* <img src="./src/assets/icons/twitter_gif_no_bgc.gif" alt="" className='twitter' /> */}
+                    <img src="https://res.cloudinary.com/retwitt/image/upload/v1678449183/twitter_gif_no_bgc_mn1pqe.gif" alt="" className='twitter' />
                     <span>ReTwitt</span>
                 </div>
                 <NavLinks />

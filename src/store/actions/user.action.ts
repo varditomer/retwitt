@@ -1,5 +1,8 @@
+// Interfaces
 import { User, UserCredentials } from "../../interfaces/user.interface"
+// Services
 import { userService } from "../../services/user.service"
+
 
 export function loadUsers() {
     return async (dispatch: any) => {

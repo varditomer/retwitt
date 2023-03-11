@@ -1,10 +1,11 @@
 
+// Interface
+import { Tweet, Reply, Retweet, hashtags } from "../interfaces/tweet.interface"
 // Services
 import { httpService } from "./http.service"
 import { userService } from "./user.service"
 import { utilService } from "./util.service"
-// Interface
-import { Tweet, Reply, Retweet, hashtags } from "../interfaces/tweet.interface"
+
 
 const STORAGE_KEY = 'tweet'
 

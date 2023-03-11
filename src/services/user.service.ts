@@ -1,6 +1,9 @@
+// Interface
 import { User, UserCredentials } from "../interfaces/user.interface"
+// Services
 import { httpService } from "./http.service"
 import { sessionStorageService } from './sessionStorage.service'
+
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 const STORAGE_KEY_USER = 'user'

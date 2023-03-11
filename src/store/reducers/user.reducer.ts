@@ -1,11 +1,13 @@
-import { User } from "../../interfaces/user.interface";
+// Interfaces
+import { User } from "../../interfaces/user.interface"
+
 
 export interface USER_STATE {
     users: User[],
     loggedinUser: User | null
 }
 
-const USER_STATE = {
+const USER_STATE: USER_STATE = {
     users: [],
     loggedinUser: null
 }
