@@ -46,6 +46,14 @@ const App: React.FC = () => {
         })}
         {privateRoutes.map(route => {
           if (route.children) {
+            return <Route key={route.path} path={route.path} element={route.component}>
+              {route.children.map((route) => <Route key={route.path} path={route.path} element={route.component} />)}
+            </ Route>
+          }
+          return <Route key={route.path} element={route.component} path={route.path} />
+        })}
+        {/* {privateRoutes.map(route => {
+          if (route.children) {
             return <Route key={route.path} path={route.path} element={
               <PrivateRoute
                 path={route.path}
@@ -57,7 +65,7 @@ const App: React.FC = () => {
             </ Route>
           }
           return <Route key={route.path} element={route.component} path={route.path} />
-        })}
+        })} */}
         {/* {privateRoutes.map(route => {
           if (route.children) {
             return <Route key={route.path} path={route.path} element={

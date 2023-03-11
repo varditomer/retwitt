@@ -10,6 +10,7 @@ import { TweetList } from '../components/tweet_cmps/TweetList'
 import { AddTweet } from '../components/tweet_cmps/AddTweet'
 import { TrendList } from '../components/tweet_cmps/TrendList'
 import { WhoToFollowList } from '../components/who-to-follow_cmps/WhoToFollowList'
+import { Loader } from '../components/app-general_cmps/Loader'
 
 
 export const Home: React.FC = () => {
@@ -41,8 +42,11 @@ export const Home: React.FC = () => {
         setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 
-console.log(`tweetsToShow:`, tweetsToShow)
-    if (!loggedinUser || !users?.length || !usersToFollow || !tweetsToShow) return <div>Loading...</div>
+    if (!loggedinUser || !users?.length || !usersToFollow || !tweetsToShow) return (
+        <section className="page loading">
+            <Loader />
+        </section>
+    )
 
     return (
         <section className="home page">

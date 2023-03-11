@@ -44,38 +44,23 @@ export const LoginSignup: React.FC = () => {
 
             </header>
 
-            <section className="main-content">
+            <section className="main-content-container">
+                <section className="main-content">
 
-                <h2 className="call-to-action">
-                    {(page === 'login') ?
-                        <>Signup or <span className="emphasized"> Login </span> now <span className="one-line">and become a ReTweeter <SvgIcon iconName="twitter_logo" wrapperStyle="" /></span></>
-                        :
-                        <><span className="emphasized">Signup </span> or Login now <span className="one-line">and become a ReTweeter <SvgIcon iconName="twitter_logo" wrapperStyle="" /></span> </>
-                    }
-                    {/* {(page === 'login') ?
-                        <>
-                            Signup or
-                            <span className="emphasized"> Login </span>
-                            <span className="">
-                                now and become a ReTweeter
-                                <SvgIcon iconName="twitter_logo" wrapperStyle="expand_more" />
-                            </span>
-                        </>
-                        :
-                        <>
-                            <span className="emphasized">Signup </span>
-                            or Login now and become a ReTweeter
-                            <SvgIcon iconName="twitter_logo" wrapperStyle="expand_more" />
-                        </>
-                    } */}
-
-                </h2>
-                <Outlet
-                    context={{
-                        handleRef,
-                        navigateTo
-                    }}
-                />
+                    <h2 className="call-to-action">
+                        {(page === 'login') ?
+                            <>Signup or <span className="emphasized"> Login </span> now <span className="one-line">and become a ReTweeter <SvgIcon iconName="twitter_logo" wrapperStyle="" /></span></>
+                            :
+                            <><span className="emphasized">Signup </span> or Login now <span className="one-line">and become a ReTweeter <SvgIcon iconName="twitter_logo" wrapperStyle="" /></span> </>
+                        }
+                    </h2>
+                    <Outlet
+                        context={{
+                            handleRef,
+                            navigateTo
+                        }}
+                    />
+                </section>
             </section>
 
             <footer className="landing-footer">

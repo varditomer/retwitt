@@ -74,8 +74,15 @@
     width: 100%;
     margin-inline: auto;
     padding-inline: 20px 35px;
-    padding-top: 26px;
+    padding-block: 26px;
     gap: 20px;
+
+    &.loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: unset;
+    }
     @include for-mobile-layout {
         padding-inline: 15px;
     }
@@ -169,5 +176,24 @@
         &.negative {
             color: $clr-red;
         }
+    }
+}
+
+// No Tweets Yet
+.no-tweets-yet {
+    color: $clr-gray2;
+    
+    .no-tweets-img {
+        border-radius: 20px;
+        margin-bottom: 10px;
+    }
+    .title {
+        font-family: Poppins-SemiBold;
+        margin-bottom: 5px;
+        font-size: clamp(rem(16px),rem(20px),rem(24px));
+    }
+    .subtitle {
+        font-family: Poppins-Medium;
+        font-size: clamp(rem(14px),rem(18px),rem(22px));
     }
 }

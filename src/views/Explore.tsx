@@ -7,6 +7,7 @@ import { TweetState, UserState } from '../interfaces/state.interface'
 import { Tweet } from '../interfaces/tweet.interface'
 // Components
 import { SearchTweet } from '../components/tweet_cmps/SearchTweet'
+import { Loader } from '../components/app-general_cmps/Loader'
 
 
 export const Explore: React.FC = () => {
@@ -46,7 +47,11 @@ export const Explore: React.FC = () => {
 
 
 
-  if (!tweetsToExplore || !users || !loggedinUser) return <div>Loading...</div>
+  if (!tweetsToExplore || !users || !loggedinUser) return (
+    <section className="page loading">
+      <Loader />
+    </section>
+  )
 
   return (
     <section className="explore page">

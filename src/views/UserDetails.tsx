@@ -17,6 +17,7 @@ import { useClickOutside } from '../hooks/useClickOutside'
 import { EditProfile } from '../components/app-general_cmps/EditProfile'
 import { NameAcronym } from '../components/app-general_cmps/NameAcronym'
 import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
+import { Loader } from '../components/app-general_cmps/Loader'
 
 
 export const UserDetails: React.FC = () => {
@@ -87,7 +88,11 @@ export const UserDetails: React.FC = () => {
         setShowEditProfileModal(prevShowEditProfileModal => !prevShowEditProfileModal)
     }
 
-    if (!userTweets || !users || !user || !loggedinUser) return <div>Loading...</div>
+    if (!userTweets || !users || !user || !loggedinUser) return (
+        <section className="page loading">
+            <Loader />
+        </section>
+    )
 
     return (
         <section className={`user-details ${showEditProfileModal ? 'blur' : ''}`}>

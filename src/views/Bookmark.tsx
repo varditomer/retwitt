@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
+import { Loader } from '../components/app-general_cmps/Loader'
 // Interfaces
 import { TweetState, UserState } from '../interfaces/state.interface'
 // Actions
@@ -49,7 +50,11 @@ export const Bookmark: React.FC = () => {
 
   }, [loggedinUser, loggedinUser?.savedTweets, tweets])
 
-  if (!loggedinUser) return <div>Loading...</div>
+  if (!loggedinUser) return (
+    <section className="page loading">
+      <Loader />
+    </section>
+  )
 
   return (
     <section className="bookmark page">

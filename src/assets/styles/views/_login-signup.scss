@@ -1,4 +1,5 @@
 .login-signup {
+    height: 100vh;
     .login-signup-header {
         height: 76px;
         @include flex-vertically-center;
@@ -16,15 +17,19 @@
             }
         }
     }
-    .main-content {
-        max-width: calc(745px + 306px + 20px);
-        margin-inline: auto;
-        margin-bottom: 76px;
-        @include flex-column;
-        gap: 40px;
-        padding: 20px;
-        @include for-mobile-layout {
-            gap: 15px;
+    .main-content-container {
+        background-color: $bgc-primary;
+        .main-content {
+            max-width: calc(650px);
+            height: calc(100vh - 76px - 76px);
+            margin-inline: auto;
+            margin-bottom: 76px;
+            @include flex-column;
+            gap: 40px;
+            padding: 20px;
+            @include for-mobile-layout {
+                gap: 15px;
+            }
         }
     }
     .nav-list {
@@ -124,7 +129,7 @@
                 background-color: rgba(29, 161, 242, 0.05);
                 .title-container {
                     font-family: Poppins-Medium;
-                    
+
                     .counter {
                         visibility: visible;
                         color: black;

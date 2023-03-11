@@ -1,10 +1,10 @@
 .app-footer {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    position: sticky;
+    position: absolute;
+    width: 100%;
     bottom: 0;
     z-index: 50;
     background-color: $clr--white;
-    margin-top: 26px;
     @include flex-vertically-center;
     justify-content: center;
     .copyrights {
@@ -47,6 +47,7 @@
         font-family: Montserrat-Medium;
         color: $clr-gray3;
         box-shadow: unset;
+        background-color: $bgc-primary;
         .copyrights {
             display: inherit;
             .emphasized {
