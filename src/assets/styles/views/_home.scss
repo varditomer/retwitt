@@ -1,13 +1,16 @@
 .home {
     display: flex;
     flex-direction: column-reverse;
-
+    justify-content: flex-end;
 
     .small-area {
         > * {
             max-height: 48px;
             overflow-y: hidden;
             transition: max-height 0.6s ease-in-out;
+            &:has(> .expand) {
+                overflow-y: auto;
+            }
             .card-title {
                 @include flex-vertically-center;
                 justify-content: space-between;
@@ -32,6 +35,7 @@
     @include for-wide-layout {
         display: grid;
         grid-template-columns: 2fr 1fr;
+        justify-content: unset;
         .small-area {
             display: flex;
             >*{

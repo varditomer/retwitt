@@ -33,7 +33,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
 
     const navigateTo = () => {
         setShowAccountModal(false)
-        navigate(`/home/${loggedinUser._id}/tweets`)
+        navigate(`/home/${loggedinUser._id}`)
     }
 
     const toggleModal = () => {

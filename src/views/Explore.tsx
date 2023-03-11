@@ -1,6 +1,6 @@
 // React / Redux
 import { useEffect, useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 // Interfaces
 import { TweetState, UserState } from '../interfaces/state.interface'
@@ -8,6 +8,7 @@ import { Tweet } from '../interfaces/tweet.interface'
 // Components
 import { SearchTweet } from '../components/tweet_cmps/SearchTweet'
 import { Loader } from '../components/app-general_cmps/Loader'
+import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
 
 
 export const Explore: React.FC = () => {
@@ -19,11 +20,17 @@ export const Explore: React.FC = () => {
   const [filteredTweetsToExplore, setFilteredTweetsToExplore] = useState<Tweet[] | null>(null)
 
   const [searchTweetBy, setSearchTweetBy] = useState('')
+  const [expandMore, setExpandMore] = useState(false)
+
+  const location = useLocation()
+
+  const toggleExpandMore = () => {
+    setExpandMore(prev => !prev)
+  }
 
   const onChangeSearchTweetBy = (query: string) => {
     setSearchTweetBy(query)
   }
-
 
   useEffect(() => {
     if (!tweets.length || !loggedinUser) return
@@ -55,13 +62,16 @@ export const Explore: React.FC = () => {
 
   return (
     <section className="explore page">
-      <div className="small-area">
+      <div className={`small-area ${expandMore ? 'expand' : ''}`}>
         <section className="tweets-filter card">
           <ul role='list'>
-            <li>
+            <li className={`first-link ${location.pathname==='/explore'? 'first-link-active':''}`}>
               <div className="border"></div>
-              <NavLink to='top'>
-                <span className="filter-title">Top</span>
+              <NavLink to='' className={'first-link'}>
+                <div className="head">
+                  <span className="filter-title">Top</span>
+                  <SvgIcon iconName='expand_more_without_fill' wrapperStyle="expand-more" svgProp={{ stroke: "black", fill: "black" }} handleClick={toggleExpandMore} />
+                </div>
               </NavLink>
             </li>
             <li>

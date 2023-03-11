@@ -15,14 +15,14 @@ export const NavLinks: React.FC = () => {
                 <div className="border"></div>
             </li>
             <li>
-                <NavLink to='/explore/top'>
+                <NavLink to='/explore'>
                     <SvgIcon iconName="explore" wrapperStyle="icon" svgProp={{ stroke: "#828282", fill: "#828282" }} />
                     <span>Explore</span>
                 </NavLink>
                 <div className="border"></div>
             </li>
             <li>
-                <NavLink to='/bookmark/tweets'>
+                <NavLink to='/bookmark'>
                     <SvgIcon iconName="bookmark_filled" wrapperStyle="icon" svgProp={{ stroke: "#828282", fill: "#828282" }} />
                     <span>Bookmarks</span>
                 </NavLink>

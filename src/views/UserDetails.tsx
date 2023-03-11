@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 // Interfaces
@@ -32,6 +32,14 @@ export const UserDetails: React.FC = () => {
     const [userLikedTweets, setUserLikedTweets] = useState<Tweet[] | null>(null)
     const [userRepliedTweets, setUserRepliedTweets] = useState<Tweet[] | null>(null)
     const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+
+    const [expandMore, setExpandMore] = useState(false)
+    const location = useLocation()
+    const userPath = `/home/${user?._id}`
+
+    const toggleExpandMore = () => {
+        setExpandMore(prev => !prev)
+    }
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
@@ -177,13 +185,16 @@ export const UserDetails: React.FC = () => {
             </section>
 
             <section className="main-content">
-                <div className="small-area">
+                <div className={`small-area ${expandMore ? 'expand' : ''}`}>
                     <section className="tweets-filter card">
                         <ul role='list'>
-                            <li>
+                            <li className={`first-link ${location.pathname === userPath ? 'first-link-active' : ''}`}>
                                 <div className="border"></div>
-                                <NavLink to='tweets'>
-                                    <span className="filter-title">Tweets</span>
+                                <NavLink to=''>
+                                    <div className="head">
+                                        <span className="filter-title">Tweets</span>
+                                        <SvgIcon iconName='expand_more_without_fill' wrapperStyle="expand-more" svgProp={{ stroke: "black", fill: "black" }} handleClick={toggleExpandMore} />
+                                    </div>
                                 </NavLink>
                             </li>
                             <li>

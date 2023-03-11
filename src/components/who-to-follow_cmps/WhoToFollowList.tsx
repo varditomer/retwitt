@@ -28,6 +28,7 @@ export const WhoToFollowList: React.FC<Props> = ({ users, loggedinUser }) => {
     const onNavigateTo = (user: User) => {
         navigate(`/home/${user._id}/tweets`)
     }
+    
     const toggleExpandMore = () => {
         setExpandMore(prev => !prev)
     }

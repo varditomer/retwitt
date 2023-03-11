@@ -10,7 +10,9 @@
             font-family: NotoSans-SemiBold;
             color: $clr-gray1;
         }
-        &:has(.active) {
+
+        &:has(.active):not(.first-link),
+        &.first-link-active {
             a {
                 padding-inline-start: 17px;
                 span {
