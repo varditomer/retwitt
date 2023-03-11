@@ -6,8 +6,8 @@ import { User } from "../../../interfaces/user.interface"
 // Services
 import { tweetService } from "../../../services/tweet.service"
 // Components
-import { SvgIcon } from "../../../SvgIcon"
-import { NameAcronym } from "../../NameAcronym"
+import { SvgIcon } from "../../app-general_cmps/SvgIcon"
+import { NameAcronym } from "../../app-general_cmps/NameAcronym"
 
 
 type Props = {

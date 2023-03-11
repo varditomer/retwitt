@@ -17,9 +17,9 @@ import { useClickOutside } from '../../hooks/useClickOutside'
 // Services
 import { utilService } from '../../services/util.service'
 // Components
-import { SvgIcon } from '../../SvgIcon'
-import { Modal } from '../Modal'
-import { NameAcronym } from '../NameAcronym'
+import { SvgIcon } from '../app-general_cmps/SvgIcon'
+import { Modal } from '../app-general_cmps/Modal'
+import { NameAcronym } from '../app-general_cmps/NameAcronym'
 import { AddReply } from './reply_cmps/AddReply'
 import { ReplyList } from './reply_cmps/ReplytList'
 

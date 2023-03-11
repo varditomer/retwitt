@@ -4,16 +4,16 @@ import { useDispatch } from "react-redux"
 import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
 // Interfaces
-import { INITIAL_STATE } from "../interfaces/state.interface"
-import { User } from "../interfaces/user.interface"
+import { INITIAL_STATE } from "../../interfaces/state.interface"
+import { User } from "../../interfaces/user.interface"
 // Actions
-import { updateUser } from "../store/actions/user.action"
+import { updateUser } from "../../store/actions/user.action"
 // Custom hooks
-import { useFormRegister } from "../hooks/useFormRegister"
+import { useFormRegister } from "../../hooks/useFormRegister"
 // Services
-import { uploadImg } from "../services/img-upload.service"
+import { uploadImg } from "../../services/img-upload.service"
 // Components
-import { SvgIcon } from "../SvgIcon"
+import { SvgIcon } from "./SvgIcon"
 import { Modal } from "./Modal"
 import { NameAcronym } from "./NameAcronym"
 

@@ -1,7 +1,7 @@
 // React / Redux
 import { useRef } from "react"
 // Components
-import { SvgIcon } from "../../SvgIcon"
+import { SvgIcon } from "../app-general_cmps/SvgIcon"
 
 
 type Props = {

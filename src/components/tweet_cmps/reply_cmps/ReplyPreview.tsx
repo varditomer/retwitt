@@ -8,9 +8,9 @@ import { User } from "../../../interfaces/user.interface"
 import { useClickOutside } from "../../../hooks/useClickOutside"
 import { useTimestampConverter } from "../../../hooks/useTimestampConverter"
 // Components
-import { SvgIcon } from "../../../SvgIcon"
-import { Modal } from "../../Modal"
-import { NameAcronym } from "../../NameAcronym"
+import { SvgIcon } from "../../app-general_cmps/SvgIcon"
+import { Modal } from "../../app-general_cmps/Modal"
+import { NameAcronym } from "../../app-general_cmps/NameAcronym"
 
 
 type Props = {

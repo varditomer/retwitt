@@ -14,9 +14,9 @@ import { setLoggedinUser, updateUser } from '../store/actions/user.action'
 // Custom hooks
 import { useClickOutside } from '../hooks/useClickOutside'
 // Components
-import { EditProfile } from '../components/EditProfile'
-import { NameAcronym } from '../components/NameAcronym'
-import { SvgIcon } from '../SvgIcon'
+import { EditProfile } from '../components/app-general_cmps/EditProfile'
+import { NameAcronym } from '../components/app-general_cmps/NameAcronym'
+import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
 
 
 export const UserDetails: React.FC = () => {

@@ -10,7 +10,7 @@ import { INITIAL_STATE, UserState } from "../interfaces/state.interface"
 // Actions
 import { setLoggedinUser } from "../store/actions/user.action"
 // Components
-import { SvgIcon } from "../SvgIcon"
+import { SvgIcon } from "../components/app-general_cmps/SvgIcon"
 
 
 export const LandingPage: React.FC = () => {

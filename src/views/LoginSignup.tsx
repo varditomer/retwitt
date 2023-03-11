@@ -3,7 +3,7 @@ import { useCallback } from "react"
 import { Outlet, useLocation, useNavigate } from "react-router"
 import { NavLink } from "react-router-dom"
 // Components & Hooks:
-import { SvgIcon } from "../SvgIcon"
+import { SvgIcon } from "../components/app-general_cmps/SvgIcon"
 
 
 export const LoginSignup: React.FC = () => {

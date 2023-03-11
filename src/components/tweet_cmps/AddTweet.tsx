@@ -15,9 +15,9 @@ import { useClickOutside } from "../../hooks/useClickOutside"
 import { uploadImg } from "../../services/img-upload.service"
 import { tweetService } from "../../services/tweet.service"
 // Components
-import { SvgIcon } from "../../SvgIcon"
-import { Modal } from "../Modal"
-import { NameAcronym } from "../NameAcronym"
+import { SvgIcon } from "../app-general_cmps/SvgIcon"
+import { Modal } from "../app-general_cmps/Modal"
+import { NameAcronym } from "../app-general_cmps/NameAcronym"
 
 
 type Props = {

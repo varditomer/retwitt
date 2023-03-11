@@ -1,7 +1,7 @@
 // React / Redux
 import { NavLink } from 'react-router-dom'
 // Components
-import { SvgIcon } from '../SvgIcon'
+import { SvgIcon } from './SvgIcon'
 
 
 export const NavLinks: React.FC = () => {

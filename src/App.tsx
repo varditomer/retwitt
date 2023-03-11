@@ -15,8 +15,8 @@ import { INITIAL_STATE, UserState } from './interfaces/state.interface'
 import { loadLoggedinUser, loadUsers } from './store/actions/user.action'
 import { loadHashtags, loadTweets } from './store/actions/tweet.action'
 // Components
-import { AppHeader } from './components/AppHeader'
-import { AppFooter } from './components/AppFooter'
+import { AppHeader } from './components/app-general_cmps/AppHeader'
+import { AppFooter } from './components/app-general_cmps/AppFooter'
 
 
 const App: React.FC = () => {

@@ -3,7 +3,7 @@ import { useState } from "react"
 // Interfaces
 import { hashtag } from "../../interfaces/tweet.interface"
 // Components
-import { SvgIcon } from "../../SvgIcon"
+import { SvgIcon } from "../app-general_cmps/SvgIcon"
 
 
 type Props = {

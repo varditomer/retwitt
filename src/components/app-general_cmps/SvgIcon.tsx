@@ -1,7 +1,7 @@
 // React / Redux
 import { MouseEventHandler } from "react"
 // Custom hooks
-import { useDynamicSvgImport } from "./hooks/useDynamicSvgImport"
+import { useDynamicSvgImport } from "../../hooks/useDynamicSvgImport"
 
 
 interface IProps {

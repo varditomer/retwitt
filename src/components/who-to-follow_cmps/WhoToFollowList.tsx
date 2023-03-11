@@ -10,7 +10,7 @@ import { User } from "../../interfaces/user.interface"
 // Actions
 import { setLoggedinUser, updateUser } from "../../store/actions/user.action"
 // Components
-import { SvgIcon } from "../../SvgIcon"
+import { SvgIcon } from "../app-general_cmps/SvgIcon"
 import { WhoToFollowPreview } from "./WhoToFollowPreview"
 
 
