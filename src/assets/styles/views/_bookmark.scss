@@ -1,37 +1,8 @@
 .bookmark {
     display: flex;
     flex-direction: column;
-    .small-area {
-        max-height: 60px;
-        overflow-y: hidden;
-        transition: max-height 0.6s ease-in-out;
-        .head {
-            display: flex;
-            justify-content: space-between;
-            .expand-more {
-                transition: transform 0.6s;
-                cursor: pointer;
-                @include hover-supported {
-                    @include custom-hover-svg-txt($outlineRadius: 4px);
-                }
-            }
-        }
-        &.expand {
-            max-height: 300px;
-            .expand-more {
-                transform: rotate(180deg);
-            }
-        }
-    }
     @include for-wide-layout {
         display: grid;
         grid-template-columns: 1fr 2fr;
-        .small-area {
-            display: flex;
-            max-height: unset;
-            .expand-more {
-                display: none;
-            }
-        }
     }
 }

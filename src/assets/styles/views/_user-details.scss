@@ -1,5 +1,6 @@
 .user-details {
     position: relative;
+    padding-bottom: 102px;
     > *:not(.cover-img, .edit-profile-modal, .black-screen) {
         padding-inline: 20px 35px;
     }
@@ -133,31 +134,8 @@
     .main-content {
         min-height: unset;
         display: flex;
-        flex-direction: column;   
-        gap: 20px;     
-        
-        .small-area {
-            max-height: 60px;
-            overflow-y: hidden;
-            transition: max-height 0.6s ease-in-out;
-            .head {
-                display: flex;
-                justify-content: space-between;
-                .expand-more {
-                    transition: transform 0.6s;
-                    cursor: pointer;
-                    @include hover-supported {
-                        @include custom-hover-svg-txt($outlineRadius: 4px);
-                    }
-                }
-            }
-            &.expand {
-                max-height: 300px;
-                .expand-more {
-                    transform: rotate(180deg);
-                }
-            }
-        }
+        flex-direction: column;
+        gap: 20px;
     }
 }
 
@@ -222,6 +200,7 @@
 
 @include for-wide-layout {
     .user-details {
+        padding-bottom: unset;
         > *:not(.cover-img, .edit-profile-modal) {
             max-width: calc(745px + 306px + 20px + 40px);
             margin-inline: auto;
@@ -239,13 +218,6 @@
         .main-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            .small-area {
-                display: flex;
-                max-height: unset;
-                .expand-more {
-                    display: none;
-                }
-            }
         }
     }
 }

@@ -1,0 +1,38 @@
+.small-area {
+    .tweets-filter {
+        max-height: 71px;
+        transition: max-height 0.6s ease-in-out;
+        overflow-y: hidden;
+    }
+    .head {
+        display: flex;
+        justify-content: space-between;
+        .expand-more {
+            transition: transform 0.6s;
+            cursor: pointer;
+            @include hover-supported {
+                @include custom-hover-svg-txt($outlineRadius: 4px);
+            }
+        }
+    }
+    &.expand {
+        .expand-more {
+            transform: rotate(180deg);
+        }
+        .tweets-filter {
+            max-height: 230px;
+        }
+    }
+}
+
+@include for-wide-layout {
+    .small-area {
+        display: flex;
+        .tweets-filter {
+            max-height: unset;
+        }
+        .expand-more {
+            display: none;
+        }
+    }
+}

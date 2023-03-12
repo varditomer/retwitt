@@ -1,13 +1,13 @@
 // React / Redux
-import { HTMLProps, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 // Interfaces
 import { INITIAL_STATE, TweetState, UserState } from '../interfaces/state.interface'
-import { Tweet } from '../interfaces/tweet.interface'
+import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
 import { User } from '../interfaces/user.interface'
 // Actions
 import { setLoggedinUser, updateUser } from '../store/actions/user.action'
@@ -18,6 +18,7 @@ import { EditProfile } from '../components/app-general_cmps/EditProfile'
 import { NameAcronym } from '../components/app-general_cmps/NameAcronym'
 import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
 import { Loader } from '../components/app-general_cmps/Loader'
+import { TweetsFilters } from '../components/app-general_cmps/TweetsFilters'
 
 
 export const UserDetails: React.FC = () => {
@@ -33,13 +34,16 @@ export const UserDetails: React.FC = () => {
     const [userRepliedTweets, setUserRepliedTweets] = useState<Tweet[] | null>(null)
     const [showEditProfileModal, setShowEditProfileModal] = useState(false)
 
-    const [expandMore, setExpandMore] = useState(false)
-    const location = useLocation()
-    const userPath = `/home/${user?._id}`
 
-    const toggleExpandMore = () => {
-        setExpandMore(prev => !prev)
-    }
+    const tweetsFilters: TweetsFilter[] = [
+        { title: 'Tweets', to: '', },
+        { title: 'Tweets & replies', to: 'tweets_replies', },
+        { title: 'Media', to: 'media', },
+        { title: 'Likes', to: 'likes', },
+    ]
+
+    const pathnameTarget = `/home/${user?._id}`
+
 
     const toggleModal = () => {
         setShowEditProfileModal(prevShowEditProfileModal => !prevShowEditProfileModal)
@@ -48,7 +52,7 @@ export const UserDetails: React.FC = () => {
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let mobileTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, ()=>setShowEditProfileModal(false), modalTriggerRef,)
+    useClickOutside(modalRef, () => setShowEditProfileModal(false), modalTriggerRef,)
 
     const navigate = useNavigate()
     const params = useParams()
@@ -97,7 +101,7 @@ export const UserDetails: React.FC = () => {
 
 
 
-   
+
 
     if (!userTweets || !users || !user || !loggedinUser) return (
         <section className="page loading">
@@ -190,39 +194,10 @@ export const UserDetails: React.FC = () => {
             </section>
 
             <section className="main-content">
-                <div className={`small-area ${expandMore ? 'expand' : ''}`}>
-                    <section className="tweets-filter card">
-                        <ul role='list'>
-                            <li className={`first-link ${location.pathname === userPath ? 'first-link-active' : ''}`}>
-                                <div className="border"></div>
-                                <NavLink to=''>
-                                    <div className="head">
-                                        <span className="filter-title">Tweets</span>
-                                        <SvgIcon iconName='expand_more_without_fill' wrapperStyle="expand-more" svgProp={{ stroke: "black", fill: "black" }} handleClick={toggleExpandMore} />
-                                    </div>
-                                </NavLink>
-                            </li>
-                            <li>
-                                <div className="border"></div>
-                                <NavLink to='tweets_replies'>
-                                    <span className="filter-title">Tweets & replies</span>
-                                </NavLink>
-                            </li>
-                            <li>
-                                <div className="border"></div>
-                                <NavLink to='media'>
-                                    <span className="filter-title">Media</span>
-                                </NavLink>
-                            </li>
-                            <li>
-                                <div className="border"></div>
-                                <NavLink to='likes'>
-                                    <span className="filter-title">Likes</span>
-                                </NavLink>
-                            </li>
-                        </ul>
-                    </section>
-                </div>
+                <TweetsFilters
+                    pathnameTarget={pathnameTarget}
+                    tweetsFilters={tweetsFilters}
+                />
                 <div className="large-area">
                     <Outlet
                         context={{

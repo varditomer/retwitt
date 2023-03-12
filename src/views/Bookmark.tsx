@@ -1,13 +1,14 @@
 // React / Redux
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { Loader } from '../components/app-general_cmps/Loader'
-import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
 // Interfaces
 import { TweetState, UserState } from '../interfaces/state.interface'
 // Actions
-import { Tweet } from '../interfaces/tweet.interface'
+import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
+// Components
+import { TweetsFilters } from '../components/app-general_cmps/TweetsFilters'
 
 
 export const Bookmark: React.FC = () => {
@@ -19,15 +20,14 @@ export const Bookmark: React.FC = () => {
   const [userLikedTweets, setUserLikedTweets] = useState<Tweet[] | null>(null)
   const [userRepliedTweets, setUserRepliedTweets] = useState<Tweet[] | null>(null)
 
-  const [expandMore, setExpandMore] = useState(false)
+  const tweetsFilters: TweetsFilter[] = [
+    { title: 'Tweets', to: '', },
+    { title: 'Tweets & replies', to: 'tweets_replies', },
+    { title: 'Media', to: 'media', },
+    { title: 'Likes', to: 'likes', },
+  ]
 
-  const toggleExpandMore = () => {
-    setExpandMore(prev => !prev)
-  }
-
-  const location = useLocation()
-  console.log(`location:`, location)
-
+  const pathnameTarget = `/bookmark`
 
   useEffect(() => {
 
@@ -67,40 +67,10 @@ export const Bookmark: React.FC = () => {
 
   return (
     <section className="bookmark page">
-      <div className={`small-area ${expandMore ? 'expand' : ''}`}>
-        <section className="tweets-filter card">
-          <ul role='list'>
-            <li className={`first-link ${location.pathname === '/bookmark' ? 'first-link-active' : ''}`}>
-              <div className="border"></div>
-              <NavLink to=''>
-                <div className="head">
-                  <span className="filter-title">Tweets</span>
-                  <SvgIcon iconName='expand_more_without_fill' wrapperStyle="expand-more" svgProp={{ stroke: "black", fill: "black" }} handleClick={toggleExpandMore} />
-                </div>
-              </NavLink>
-
-            </li>
-            <li>
-              <div className="border"></div>
-              <NavLink to='tweets_replies'>
-                <span className="filter-title">Tweets & replies</span>
-              </NavLink>
-            </li>
-            <li>
-              <div className="border"></div>
-              <NavLink to='media'>
-                <span className="filter-title">Media</span>
-              </NavLink>
-            </li>
-            <li>
-              <div className="border"></div>
-              <NavLink to='likes'>
-                <span className="filter-title">Likes</span>
-              </NavLink>
-            </li>
-          </ul>
-        </section>
-      </div>
+      <TweetsFilters
+        pathnameTarget={pathnameTarget}
+        tweetsFilters={tweetsFilters}
+      />
       <div className="large-area">
         <Outlet
           context={{

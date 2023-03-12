@@ -1,6 +1,6 @@
 // React / Redux
 import { useEffect, useState } from 'react'
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 // Interfaces
 import { TweetState, UserState } from '../interfaces/state.interface'
@@ -8,7 +8,6 @@ import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
 // Components
 import { SearchTweet } from '../components/tweet_cmps/SearchTweet'
 import { Loader } from '../components/app-general_cmps/Loader'
-import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
 import { TweetsFilters } from '../components/app-general_cmps/TweetsFilters'
 
 
@@ -21,25 +20,16 @@ export const Explore: React.FC = () => {
   const [filteredTweetsToExplore, setFilteredTweetsToExplore] = useState<Tweet[] | null>(null)
 
   const [searchTweetBy, setSearchTweetBy] = useState('')
-  const [expandMore, setExpandMore] = useState(false)
 
-  const location = useLocation()
 
   const tweetsFilters: TweetsFilter[] = [
-    { title: 'Top', to: '/', },
+    { title: 'Top', to: '', },
     { title: 'Latest', to: 'latest', },
     { title: 'People', to: 'people', },
     { title: 'Media', to: 'media', },
   ]
-  const locationPathname = location.pathname
+
   const pathnameTarget = '/explore'
-
-
-  const toggleExpandMore = (ev: React.MouseEvent<HTMLDivElement> ) => {
-    ev.stopPropagation()
-    ev.preventDefault()
-    setExpandMore(prev => !prev)
-  }
 
   const onChangeSearchTweetBy = (query: string) => {
     setSearchTweetBy(query)
@@ -75,45 +65,10 @@ export const Explore: React.FC = () => {
 
   return (
     <section className="explore page">
-      <div className={`small-area ${expandMore ? 'expand' : ''}`}>
-        {/* <TweetsFilters
-        locationPathname={locationPathname}
+      <TweetsFilters
         pathnameTarget={pathnameTarget}
         tweetsFilters={tweetsFilters}
-        toggleExpandMore={toggleExpandMore}
-        /> */}
-        <section className="tweets-filter card">
-          <ul role='list'>
-            <li className={`first-link ${location.pathname === '/explore' ? 'first-link-active' : ''}`}>
-              <div className="border"></div>
-              <NavLink to='' className={'first-link'}>
-                <div className="head">
-                  <span className="filter-title">Top</span>
-                  <SvgIcon iconName='expand_more_without_fill' wrapperStyle="expand-more" svgProp={{ stroke: "black", fill: "black" }} handleClick={toggleExpandMore} />
-                </div>
-              </NavLink>
-            </li>
-            <li>
-              <div className="border"></div>
-              <NavLink to='latest'>
-                <span className="filter-title">Latest</span>
-              </NavLink>
-            </li>
-            <li>
-              <div className="border"></div>
-              <NavLink to='people'>
-                <span className="filter-title">People</span>
-              </NavLink>
-            </li>
-            <li>
-              <div className="border"></div>
-              <NavLink to='media'>
-                <span className="filter-title">Media</span>
-              </NavLink>
-            </li>
-          </ul>
-        </section>
-      </div>
+      />
       <div className="large-area">
         <SearchTweet searchTweetBy={searchTweetBy} onChangeSearchTweetBy={onChangeSearchTweetBy} />
 

@@ -74,7 +74,8 @@
     width: 100%;
     margin-inline: auto;
     padding-inline: 20px 35px;
-    padding-block: 26px;
+    padding-block: 26px 102px;
+
     gap: 20px;
 
     &.loading {
@@ -85,7 +86,9 @@
     }
     @include for-mobile-layout {
         padding-inline: 15px;
-        padding-bottom: 102px;
+    }
+    @include for-wide-layout {
+        padding-block: 26px;
     }
 }
 
