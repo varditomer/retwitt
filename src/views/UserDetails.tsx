@@ -1,5 +1,5 @@
 // React / Redux
-import { useEffect, useRef, useState } from 'react'
+import { HTMLProps, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -41,9 +41,14 @@ export const UserDetails: React.FC = () => {
         setExpandMore(prev => !prev)
     }
 
+    const toggleModal = () => {
+        setShowEditProfileModal(prevShowEditProfileModal => !prevShowEditProfileModal)
+    }
+
     let modalTriggerRef = useRef<HTMLDivElement>(null)
+    let mobileTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, modalTriggerRef, () => setShowEditProfileModal(false))
+    useClickOutside(modalRef, ()=>setShowEditProfileModal(false), modalTriggerRef,)
 
     const navigate = useNavigate()
     const params = useParams()
@@ -92,9 +97,7 @@ export const UserDetails: React.FC = () => {
 
 
 
-    const toggleModal = () => {
-        setShowEditProfileModal(prevShowEditProfileModal => !prevShowEditProfileModal)
-    }
+   
 
     if (!userTweets || !users || !user || !loggedinUser) return (
         <section className="page loading">
@@ -143,8 +146,8 @@ export const UserDetails: React.FC = () => {
                                 </div>
                             </div>
                             {(loggedinUser._id === user._id) ?
-                                <div className="edit-profile-container" ref={modalTriggerRef}>
-                                    <button className="btn-edit desktop-btn" onClick={toggleModal}>
+                                <div className="edit-profile-container" ref={modalTriggerRef} onClick={toggleModal}>
+                                    <button className="btn-edit desktop-btn">
                                         Edit profile
                                     </button>
                                 </div>
@@ -165,9 +168,11 @@ export const UserDetails: React.FC = () => {
                             </p>
                         }
                         {(loggedinUser._id === user._id) ?
-                            <button className="btn-edit mobile-btn" onClick={toggleModal}>
-                                Edit profile
-                            </button>
+                            <div className="edit-profile-container" ref={mobileTriggerRef} onClick={toggleModal}>
+                                <button className="btn-edit mobile-btn">
+                                    Edit profile
+                                </button>
+                            </div>
                             :
                             <button className="btn-follow mobile-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
                                 <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
@@ -233,3 +238,8 @@ export const UserDetails: React.FC = () => {
         </section>
     )
 }
+
+
+
+
+

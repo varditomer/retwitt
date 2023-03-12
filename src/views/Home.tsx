@@ -42,6 +42,7 @@ export const Home: React.FC = () => {
         setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 
+
     if (!loggedinUser || !users?.length || !usersToFollow || !tweetsToShow) return (
         <section className="page loading">
             <Loader />

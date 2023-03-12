@@ -16,7 +16,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: -1;
+        z-index: 1;
         height: 296.5px;
         width: 100%;
         object-fit: unset;
@@ -41,9 +41,11 @@
     }
 
     .user-profile {
-        margin-top: 242px;
-        padding-top: 0;
+        position: relative;
+        z-index: 2;
+        padding-top: 242px;
         margin-bottom: 26px;
+
         .user-profile-card {
             position: relative;
             border-radius: $br-primary;

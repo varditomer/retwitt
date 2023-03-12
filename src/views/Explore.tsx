@@ -4,11 +4,12 @@ import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 // Interfaces
 import { TweetState, UserState } from '../interfaces/state.interface'
-import { Tweet } from '../interfaces/tweet.interface'
+import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
 // Components
 import { SearchTweet } from '../components/tweet_cmps/SearchTweet'
 import { Loader } from '../components/app-general_cmps/Loader'
 import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
+import { TweetsFilters } from '../components/app-general_cmps/TweetsFilters'
 
 
 export const Explore: React.FC = () => {
@@ -24,7 +25,19 @@ export const Explore: React.FC = () => {
 
   const location = useLocation()
 
-  const toggleExpandMore = () => {
+  const tweetsFilters: TweetsFilter[] = [
+    { title: 'Top', to: '/', },
+    { title: 'Latest', to: 'latest', },
+    { title: 'People', to: 'people', },
+    { title: 'Media', to: 'media', },
+  ]
+  const locationPathname = location.pathname
+  const pathnameTarget = '/explore'
+
+
+  const toggleExpandMore = (ev: React.MouseEvent<HTMLDivElement> ) => {
+    ev.stopPropagation()
+    ev.preventDefault()
     setExpandMore(prev => !prev)
   }
 
@@ -63,9 +76,15 @@ export const Explore: React.FC = () => {
   return (
     <section className="explore page">
       <div className={`small-area ${expandMore ? 'expand' : ''}`}>
+        {/* <TweetsFilters
+        locationPathname={locationPathname}
+        pathnameTarget={pathnameTarget}
+        tweetsFilters={tweetsFilters}
+        toggleExpandMore={toggleExpandMore}
+        /> */}
         <section className="tweets-filter card">
           <ul role='list'>
-            <li className={`first-link ${location.pathname==='/explore'? 'first-link-active':''}`}>
+            <li className={`first-link ${location.pathname === '/explore' ? 'first-link-active' : ''}`}>
               <div className="border"></div>
               <NavLink to='' className={'first-link'}>
                 <div className="head">

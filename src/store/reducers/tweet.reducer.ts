@@ -1,10 +1,10 @@
 // Interfaces
-import { hashtags, Tweet } from "../../interfaces/tweet.interface"
+import { Hashtags, Tweet } from "../../interfaces/tweet.interface"
 
 
 export interface TWEET_STATE {
     tweets: Tweet[]
-    hashtags: hashtags
+    hashtags: Hashtags
 }
 
 const TWEET_STATE: TWEET_STATE = {

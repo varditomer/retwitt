@@ -33,7 +33,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, modalTriggerRef, () => setShowReplyOptModal(false))
+    useClickOutside(modalRef, () => setShowReplyOptModal(false), modalTriggerRef)
 
     const toggleModal = () => {
         setShowReplyOptModal(prevShowReplyOptModal => !prevShowReplyOptModal)
@@ -137,7 +137,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                     <p className="reply-content">
                         {reply.content}
                     </p>
-                    {reply.imgUrl && <img className="tweet-img" src={reply.imgUrl} alt="" />}
+                    {reply.imgUrl && <img className="reply-img" src={reply.imgUrl} alt="" />}
                 </div>
             </div>
             <div className="reply-action">

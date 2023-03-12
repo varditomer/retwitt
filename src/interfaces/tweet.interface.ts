@@ -37,12 +37,17 @@ export interface Retweet {
     isRetweet: boolean
 }
 
-export interface hashtags {
+export interface Hashtags {
     _id?: string,
-    hashtags: hashtag[]
+    hashtags: Hashtag[]
 }
 
-export interface hashtag {
+export interface Hashtag {
     key: string,
     occurrences: number
+}
+
+export interface TweetsFilter {
+    title: string,
+    to: string,
 }

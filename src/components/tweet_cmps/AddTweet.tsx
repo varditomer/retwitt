@@ -5,7 +5,7 @@ import { AnyAction } from "redux"
 import { ThunkDispatch } from "redux-thunk"
 // Interfaces
 import { INITIAL_STATE } from "../../interfaces/state.interface"
-import { hashtags, Tweet } from "../../interfaces/tweet.interface"
+import { Hashtags, Tweet } from "../../interfaces/tweet.interface"
 import { User } from "../../interfaces/user.interface"
 // Actions
 import { addTweet, updateHashtags } from "../../store/actions/tweet.action"
@@ -22,7 +22,7 @@ import { NameAcronym } from "../app-general_cmps/NameAcronym"
 
 type Props = {
     loggedinUser: User,
-    hashtags: hashtags
+    hashtags: Hashtags
 }
 
 export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
@@ -36,7 +36,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, modalTriggerRef, () => setShowWhoCanReplyModal(false))
+    useClickOutside(modalRef, () => setShowWhoCanReplyModal(false), modalTriggerRef)
 
 
     useEffect(() => {

@@ -1,13 +1,13 @@
 // React / Redux
 import { useState } from "react"
 // Interfaces
-import { hashtag } from "../../interfaces/tweet.interface"
+import { Hashtag } from "../../interfaces/tweet.interface"
 // Components
 import { SvgIcon } from "../app-general_cmps/SvgIcon"
 
 
 type Props = {
-    hashtags: hashtag[]
+    hashtags: Hashtag[]
 }
 
 export const TrendList: React.FC<Props> = ({ hashtags }) => {
@@ -24,7 +24,7 @@ export const TrendList: React.FC<Props> = ({ hashtags }) => {
                 <SvgIcon iconName='expand_more_without_fill' wrapperStyle="expand-more" svgProp={{ stroke: "black", fill: "black" }} handleClick={toggleExpandMore} />
             </div>
             <ul role='list'>
-                {hashtags?.map((hashtagObj: hashtag) => <li key={hashtagObj.key}>
+                {hashtags?.map((hashtagObj: Hashtag) => <li key={hashtagObj.key}>
                     <span className="trend-title">#{hashtagObj.key}</span>
                     <span className="trend-tweets-count">{hashtagObj.occurrences} Tweets</span>
                 </li>

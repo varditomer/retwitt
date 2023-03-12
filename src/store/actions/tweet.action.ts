@@ -1,5 +1,5 @@
 // Interfaces
-import { hashtag, hashtags, Tweet } from "../../interfaces/tweet.interface"
+import { Hashtag, Hashtags, Tweet } from "../../interfaces/tweet.interface"
 // Services
 import { tweetService } from "../../services/tweet.service"
 
@@ -65,7 +65,7 @@ export function addRetweet(retweetedTweetId: string) {
 export function loadHashtags() {
     return async (dispatch: any) => {
         try {
-            const hashtags: hashtags = await tweetService.queryHashtags()
+            const hashtags: Hashtags = await tweetService.queryHashtags()
             dispatch({ type: 'SET_HASHTAGS', payload: hashtags })
         } catch (err) {
             console.log(`err:`, err)
@@ -73,7 +73,7 @@ export function loadHashtags() {
     }
 }
 
-export function removeHashtags(hashtagsToRemove: string[], currHashtags: hashtags) {
+export function removeHashtags(hashtagsToRemove: string[], currHashtags: Hashtags) {
     return async (dispatch: any) => {
         try {
             const newHashtags = currHashtags.hashtags.map(hashtagObj => {
@@ -81,11 +81,11 @@ export function removeHashtags(hashtagsToRemove: string[], currHashtags: hashtag
                     return {
                         key: hashtagObj.key,
                         occurrences: hashtagObj.occurrences - 1
-                    } as hashtag
+                    } as Hashtag
                 }
                 else return hashtagObj
             }).filter(hashtag => hashtag.occurrences !== 0)
-            const updatedHashtags: hashtags = {
+            const updatedHashtags: Hashtags = {
                 _id: currHashtags._id,
                 hashtags: newHashtags
             }
@@ -100,10 +100,10 @@ export function removeHashtags(hashtagsToRemove: string[], currHashtags: hashtag
 }
 
 
-export function updateHashtags(newHashtags: string[], currHashtags: hashtags) {
+export function updateHashtags(newHashtags: string[], currHashtags: Hashtags) {
     return async (dispatch: any) => {
         try {
-            const updatedHashtags: hashtags = {
+            const updatedHashtags: Hashtags = {
                 _id: currHashtags._id,
                 hashtags: currHashtags.hashtags.map(hashtagObj => {
                     const idx = newHashtags.findIndex(hashtag => hashtag === hashtagObj.key)

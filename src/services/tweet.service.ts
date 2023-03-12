@@ -1,6 +1,6 @@
 
 // Interface
-import { Tweet, Reply, Retweet, hashtags } from "../interfaces/tweet.interface"
+import { Tweet, Reply, Retweet, Hashtags } from "../interfaces/tweet.interface"
 // Services
 import { httpService } from "./http.service"
 import { userService } from "./user.service"
@@ -55,7 +55,7 @@ async function queryHashtags() {
     return httpService.get(`${STORAGE_KEY}/hashtag`)
 }
 
-async function updateHashtags(hashtagsToUpdate: hashtags) {
+async function updateHashtags(hashtagsToUpdate: Hashtags) {
     return await httpService.put(`${STORAGE_KEY}/hashtag`, hashtagsToUpdate)
 }
 

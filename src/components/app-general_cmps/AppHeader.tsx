@@ -29,7 +29,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, modalTriggerRef, () => setShowAccountModal(false))
+    useClickOutside(modalRef, () => setShowAccountModal(false), modalTriggerRef)
 
     const navigateTo = () => {
         setShowAccountModal(false)

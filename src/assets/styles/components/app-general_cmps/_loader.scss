@@ -1,6 +1,4 @@
 .spinner {
-    // width: ;
-    // height: calc(100% - 76px - 76px);
     width: 300px;
     height: 300px;
     display: flex;
@@ -30,7 +28,7 @@
   }
   
   .spinner-sector-blue {
-    border-left-color: lightblue;
+    border-left-color: $clr-twitter;
     --duration: 2s;
     --timing: ease-in;
   }

@@ -48,7 +48,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, modalTriggerRef, () => setShowTweetOptModal(false))
+    useClickOutside(modalRef, () => setShowTweetOptModal(false), modalTriggerRef)
 
 
     const toggleModal = () => {
