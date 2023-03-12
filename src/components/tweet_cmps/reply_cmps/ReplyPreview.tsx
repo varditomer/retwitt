@@ -137,11 +137,12 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                     <p className="reply-content">
                         {reply.content}
                     </p>
+                    {reply.imgUrl && <img className="tweet-img" src={reply.imgUrl} alt="" />}
                 </div>
             </div>
             <div className="reply-action">
                 <div className={`like ${(isLikeClicked()) ? 'active' : ''}`} onClick={() => toggleLikeReply(reply._id)}>
-                    <SvgIcon iconName="like" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
+                    <SvgIcon iconName="like" wrapperStyle="" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
                     <span>like</span>
                 </div>
                 {(reply.likes.length) ?

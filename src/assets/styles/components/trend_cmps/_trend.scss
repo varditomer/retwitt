@@ -15,16 +15,18 @@
             font-size: rem(12px);
             color: $clr-gray3;
         }
-        &:hover {
-            background-color: $bgc-input;
-            outline: 10px solid $bgc-input;
-            border-radius: 4px;
-            .trend-title {
-                &:hover {
-                    outline: 10px solid $bgc-input;
-                    border-radius: 4px;
-                    background-color: darken($bgc-input, 3%);
-                    color: black;
+        @include hover-supported {
+            &:hover {
+                background-color: $bgc-input;
+                outline: 10px solid $bgc-input;
+                border-radius: 4px;
+                .trend-title {
+                    &:hover {
+                        outline: 10px solid $bgc-input;
+                        border-radius: 4px;
+                        background-color: darken($bgc-input, 3%);
+                        color: black;
+                    }
                 }
             }
         }

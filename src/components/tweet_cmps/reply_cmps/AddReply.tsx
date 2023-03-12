@@ -8,6 +8,7 @@ import { tweetService } from "../../../services/tweet.service"
 // Components
 import { SvgIcon } from "../../app-general_cmps/SvgIcon"
 import { NameAcronym } from "../../app-general_cmps/NameAcronym"
+import { uploadImg } from "../../../services/img-upload.service"
 
 
 type Props = {
@@ -43,6 +44,16 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
         setNewReply(structuredClone(replyToSave))
     }
 
+    const onUploadImg = async (ev: React.ChangeEvent<HTMLInputElement>) => {
+        if (!newReply) return
+        if (!ev.target.files) return
+        const file = ev.target.files[0]
+        const res = await uploadImg(file)
+        const replyToSave = structuredClone(newReply)
+        replyToSave.imgUrl = res.secure_url
+        setNewReply(structuredClone(replyToSave))
+    }
+
     const onAddReply = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         if (!replyContent.length || !tweetToEdit || !newReply) return
@@ -70,7 +81,10 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
                         <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
                     }
                     <input ref={childInputRef} onChange={handleChange} type="text" placeholder='Tweet your reply' className="reply-input" value={replyContent} />
-                    <SvgIcon iconName="img" wrapperStyle="add-photo" svgProp={{ stroke: "#BDBDBD", fill: "#BDBDBD" }} />
+                    <div className="img-upload-container">
+                        <input type="file" onChange={onUploadImg} />
+                        <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
+                    </div>
                 </form>
             }
         </>

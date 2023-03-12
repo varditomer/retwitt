@@ -22,7 +22,9 @@
             .cancel {
                 cursor: pointer;
                 @include hover-supported {
-                    @include custom-hover-svg-txt;
+                    @include hover-supported {
+                        @include custom-hover-svg-txt;
+                    }
                 }
             }
             h2 {
@@ -140,7 +142,7 @@
             height: 55px;
             width: 100%;
             position: relative;
-            background-color: darken(white,2%);
+            background-color: darken(white, 2%);
             border-radius: 12px;
             // outline: 1px solid lightgray;
             box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
@@ -203,7 +205,6 @@
                     font-family: NotoSans-SemiBold;
                     color: $clr--black !important;
                 }
-            
             }
         }
         .profile {

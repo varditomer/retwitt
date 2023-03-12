@@ -122,15 +122,12 @@
         }
         .likes-count {
             cursor: pointer;
-            &:hover {
-            }
         }
         @include hover-supported {
             .reply-head {
                 .reply-body {
                     .reply-info-container {
                         .options-container {
-                            // background-color: black;
                             visibility: visible;
                         }
                     }

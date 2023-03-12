@@ -73,8 +73,9 @@
                     }
                 }
                 @include flex-vertically-center;
+                flex-direction: row;
                 justify-content: center;
-                flex-grow: 1;
+                flex: 1;
                 gap: 8px;
                 font-family: NotoSans-Medium;
                 font-size: rem(14px);
@@ -135,9 +136,11 @@
                 }
             }
         }
-        &:hover {
-            .options-container {
-                visibility: visible;
+        @include hover-supported {
+            &:hover {
+                .options-container {
+                    visibility: visible;
+                }
             }
         }
     }
@@ -166,12 +169,27 @@
                 outline-color: $clr-twitter;
             }
         }
-        .add-photo {
+        .img-upload-container {
             position: absolute;
             right: 12.5px;
             cursor: pointer;
-            &:hover {
-                @include custom-hover-svg-txt($outlineRadius: 4px);
+            @include flex-vertically-center;
+            justify-content: center;
+            input {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                opacity: 0;
+                cursor: pointer;
+                font-size: 0;
+                // cursor:pointer does not work on input file just because of the default button.
+                // Need to remove its appearance via font-size:0.
+            }
+            @include hover-supported {
+                &:hover {
+                    @include custom-hover-svg-txt($outlineRadius: 4px);
+                }
             }
         }
     }
