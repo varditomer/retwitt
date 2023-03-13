@@ -1,6 +1,39 @@
 .explore {
     display: flex;
     flex-direction: column;
+    .who-to-follow {
+        max-height: 48px;
+        overflow-y: hidden;
+        transition: max-height 0.6s ease-in-out;
+        &:has(> .expand) {
+            overflow-y: auto;
+        }
+        .card-title {
+            @include flex-vertically-center;
+            justify-content: space-between;
+            .expand-more {
+                transition: transform 0.6s;
+                cursor: pointer;
+                @include hover-supported {
+                    @include custom-hover-svg-txt($outlineRadius: 4px);
+                }
+            }
+        }
+        &:has(.expand) {
+            max-height: 300px;
+            .card-title {
+                .expand-more {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        @include for-wide-layout {
+            max-height: unset;
+            .expand-more {
+                display: none;
+            }
+        }
+    }
 
     .search-tweet {
         position: relative;

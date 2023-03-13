@@ -131,6 +131,34 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         dispatch(removeTweet(tweet._id))
     }
 
+    // const onRetweet = async () => {
+    //     const tweetToUpdate = structuredClone(tweet)
+
+    //     const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+    //     if (retweetedByIdx !== -1) {
+    //         await dispatch(removeTweet(tweetToUpdate.retweetedBy[retweetedByIdx]?.retweetId!))
+    //         tweetToUpdate.retweetedBy.splice(retweetedByIdx, 1)
+    //         return onUpdateTweet(tweetToUpdate)
+    //     }
+
+    //     // Optimistic tweet update
+    //     tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
+    //     await onUpdateTweet(tweetToUpdate)
+
+    //     // const onUpdateTweet = (tweetToUpdate: Tweet) => {
+    //     //     const tweetLastState: Tweet = structuredClone(tweet)
+    //     //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
+    //     // }
+
+    //     const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
+    //     // Update tweet again with the retweetId that was created on the backend
+    //     if (retweetId) {
+    //         const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+    //         tweetToUpdate.retweetedBy[retweetedByIdx]!.retweetId = retweetId
+    //         onUpdateTweet(tweetToUpdate)
+    //     }
+
+    // }
     const onRetweet = async () => {
         const tweetToUpdate = structuredClone(tweet)
 
@@ -141,23 +169,22 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             return onUpdateTweet(tweetToUpdate)
         }
 
-        // Optimistic tweet update
-        tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
-        await onUpdateTweet(tweetToUpdate)
+        // // Optimistic tweet update
+        // tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
+        // await onUpdateTweet(tweetToUpdate)
 
-        // const onUpdateTweet = (tweetToUpdate: Tweet) => {
-        //     const tweetLastState: Tweet = structuredClone(tweet)
-        //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
-        // }
+        // // const onUpdateTweet = (tweetToUpdate: Tweet) => {
+        // //     const tweetLastState: Tweet = structuredClone(tweet)
+        // //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
+        // // }
 
         const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
+        console.log(`retweetId-after-backend:`, retweetId)
         // Update tweet again with the retweetId that was created on the backend
         if (retweetId) {
-            const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
-            tweetToUpdate.retweetedBy[retweetedByIdx]!.retweetId = retweetId
+            tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: retweetId })
             onUpdateTweet(tweetToUpdate)
         }
-
     }
 
     const toggleFollowUser = (userId: string) => {

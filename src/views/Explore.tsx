@@ -70,7 +70,7 @@ export const Explore: React.FC = () => {
         tweetsFilters={tweetsFilters}
       />
       <div className="large-area">
-        <SearchTweet searchTweetBy={searchTweetBy} onChangeSearchTweetBy={onChangeSearchTweetBy} />
+        {<SearchTweet searchTweetBy={searchTweetBy} onChangeSearchTweetBy={onChangeSearchTweetBy} />}
 
         <Outlet
           context={{

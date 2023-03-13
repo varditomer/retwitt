@@ -22,9 +22,7 @@ export const Top: React.FC = () => {
         setTopTweets(currTopTweets)
     }, [tweetsToShow])
 
-    if (!topTweets) return <div>Loading...</div>
-
-    if (!topTweets?.length) return (
+    if (!topTweets || !topTweets?.length) return (
         <section className="no-tweets-yet">
             <img alt="" className="no-tweets-img" src="https://res.cloudinary.com/retwitt/image/upload/v1678556674/vb2d_tt99_220712_lsazlh.jpg" />
             <h2 className="title">No tweets to show</h2>
