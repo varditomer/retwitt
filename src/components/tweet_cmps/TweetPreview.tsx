@@ -59,7 +59,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
     const navigate = useNavigate()
 
     const navigateTo = () => {
-        navigate(`/home/${tweet.createdBy}/tweets`)
+        navigate(`/home/${tweet.createdBy}`)
     }
     const isRetweetClicked = () => {
         const retweetedByIdx = tweet.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)

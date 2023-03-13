@@ -1,7 +1,7 @@
 // Dependencies
 import Axios from "axios"
 // Interfaces
-import { hashtags, Retweet, Tweet } from "../interfaces/tweet.interface"
+import { Hashtags, Retweet, Tweet } from "../interfaces/tweet.interface"
 import { User, UserCredentials } from "../interfaces/user.interface"
 
 
@@ -14,13 +14,13 @@ const axios = Axios.create({
 })
 
 export const httpService = {
-    get(endpoint: string, data: Tweet | hashtags | User | string | null = null) {
+    get(endpoint: string, data: Tweet | Hashtags | User | string | null = null) {
         return ajax(endpoint, 'GET', data)
     },
     post(endpoint: string, data: Tweet | Retweet | UserCredentials | string | null = null) {
         return ajax(endpoint, 'POST', data)
     },
-    put(endpoint: string, data: Tweet | hashtags | User | string | null = null) {
+    put(endpoint: string, data: Tweet | Hashtags | User | string | null = null) {
         return ajax(endpoint, 'PUT', data)
     },
     delete(endpoint: string, data: Tweet | User | string | null = null) {
@@ -28,7 +28,7 @@ export const httpService = {
     }
 }
 
-async function ajax(endpoint: string, method = 'GET', data: Tweet | hashtags | Retweet | User | UserCredentials | string | null = null) {
+async function ajax(endpoint: string, method = 'GET', data: Tweet | Hashtags | Retweet | User | UserCredentials | string | null = null) {
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,

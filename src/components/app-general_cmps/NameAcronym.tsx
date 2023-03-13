@@ -7,13 +7,13 @@ type Props = {
     lastName: string,
     userId: string,
     className?: string
-    handleClick?: ()=> void
+    navigateToUser?: boolean
 }
-export const NameAcronym: React.FC<Props> = ({ firstName, lastName, userId, className, handleClick }) => {
+export const NameAcronym: React.FC<Props> = ({ firstName, lastName, userId, className, navigateToUser=true }) => {
     const navigate = useNavigate()
     if (!firstName || !lastName || !userId) return <div>Loading...</div>
     return (
-        <span className={`acronym${className ? ' ' + className : ''}`} onClick={() => navigate(`/home/${userId}`)}>{firstName!.charAt(0).toUpperCase() + lastName!.charAt(0).toUpperCase()}</span>
+        <span className={`acronym${className ? ' ' + className : ''}`} onClick={navigateToUser?(() => navigate(`/home/${userId}`)):()=>null}>{firstName!.charAt(0).toUpperCase() + lastName!.charAt(0).toUpperCase()}</span>
     )
 
 }

@@ -25,8 +25,6 @@ export const TweetsFilters: React.FC<Props> = ({ pathnameTarget, tweetsFilters }
         setExpandMore(prev => !prev)
     }
 
-    if (false) return <div>Loading...</div>
-
     return (
         <div className={`small-area ${expandMore ? 'expand' : ''}`}>
             <section className="tweets-filter card">

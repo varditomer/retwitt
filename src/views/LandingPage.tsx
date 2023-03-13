@@ -8,25 +8,35 @@ import { ThunkDispatch } from "redux-thunk"
 // Interfaces
 import { INITIAL_STATE, UserState } from "../interfaces/state.interface"
 // Actions
-import { setLoggedinUser } from "../store/actions/user.action"
+import { login, setLoggedinUser } from "../store/actions/user.action"
 // Components
 import { SvgIcon } from "../components/app-general_cmps/SvgIcon"
+import { userService } from "../services/user.service"
 
 
 export const LandingPage: React.FC = () => {
     const { loggedinUser } = useSelector((state: UserState) => state.userModule)
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
-    const guest = useSelector((state: UserState) => state.userModule.users[0])
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(loggedinUser) navigate('/home')
+        if (loggedinUser) navigate('/home')
 
     }, [loggedinUser])
 
-    const onStartDemo = () => {
-        dispatch(setLoggedinUser(guest))
+  const onStartDemo = async () => {
+        const userCreds = userService.getEmptyUserCredentials()
+        userCreds.username=import.meta.env.VITE_API_KEY_GUEST_USERNAME
+        userCreds.password=import.meta.env.VITE_API_KEY_GUEST_PASSWORD
+        console.log(`userCreds:`, userCreds)
+        try {
+            await dispatch(login(userCreds))
+            navigate('/home')
+        } catch (err) {
+            console.log(`Username or password are incorrect`)
+        }
+
     }
 
 
@@ -67,7 +77,7 @@ export const LandingPage: React.FC = () => {
                         <h2 className="call-to-action-subtitle">
                             Join ReTwitt today.
                         </h2>
-                        <button className="btn-landing" onClick={()=>navigate('/loginsignup/login')}>Login \ Signup</button>
+                        <button className="btn-landing" onClick={() => navigate('/loginsignup/login')}>Login \ Signup</button>
                         <button className="btn-landing demo" onClick={onStartDemo}>Start Demo</button>
                     </div>
                 </div>

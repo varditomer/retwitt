@@ -62,7 +62,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
                         <div className="account-icons-container" onClick={toggleModal} ref={modalTriggerRef}>
                             {loggedinUser.profileImg ?
                                 <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
-                                <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
+                                <NameAcronym firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} navigateToUser={false} />
                             }
                             <span className="user-name">{loggedinUser.firstName} {loggedinUser.lastName}</span>
                             <SvgIcon iconName="expand_more" wrapperStyle="expand_more" svgProp={{ stroke: "black", fill: "black" }} />

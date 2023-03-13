@@ -57,6 +57,7 @@
             height: 100%;
             width: 100%;
             object-fit: cover;
+            text-align: center;
 
             &.not-set {
                 @include flex-vertically-center;
@@ -91,6 +92,10 @@
             }
             .profile-img-edit {
                 font-size: rem(50px);
+                @include for-mobile-layout {
+                    font-size: rem(34px);
+                    
+                }
                 width: 100%;
                 height: 100%;
                 object-fit: cover;

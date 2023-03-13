@@ -4,6 +4,9 @@
 *::after {
   box-sizing: border-box;
 }
+#root {
+  background-color: black;
+}
 
 /* Remove default margin */
 body,
@@ -36,29 +39,62 @@ html:focus-within {
 }
 
 html,
+#root,
 body {
   height: 100%;
   overflow-x: hidden;
-  overflow-y: overlay;
+}
+
+*::-webkit-scrollbar {
+  background: white;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  width: 15px;
+  z-index: 200;
+}
+*::-webkit-scrollbar-track-piece {
+  // background-color: $clr-gray6;
+  z-index: 200;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: $clr--white;
+  // margin-block: 76px;
+  z-index: 200;
+  
+}
+*::-webkit-scrollbar-button {
+  // 
+  z-index: 200;
+}
+
+*::-webkit-scrollbar-thumb {
+  z-index: 200;
+  background-color: $clr-gray2;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  border-radius: 50vw;
 }
 
 /* Set core body defaults */
 body {
+  overflow-y: overlay;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   letter-spacing: -0.035em;
-  min-height: 100vh;
+  
 }
 
+
+
 .main-app {
-  
-  min-height: 100vh;
+  min-height: calc(100%);  
   background-color: $bgc-primary;
+  display: flex;
+  flex-direction: column;
   &:has(> .loading) {
     background-color: unset !important;
   }
   > *:not(header, footer) {
-    min-height: calc(100vh - 76px - 76px);
+    flex: 1;
   }
 }
 
