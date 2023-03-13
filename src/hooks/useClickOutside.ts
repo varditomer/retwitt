@@ -10,9 +10,10 @@ export const useClickOutside = <T extends HTMLElement = HTMLElement>(
     cb: Function,
     modalTriggerRef?: RefObject<T>,
     mobileTriggerRef?: RefObject<T>
-) => {
-    useEffect(() => {
+    ) => {
+        useEffect(() => {
         let handler = (ev: any) => {
+            console.log(`ev.target:`, ev.target)
             if (!modalTriggerRef?.current?.contains(ev.target) && !mobileTriggerRef?.current?.contains(ev.target) && !modalRef.current?.contains(ev.target)) cb()
 
         }

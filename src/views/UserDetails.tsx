@@ -52,7 +52,7 @@ export const UserDetails: React.FC = () => {
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let mobileTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
-    useClickOutside(modalRef, () => setShowEditProfileModal(false), modalTriggerRef,)
+    useClickOutside(modalRef, () => setShowEditProfileModal(false), modalTriggerRef, mobileTriggerRef)
 
     const navigate = useNavigate()
     const params = useParams()

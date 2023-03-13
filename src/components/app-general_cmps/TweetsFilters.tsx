@@ -32,7 +32,7 @@ export const TweetsFilters: React.FC<Props> = ({ pathnameTarget, tweetsFilters }
             <section className="tweets-filter card">
                 <ul role='list'>
                     {tweetsFilters.map((filter: TweetsFilter, idx) => idx === 0 ?
-                        <li className={`first-link ${location.pathname === pathnameTarget ? 'first-link-active' : ''}`}>
+                        <li key={filter.title} className={`first-link ${location.pathname === pathnameTarget ? 'first-link-active' : ''}`}>
                             <div className="border"></div>
                             <NavLink to={`${filter.to}`} className={'first-link'}>
                                 <div className="head">
@@ -42,7 +42,7 @@ export const TweetsFilters: React.FC<Props> = ({ pathnameTarget, tweetsFilters }
                             </NavLink>
                         </li>
                         :
-                        <li>
+                        <li key={filter.title}>
                             <div className="border"></div>
                             <NavLink to={`${filter.to}`}>
                                 <span className="filter-title">{filter.title}</span>

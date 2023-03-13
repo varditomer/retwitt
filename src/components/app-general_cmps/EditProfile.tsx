@@ -97,7 +97,7 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal, modalRef }) =>
                         Coming soon...
                     </div>
                 }
-                <div className="input-container">
+                <div className="input-container cover">
                     <input type="file" onChange={handleFileChange} name='coverImg' ref={coverImgInput} />
                     <SvgIcon iconName='add_photo' wrapperStyle="add-photo-container" svgProp={{ stroke: "white", fill: "white" }} />
                 </div>
@@ -108,9 +108,9 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal, modalRef }) =>
                         :
                         <NameAcronym firstName={user.firstName} lastName={user.lastName} userId={user._id} className="profile-img-edit" />
                     }
-                    <div className="input-container">
+                    <div className="input-container profile">
                         <input type="file" onChange={handleFileChange} name='profileImg' ref={profileImgInput} />
-                        <SvgIcon iconName='add_photo' wrapperStyle="add-photo-container" svgProp={{ stroke: "white", fill: "white" }} />
+                        <SvgIcon iconName='add_photo_small' wrapperStyle="add-photo-container" svgProp={{ stroke: "white", fill: "white" }} />
                     </div>
                 </div>
 
