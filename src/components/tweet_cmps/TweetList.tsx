@@ -1,4 +1,6 @@
 // Interfaces
+import { useSelector } from 'react-redux'
+import { TweetState } from '../../interfaces/state.interface'
 import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
 // Components
@@ -16,8 +18,10 @@ export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
 
     const getUsersForReplies = (replies: Reply[]) => users.filter(user => (replies.some(reply => reply.createdBy === user._id)))
 
+
     const getRetweetedTweet = (retweetedTweetId: string) => {
-        return tweets.find(tweet => tweet._id === retweetedTweetId)!
+        const retweetedTweet = useSelector((state: TweetState) => state.tweetModule.tweets.find(tweet => tweet._id === retweetedTweetId))!
+        return retweetedTweet
     }
 
     if (!tweets || !loggedinUser || !users) return <div>Loading...</div>
@@ -27,7 +31,6 @@ export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
     return (
         <section className="tweet-list">
             {tweets?.map((tweetOrRetweet: Tweet | Retweet) => {
-
                 if (tweetOrRetweet.isRetweet) {
                     const retweet = tweetOrRetweet as Retweet
                     const retweetedTweet: Tweet = getRetweetedTweet(retweet.retweetedTweetId)

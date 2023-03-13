@@ -49,7 +49,7 @@
                     }
 
                     .options-container {
-                        @media (hover: hover) {
+                        @include hover-supported {
                             visibility: hidden;
                         }
                         // position: unset;

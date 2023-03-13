@@ -73,9 +73,9 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         return loggedinUser.savedTweets.includes(tweet._id!)
     }
 
-    const onUpdateTweet = (tweetToUpdate: Tweet) => {
+    const onUpdateTweet = async (tweetToUpdate: Tweet) => {
         const tweetLastState: Tweet = structuredClone(tweet)
-        dispatch(updateTweet(tweetToUpdate, tweetLastState))
+        await dispatch(updateTweet(tweetToUpdate, tweetLastState))
     }
 
 
@@ -143,7 +143,12 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
         // Optimistic tweet update
         tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
-        onUpdateTweet(tweetToUpdate)
+        await onUpdateTweet(tweetToUpdate)
+
+        // const onUpdateTweet = (tweetToUpdate: Tweet) => {
+        //     const tweetLastState: Tweet = structuredClone(tweet)
+        //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
+        // }
 
         const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
         // Update tweet again with the retweetId that was created on the backend

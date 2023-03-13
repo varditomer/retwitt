@@ -14,10 +14,11 @@ export const Top: React.FC = () => {
     const [topTweets, setTopTweets] = useState<Tweet[] | null>(null)
 
     useEffect(() => {
+        if(!tweetsToShow) return
         //meet the new deep-clone method - structured clone - already widely supported by most of the browsers
         const tweets: Tweet[] = structuredClone(tweetsToShow) //sort changes the original arr so breaking the pointer is required.
-
-        const currTopTweets = tweets?.sort((tweetA, tweetB) => (tweetA.likes.length > tweetB.likes.length ? -1 : 1))
+        if(!tweets.length) return
+        const currTopTweets = tweets?.sort((tweetA, tweetB) => (tweetA.likes?.length > tweetB.likes?.length ? -1 : 1))
         setTopTweets(currTopTweets)
     }, [tweetsToShow])
 

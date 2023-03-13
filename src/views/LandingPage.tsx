@@ -25,11 +25,10 @@ export const LandingPage: React.FC = () => {
 
     }, [loggedinUser])
 
-  const onStartDemo = async () => {
+    const onStartDemo = async () => {
         const userCreds = userService.getEmptyUserCredentials()
-        userCreds.username=import.meta.env.VITE_API_KEY_GUEST_USERNAME
-        userCreds.password=import.meta.env.VITE_API_KEY_GUEST_PASSWORD
-        console.log(`userCreds:`, userCreds)
+        userCreds.username = import.meta.env.VITE_API_KEY_GUEST_USERNAME
+        userCreds.password = import.meta.env.VITE_API_KEY_GUEST_PASSWORD
         try {
             await dispatch(login(userCreds))
             navigate('/home')

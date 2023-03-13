@@ -24,7 +24,9 @@
             }
         }
         .options-container {
-            visibility: hidden;
+            @include hover-supported {
+                visibility: hidden;
+            }
             position: absolute;
             right: 16px;
             top: 10px;

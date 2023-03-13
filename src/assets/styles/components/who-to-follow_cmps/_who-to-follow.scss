@@ -19,9 +19,6 @@
             .user-name {
                 cursor: pointer;
             }
-            .user-img {
-                // align-self: flex-start;
-            }
             margin-bottom: 0;
             .user-info {
                 flex-grow: 1;
@@ -37,10 +34,13 @@
             font-family: NotoSans-Medium;
             font-size: rem(14px);
             color: $clr-gray3;
+            &:empty {
+                display: none;
+            }
         }
         .cover-img {
             max-height: 100px;
-            object-fit: cover;
+            object-fit: fill;
             border-radius: $br-secondary;
         }
     }

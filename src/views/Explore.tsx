@@ -36,7 +36,7 @@ export const Explore: React.FC = () => {
   }
 
   useEffect(() => {
-    if (!tweets.length || !loggedinUser) return
+    if (!tweets?.length || !loggedinUser) return
 
     const unFollowsUsers = users.filter(user => !loggedinUser.follows.includes(user._id) && user._id !== loggedinUser._id)
     const unFollowsUsersIds = unFollowsUsers.map(user => user._id)
