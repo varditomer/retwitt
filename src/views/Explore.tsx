@@ -16,7 +16,7 @@ export const Explore: React.FC = () => {
   const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
   const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
 
-  const [tweetsToExplore, setTweetsToExplore] = useState<Tweet[] | null>(null)
+  const [tweetsToExplore, setTweetsToExplore] = useState<Tweet[]>([])
   const [filteredTweetsToExplore, setFilteredTweetsToExplore] = useState<Tweet[] | null>(null)
 
   const [searchTweetBy, setSearchTweetBy] = useState('')
@@ -47,7 +47,7 @@ export const Explore: React.FC = () => {
   }, [tweets, loggedinUser])
 
   useEffect(() => {
-    if (!tweetsToExplore) return
+    if (!tweetsToExplore.length) return
     const tweets: Tweet[] = JSON.parse(JSON.stringify(tweetsToExplore))
     const regex = new RegExp(searchTweetBy, 'i')
     const filteredTweets = tweets.filter(tweet => regex.test(tweet.content))

@@ -7,7 +7,7 @@ import { ThunkDispatch } from "redux-thunk"
 import { INITIAL_STATE } from "../../interfaces/state.interface"
 import { User } from "../../interfaces/user.interface"
 // Actions
-import { updateUser } from "../../store/actions/user.action"
+import { setLoggedinUser, updateUser } from "../../store/actions/user.action"
 // Custom hooks
 import { useFormRegister } from "../../hooks/useFormRegister"
 // Services
@@ -48,7 +48,8 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal, modalRef }) =>
             ...user,
         }
         try {
-            await dispatch(updateUser(fields))
+            dispatch(setLoggedinUser(fields))
+            dispatch(updateUser(fields))
         } catch (err) {
             console.log(`can't update profile`)
         }

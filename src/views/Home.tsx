@@ -38,7 +38,7 @@ export const Home: React.FC = () => {
 
         let currUsersToFollow: User[] = []
 
-        currUsersToFollow = users.filter(user => ((!loggedinUser?.follows?.includes(user._id)) && (!user.isGuest) && (user._id !== loggedinUser._id)))
+        currUsersToFollow = users.filter(user => ((!loggedinUser?.follows?.includes(user._id)) && (user._id !== loggedinUser._id)))
         setUsersToFollow(currUsersToFollow)
     }, [users, loggedinUser])
 

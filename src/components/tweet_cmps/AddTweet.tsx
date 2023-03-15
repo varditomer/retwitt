@@ -18,6 +18,7 @@ import { tweetService } from "../../services/tweet.service"
 import { SvgIcon } from "../app-general_cmps/SvgIcon"
 import { Modal } from "../app-general_cmps/Modal"
 import { NameAcronym } from "../app-general_cmps/NameAcronym"
+import { useNavigate } from "react-router"
 
 
 type Props = {
@@ -33,6 +34,8 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
+    const navigate = useNavigate()
+
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
@@ -48,6 +51,10 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
         if (!newTweet) return
         setTweetContent(newTweet?.content)
     }, [newTweet])
+
+    const navigateTo = () => {
+        navigate(`/home/${loggedinUser._id}`)
+    }
 
     const toggleModal = () => {
         setShowWhoCanReplyModal(prevShowWhoCanReplyModal => !prevShowWhoCanReplyModal)
@@ -102,7 +109,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
         const emptyTweet = tweetService.getEmptyTweet()
         setNewTweet(emptyTweet)
     }
-    
+
     if (!loggedinUser) return <div>Loading...</div>
 
     return (
@@ -110,24 +117,19 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
             <h2 className='card-title'>Tweet something</h2>
             <div className="card-header new-tweet">
                 {loggedinUser.profileImg ?
-                    <img src={loggedinUser.profileImg} alt="user image" className="user-img" /> :
-                    <NameAcronym className="user-img" firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
+                    <img src={loggedinUser.profileImg} alt="user image" className="user-img" onClick={navigateTo} /> :
+                    <NameAcronym className="user-img" firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id}/>
                 }
                 <input onChange={handleChange} className="tweet-input" placeholder="What’s happening?" value={tweetContent} />
+
             </div>
+            {newTweet?.imgUrl && <img src={newTweet.imgUrl} alt="tweet-img image" className="add-tweet-img" />}
             <div className="control-btns">
                 <div className="settings">
                     <div className="img-upload-container">
                         <input type="file" onChange={onUploadImg} />
                         <SvgIcon iconName="img" wrapperStyle="img-icon" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
                     </div>
-                    {/* <div className="add-reaction-container">
-                        <div className="add-reaction-container">
-                        <SvgIcon iconName="add_reaction" wrapperStyle="add-reaction" svgProp={{ stroke: "#4F4F4F", fill: "#4F4F4F" }} />
-                        <div className={`emoji-picker-container ${(isEmojiClicked) ? '' : 'hide'}`}>
-                            <EmojiPicker />
-                        </div>
-                    </div> */}
                     <div className="public-settings">
                         {/* Choose between everyone can reply or only people i follow will can */}
                         <div className="public-settings-signs-wrapper" onClick={toggleModal} ref={modalTriggerRef}>
@@ -148,8 +150,6 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
                                 </div>
                             </Modal>
                         }
-
-
                     </div>
                 </div>
 

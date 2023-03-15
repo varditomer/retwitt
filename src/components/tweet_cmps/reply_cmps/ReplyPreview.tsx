@@ -42,7 +42,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
     const navigate = useNavigate()
 
     const navigateTo = () => {
-        navigate(`/home/${replyCreatedByUser._id}/tweets`)
+        navigate(`/home/${replyCreatedByUser._id}`)
     }
 
     const isLikeClicked = () => {
@@ -55,10 +55,10 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
         removeReply(reply._id)
     }
 
-    const onToggleFollowUser = (userId: string) => {
-        if (reply.createdBy === loggedinUser._id) return
+    const onToggleFollowUser = (userToFollow: User) => {
+        if (userToFollow._id === loggedinUser._id) return
         setShowReplyOptModal(false)
-        toggleFollowUser(userId)
+        toggleFollowUser(userToFollow)
     }
 
 
@@ -66,14 +66,14 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
         <div className="reply">
             <div className="reply-head">
                 {replyCreatedByUser.profileImg ?
-                    <img className="user-img" src={replyCreatedByUser.profileImg} alt="user image" onClick={() => navigateTo()} />
+                    <img className="user-img" src={replyCreatedByUser.profileImg} alt="user image" onClick={navigateTo} />
                     :
                     <NameAcronym className="user-img" firstName={replyCreatedByUser.firstName} lastName={replyCreatedByUser.lastName} userId={replyCreatedByUser._id} />
                 }
                 <div className="reply-body">
                     <div className="reply-info-container">
                         <div className="reply-info">
-                            <span className="user-name" onClick={() => navigateTo()}>{replyCreatedByUser.firstName} {replyCreatedByUser.lastName}</span>
+                            <span className="user-name" onClick={navigateTo}>{replyCreatedByUser.firstName} {replyCreatedByUser.lastName}</span>
                             <span className="reply-time">{convertedTime}</span>
                         </div>
 
@@ -90,7 +90,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                                 {(loggedinUser.follows.includes(reply.createdBy)) ?
                                     <>
                                         <div className="modal-item-container">
-                                            <div className="modal-item negative" onClick={() => onToggleFollowUser(reply.createdBy)}>
+                                            <div className="modal-item negative" onClick={() => onToggleFollowUser(replyCreatedByUser)}>
                                                 <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
                                                 <span className="card-item-txt">Unfollow</span>
                                             </div>
@@ -110,7 +110,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                                             ''
                                             :
                                             <div className="modal-item-container">
-                                                <div className="modal-item positive" onClick={() => onToggleFollowUser(reply.createdBy)}>
+                                                <div className="modal-item positive" onClick={() => onToggleFollowUser(replyCreatedByUser)}>
                                                     <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
                                                     <span className="card-item-txt">Follow</span>
                                                 </div>

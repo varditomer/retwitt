@@ -131,34 +131,6 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         dispatch(removeTweet(tweet._id))
     }
 
-    // const onRetweet = async () => {
-    //     const tweetToUpdate = structuredClone(tweet)
-
-    //     const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
-    //     if (retweetedByIdx !== -1) {
-    //         await dispatch(removeTweet(tweetToUpdate.retweetedBy[retweetedByIdx]?.retweetId!))
-    //         tweetToUpdate.retweetedBy.splice(retweetedByIdx, 1)
-    //         return onUpdateTweet(tweetToUpdate)
-    //     }
-
-    //     // Optimistic tweet update
-    //     tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
-    //     await onUpdateTweet(tweetToUpdate)
-
-    //     // const onUpdateTweet = (tweetToUpdate: Tweet) => {
-    //     //     const tweetLastState: Tweet = structuredClone(tweet)
-    //     //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
-    //     // }
-
-    //     const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
-    //     // Update tweet again with the retweetId that was created on the backend
-    //     if (retweetId) {
-    //         const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
-    //         tweetToUpdate.retweetedBy[retweetedByIdx]!.retweetId = retweetId
-    //         onUpdateTweet(tweetToUpdate)
-    //     }
-
-    // }
     const onRetweet = async () => {
         const tweetToUpdate = structuredClone(tweet)
 
@@ -169,31 +141,70 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
             return onUpdateTweet(tweetToUpdate)
         }
 
-        // // Optimistic tweet update
-        // tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
-        // await onUpdateTweet(tweetToUpdate)
+        // Optimistic tweet update
+        tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
+        await onUpdateTweet(tweetToUpdate)
 
-        // // const onUpdateTweet = (tweetToUpdate: Tweet) => {
-        // //     const tweetLastState: Tweet = structuredClone(tweet)
-        // //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
-        // // }
+        // const onUpdateTweet = (tweetToUpdate: Tweet) => {
+        //     const tweetLastState: Tweet = structuredClone(tweet)
+        //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
+        // }
 
         const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
-        console.log(`retweetId-after-backend:`, retweetId)
         // Update tweet again with the retweetId that was created on the backend
         if (retweetId) {
-            tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: retweetId })
+            const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+            tweetToUpdate.retweetedBy[retweetedByIdx]!.retweetId = retweetId
             onUpdateTweet(tweetToUpdate)
         }
-    }
 
-    const toggleFollowUser = (userId: string) => {
-        const userToUpdate: User = structuredClone(loggedinUser)
-        const idx = loggedinUser.follows.findIndex(followedUserId => followedUserId === userId)
-        if (idx !== -1) userToUpdate.follows.splice(idx, 1)
-        else userToUpdate.follows.push(userId)
-        dispatch(updateUser(userToUpdate))
-        dispatch(setLoggedinUser(userToUpdate))
+    }
+    // const onRetweet = async () => {
+    //     const tweetToUpdate = structuredClone(tweet)
+
+    //     const retweetedByIdx = tweetToUpdate.retweetedBy.findIndex(retweetedBy => retweetedBy?.retweeterId === loggedinUser._id)
+    //     if (retweetedByIdx !== -1) {
+    //         await dispatch(removeTweet(tweetToUpdate.retweetedBy[retweetedByIdx]?.retweetId!))
+    //         tweetToUpdate.retweetedBy.splice(retweetedByIdx, 1)
+    //         return onUpdateTweet(tweetToUpdate)
+    //     }
+
+    //     // // Optimistic tweet update
+    //     // tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
+    //     // await onUpdateTweet(tweetToUpdate)
+
+    //     // // const onUpdateTweet = (tweetToUpdate: Tweet) => {
+    //     // //     const tweetLastState: Tweet = structuredClone(tweet)
+    //     // //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
+    //     // // }
+
+    //     const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
+    //     console.log(`retweetId-after-backend:`, retweetId)
+    //     // Update tweet again with the retweetId that was created on the backend
+    //     if (retweetId) {
+    //         tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: retweetId })
+    //         onUpdateTweet(tweetToUpdate)
+    //     }
+    // }
+
+    const toggleFollowUser = (userToFollow: User) => {
+
+        const loggedinUserToUpdate: User = structuredClone(loggedinUser)
+        const userToFollowToUpdate: User = structuredClone(userToFollow)
+
+        const userToFollowIdxAtLoggedinUserFollows = loggedinUserToUpdate.follows.findIndex(followedUserId => followedUserId === userToFollow._id)
+        const loggedinUserIdxAtUserToFollowFollowers = userToFollowToUpdate.followers.findIndex(followedUserId => followedUserId === loggedinUserToUpdate._id)
+
+        if (userToFollowIdxAtLoggedinUserFollows !== -1) loggedinUserToUpdate.follows.splice(userToFollowIdxAtLoggedinUserFollows, 1)
+        else loggedinUserToUpdate.follows.push(userToFollowToUpdate._id)
+
+        if (loggedinUserIdxAtUserToFollowFollowers !== -1) userToFollowToUpdate.followers.splice(loggedinUserIdxAtUserToFollowFollowers, 1)
+        else userToFollowToUpdate.followers.push(userToFollowToUpdate._id)
+
+        dispatch(setLoggedinUser(loggedinUserToUpdate))
+        dispatch(updateUser(loggedinUserToUpdate))
+
+        dispatch(updateUser(userToFollowToUpdate))
     }
 
     const removeReply = (replyId: string) => {
@@ -271,12 +282,12 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                                 </div>
                                 :
                                 (loggedinUser.follows.includes(tweet.createdBy)) ?
-                                    <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweet.createdBy)}>
+                                    <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweetCreatedByUser)}>
                                         <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
                                         <span className="card-item-txt">Unfollow</span>
                                     </div>
                                     :
-                                    <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweet.createdBy)}>
+                                    <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweetCreatedByUser)}>
                                         <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
                                         <span className="card-item-txt">Follow</span>
                                     </div>

@@ -12,7 +12,6 @@ type Props = {
     toggleLikeReply: Function,
     removeReply: Function,
     toggleFollowUser: Function
-
 }
 
 export const ReplyList: React.FC<Props> = ({ replies, repliesCreatedByUsers, loggedinUser, toggleLikeReply, removeReply, toggleFollowUser }) => {    

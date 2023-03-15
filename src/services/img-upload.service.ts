@@ -2,7 +2,6 @@
 import axios from 'axios'
 
 export const uploadImg = async (file: File) => {
-    console.log(`import.meta.env.VITE_API_KEY_UPLOAD_PRESET:`, import.meta.env.VITE_API_KEY_UPLOAD_PRESET)
     // Defining our variables
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_API_KEY_CLOUD_NAME}/image/upload`
     const FORM_DATA = new FormData()

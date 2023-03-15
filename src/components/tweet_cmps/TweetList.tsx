@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { TweetState } from '../../interfaces/state.interface'
 import { Reply, Retweet, Tweet } from '../../interfaces/tweet.interface'
 import { User } from '../../interfaces/user.interface'
+import { Loader } from '../app-general_cmps/Loader'
 // Components
 import { TweetPreview } from './TweetPreview'
 
@@ -24,9 +25,11 @@ export const TweetList: React.FC<Props> = ({ tweets, loggedinUser, users }) => {
         return retweetedTweet
     }
 
-    if (!tweets || !loggedinUser || !users) return <div>Loading...</div>
-
-
+    if (!tweets || !loggedinUser || !users) return (
+        <section className="mini-loader loading">
+            <Loader />
+        </section>
+    )
 
     return (
         <section className="tweet-list">

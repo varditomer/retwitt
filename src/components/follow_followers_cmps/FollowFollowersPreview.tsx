@@ -7,15 +7,16 @@ import { NameAcronym } from "../app-general_cmps/NameAcronym"
 
 type Props = {
     user: User,
+    loggedinUser: User
     onNavigateTo: Function,
-    followUser: Function
+    toggleFollowUser: Function
 }
 
-export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, followUser }) => {
+export const FollowFollowersPreview: React.FC<Props> = ({ user, onNavigateTo, toggleFollowUser, loggedinUser }) => {
 
-    const onFollowUser = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    const onToggleFollowUser = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation()
-        followUser(user)
+        toggleFollowUser(user)
     }
 
     return (
@@ -30,10 +31,20 @@ export const WhoToFollowPreview: React.FC<Props> = ({ user, onNavigateTo, follow
                     <span className="user-name">{user.firstName} {user.lastName}</span>
                     {(user.followers?.length) ? <span className="sub-info">{user.followers.length} Followers</span> : <span className="sub-info">No followers yet</span>}
                 </div>
-                <button type="button" className="btn-follow" onClick={(ev) => onFollowUser(ev)}>
-                    <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
-                    <span>Follow</span>
+                {loggedinUser._id !== user._id && <button type="button" className="btn-follow" onClick={(ev) => onToggleFollowUser(ev)}>
+                    {loggedinUser.follows.includes(user._id) ?
+                        <>
+                            <SvgIcon iconName="unfollow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                            <span>Unfollow</span>
+                        </>
+                        :
+                        <>
+                            <SvgIcon iconName="follow" wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
+                            <span>Follow</span>
+                        </>
+                    }
                 </button>
+                }
             </div>
             <p className="about">
                 {user.about}

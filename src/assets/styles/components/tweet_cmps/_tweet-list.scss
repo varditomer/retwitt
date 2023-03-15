@@ -1,3 +1,10 @@
+.mini-loader {
+    .spinner {
+        width: 200px;
+        height: 200px;
+        margin-inline: auto;
+    }
+}
 .tweet-list {
     @include flex-column;
     gap: 20px;

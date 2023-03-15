@@ -52,10 +52,6 @@
                         @media (hover: hover) {
                             visibility: hidden;
                         }
-                        // position: unset;
-                        // position: absolute;
-                        // right: 16px;
-                        // top: 10px;
                         cursor: pointer;
                         @include hover-supported {
                             .options-icon {
@@ -119,9 +115,6 @@
                 }
                 gap: 3px;
             }
-        }
-        .likes-count {
-            cursor: pointer;
         }
         @include hover-supported {
             .reply-head {

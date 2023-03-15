@@ -19,6 +19,12 @@
             .user-name {
                 cursor: pointer;
             }
+            .user-img,
+            .acronym {
+                width: 32px;
+                height: 32px;
+                font-size: rem(14px);
+            }
             margin-bottom: 0;
             .user-info {
                 flex-grow: 1;
@@ -39,8 +45,8 @@
             }
         }
         .cover-img {
-            max-height: 100px;
-            object-fit: fill;
+            max-height: 150px;
+            object-fit: cover;
             border-radius: $br-secondary;
         }
     }

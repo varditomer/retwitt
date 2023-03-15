@@ -19,6 +19,8 @@ import { NameAcronym } from '../components/app-general_cmps/NameAcronym'
 import { SvgIcon } from '../components/app-general_cmps/SvgIcon'
 import { Loader } from '../components/app-general_cmps/Loader'
 import { TweetsFilters } from '../components/app-general_cmps/TweetsFilters'
+import { Modal } from '../components/app-general_cmps/Modal'
+import { FollowFollowersList } from '../components/follow_followers_cmps/FollowFollowersList'
 
 
 export const UserDetails: React.FC = () => {
@@ -33,6 +35,10 @@ export const UserDetails: React.FC = () => {
     const [userLikedTweets, setUserLikedTweets] = useState<Tweet[] | null>(null)
     const [userRepliedTweets, setUserRepliedTweets] = useState<Tweet[] | null>(null)
     const [showEditProfileModal, setShowEditProfileModal] = useState(false)
+    const [showFollowersModal, setShowFollowersModal] = useState(false)
+    const [showFollowingModal, setShowFollowingModal] = useState(false)
+    const [followingUsers, setFollowingUsers] = useState<User[]>([])
+    const [followersUsers, setFollowersUsers] = useState<User[]>([])
 
 
     const tweetsFilters: TweetsFilter[] = [
@@ -49,10 +55,25 @@ export const UserDetails: React.FC = () => {
         setShowEditProfileModal(prevShowEditProfileModal => !prevShowEditProfileModal)
     }
 
+    const toggleFollowingModal = () => {
+        setShowFollowingModal(prev => !prev)
+    }
+
+    const toggleFollowersModal = () => {
+        setShowFollowersModal(prev => !prev)
+    }
+
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let mobileTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
+    let modalFollowingTriggerRef = useRef<HTMLDivElement>(null)
+    let modalFollowingRef = useRef<HTMLDivElement>(null)
+    let modalFollowersTriggerRef = useRef<HTMLDivElement>(null)
+    let modalFollowersRef = useRef<HTMLDivElement>(null)
+
     useClickOutside(modalRef, () => setShowEditProfileModal(false), modalTriggerRef, mobileTriggerRef)
+    useClickOutside(modalRef, () => setShowFollowingModal(false), modalFollowingTriggerRef, modalFollowingRef)
+    useClickOutside(modalRef, () => setShowFollowersModal(false), modalFollowersTriggerRef, modalFollowersRef)
 
     const navigate = useNavigate()
     const params = useParams()
@@ -63,6 +84,15 @@ export const UserDetails: React.FC = () => {
         if (!selectedUser) navigate("/")
         setUser(selectedUser)
     }, [params.id, users])
+
+    useEffect(() => {
+        if (!user) return
+        const followingUsers = users.filter(currUser => user?.follows.includes(currUser._id))
+        const followersUsers = users.filter(currUser => user?.followers.includes(currUser._id))
+        setFollowingUsers(followingUsers)
+        setFollowersUsers(followersUsers)
+    }, [user?.followers, user?.follows, user, users])
+
 
     useEffect(() => {
         if (!tweets || !user) return
@@ -90,18 +120,26 @@ export const UserDetails: React.FC = () => {
 
     }, [params.id, tweets, user])
 
-    const toggleFollowUser = (user: User, loggedinUser: User) => {
-        const userToUpdate: User = structuredClone(loggedinUser)
-        const idx = loggedinUser.follows.findIndex(followedUserId => followedUserId === user._id)
-        if (idx !== -1) userToUpdate.follows.splice(idx, 1)
-        else userToUpdate.follows.push(user._id!)
-        dispatch(updateUser(userToUpdate))
-        dispatch(setLoggedinUser(userToUpdate))
+    const toggleFollowUser = (userToFollow: User) => {
+        if (!user || !loggedinUser) return
+        if (userToFollow._id === loggedinUser._id) return // extra safe mechanism
+
+        const currLoggedinUser: User = structuredClone(loggedinUser)
+        const userToFollowToUpdate: User = structuredClone(userToFollow)
+
+        const userToFollowIdxAtLoggedinUserFollows = currLoggedinUser.follows.findIndex(followedUserId => followedUserId === userToFollow._id)
+        const loggedinUserIdxAtUserToFollowFollowers = userToFollowToUpdate.followers.findIndex(followedUserId => followedUserId === currLoggedinUser._id)
+        if (userToFollowIdxAtLoggedinUserFollows !== -1) currLoggedinUser.follows.splice(userToFollowIdxAtLoggedinUserFollows, 1)
+        else currLoggedinUser.follows.push(userToFollowToUpdate._id)
+
+        if (loggedinUserIdxAtUserToFollowFollowers !== -1) userToFollowToUpdate.followers.splice(loggedinUserIdxAtUserToFollowFollowers, 1)
+        else userToFollowToUpdate.followers.push(currLoggedinUser._id)
+
+
+        dispatch(setLoggedinUser(currLoggedinUser))
+        dispatch(updateUser(currLoggedinUser))
+        dispatch(updateUser(userToFollowToUpdate))
     }
-
-
-
-
 
     if (!userTweets || !users || !user || !loggedinUser) return (
         <section className="page loading">
@@ -114,7 +152,14 @@ export const UserDetails: React.FC = () => {
             {showEditProfileModal &&
                 <EditProfile user={user} toggleModal={toggleModal} modalRef={modalRef} />
             }
-            {showEditProfileModal &&
+            {showFollowingModal && <Modal modalClass="follow-followers-modal" modalRef={modalFollowingRef}>
+                <FollowFollowersList loggedinUser={loggedinUser} users={followingUsers} title="following" userFullName={`${user.firstName} ${user.lastName}`} toggleFollowUser={toggleFollowUser} closeModal={()=>setShowFollowingModal(false)} />
+            </Modal>
+            }
+            {showFollowersModal && <Modal modalClass="follow-followers-modal" modalRef={modalFollowersRef}>
+                <FollowFollowersList loggedinUser={loggedinUser} users={followersUsers} title="followed by" userFullName={`${user.firstName} ${user.lastName}`} toggleFollowUser={toggleFollowUser} closeModal={()=>setShowFollowersModal(false)} />
+            </Modal>}
+            {(showEditProfileModal || showFollowingModal || showFollowersModal) &&
                 <div className="black-screen"></div>
             }
 
@@ -145,8 +190,19 @@ export const UserDetails: React.FC = () => {
                             <div className="user-info">
                                 <span className="user-name">{user.firstName} {user.lastName}</span>
                                 <div className="user-statistics">
-                                    <span className="user-followers"><span className="emphasized">{user.follows.length}</span> Following </span>
-                                    <span className="user-followers"><span className="emphasized">{user.followers.length}</span> Followers</span>
+                                    <div className="user-followers" ref={modalFollowingTriggerRef} onClick={toggleFollowingModal}>
+                                        <div className="user-followers-txt">
+                                            <span className="emphasized">{user.follows.length}</span>
+                                            <span className='harta'> Following</span>
+                                        </div>
+                                    </div>
+                                    <div className="user-followers" ref={modalFollowersTriggerRef} onClick={toggleFollowersModal}>
+                                        <div className="user-followers-txt">
+                                            <span className="emphasized">{user.followers.length}</span>
+                                            <span className='harta'> Followers</span>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             {(loggedinUser._id === user._id) ?
@@ -156,7 +212,7 @@ export const UserDetails: React.FC = () => {
                                     </button>
                                 </div>
                                 :
-                                <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
+                                <button className="btn-follow desktop-btn" onClick={() => toggleFollowUser(user)}>
                                     <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
                                     {loggedinUser.follows.includes(user._id) ?
                                         <span>Unfollow</span>
@@ -172,13 +228,15 @@ export const UserDetails: React.FC = () => {
                             </p>
                         }
                         {(loggedinUser._id === user._id) ?
+                            // if it's my profile - show edit profile
                             <div className="edit-profile-container" ref={mobileTriggerRef} onClick={toggleModal}>
                                 <button className="btn-edit mobile-btn">
                                     Edit profile
                                 </button>
                             </div>
                             :
-                            <button className="btn-follow mobile-btn" onClick={() => toggleFollowUser(user, loggedinUser)}>
+                            // if it's someone's profile - show follow | unfollow him
+                            <button className="btn-follow mobile-btn" onClick={() => toggleFollowUser(user)}>
                                 <SvgIcon iconName={(loggedinUser.follows.includes(user._id)) ? 'unfollow' : 'follow'} wrapperStyle="follow" svgProp={{ stroke: "white", fill: "white" }} />
                                 {loggedinUser.follows.includes(user._id) ?
                                     <span>Unfollow</span>

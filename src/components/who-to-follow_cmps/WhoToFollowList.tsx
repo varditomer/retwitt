@@ -33,13 +33,20 @@ export const WhoToFollowList: React.FC<Props> = ({ users, loggedinUser }) => {
         setExpandMore(prev => !prev)
     }
 
-    const followUser = (user: User) => {
-        const userToUpdate: User = structuredClone(loggedinUser)
-        userToUpdate.follows.push(user._id)
+    const followUser = async (userToFollow: User) => {
 
+        const loggedinUserToUpdate: User = structuredClone(loggedinUser)
+        const userToFollowToUpdate: User = structuredClone(userToFollow)
+        
+        loggedinUserToUpdate.follows.push(userToFollowToUpdate._id)
+        userToFollowToUpdate.followers.push(loggedinUserToUpdate._id)
+        
+        
+        await dispatch(setLoggedinUser(loggedinUserToUpdate))
+        await dispatch(updateUser(loggedinUserToUpdate))
+        
+        await dispatch(updateUser(userToFollowToUpdate))
         document.querySelector("body")?.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-        dispatch(updateUser(userToUpdate))
-        dispatch(setLoggedinUser(userToUpdate))
     }
 
     return (

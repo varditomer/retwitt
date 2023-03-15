@@ -81,8 +81,6 @@ export function updateUser(user: User) {
     return async (dispatch: any) => {
         try {
             dispatch({ type: 'UPDATE_USER', payload: user })
-            userService.setLoggedinUser(user)
-            dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
             await userService.update(user)
         } catch (err) {
             console.log(`err:`, err)

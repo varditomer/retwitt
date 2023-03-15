@@ -1,16 +1,26 @@
 // React / Redux
+import { useSelector } from "react-redux"
 import { useLocation, useOutletContext } from "react-router"
 // Interfaces
-import { UserDetailsContext } from "../../interfaces/state.interface"
+import { TweetState, UserDetailsContext } from "../../interfaces/state.interface"
+import { Retweet, Tweet } from "../../interfaces/tweet.interface"
 // Components
 import { TweetList } from "../tweet_cmps/TweetList"
 
 
 //only tweets with media
-export const Media: React.FC = () => { 
+export const Media: React.FC = () => {
     const { tweetsToShow, loggedinUser, users }: UserDetailsContext = useOutletContext()
-
-    const mediaTweets = tweetsToShow?.filter(tweet => tweet.imgUrl !== "")
+    const mediaTweets = tweetsToShow?.filter((tweetOrRetweet: Tweet | Retweet) => {
+        if (tweetOrRetweet.isRetweet) {
+            const retweet = tweetOrRetweet as Retweet
+            const retweetedTweet = useSelector((state: TweetState) => state.tweetModule.tweets.find(tweet => tweet._id === retweet.retweetedTweetId))!
+            return retweetedTweet.imgUrl !== ""
+        } else {
+            const tweet = tweetOrRetweet as Tweet
+            return tweet.imgUrl !== ""
+        }
+    })
     const { pathname } = useLocation()
     const page = pathname.substring(1, pathname.length).split('/')[0]
 
