@@ -49,7 +49,7 @@ export const FollowFollowersPreview: React.FC<Props> = ({ user, onNavigateTo, to
             <p className="about">
                 {user.about}
             </p>
-            {user.coverImg && <img className="cover-img" src={user.coverImg} alt="user cover image" />}
+            {user.coverImg && <img className="follow-followers-cover-img" src={user.coverImg} alt="user cover image" />}
         </li>
     )
 

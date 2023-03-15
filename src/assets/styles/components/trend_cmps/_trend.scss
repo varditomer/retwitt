@@ -1,4 +1,7 @@
 .trend-list {
+    max-height: 200px;
+    overflow-y: auto;
+
     ul {
         @include flex-column;
         gap: 24px;

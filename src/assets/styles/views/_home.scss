@@ -39,7 +39,8 @@
         .small-area {
             display: flex;
             >*{
-                max-height: unset;
+                max-height: 400px;
+                overflow-y: auto;
                 .expand-more {
                     display: none;
                 }

@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 // Interfaces
-import { Tweet } from '../interfaces/tweet.interface'
+import { Hashtag, Tweet } from '../interfaces/tweet.interface'
 import { User } from '../interfaces/user.interface'
 import { TweetState, UserState } from '../interfaces/state.interface'
 // Components
@@ -20,7 +20,15 @@ export const Home: React.FC = () => {
 
 
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
+    const [hashtagsToShow, setHashtagsToShow] = useState<Hashtag[] | null>(null)
     const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
+
+    useEffect(() => {
+        if (!hashtags) return
+        const popularHashtags = hashtags.hashtags.splice(0, 3)
+        setHashtagsToShow(popularHashtags)
+
+    }, [hashtags])
 
     useEffect(() => {
         if (!tweets.length) setTweetsToShow([])
@@ -43,7 +51,7 @@ export const Home: React.FC = () => {
     }, [users, loggedinUser])
 
 
-    if (!loggedinUser || !users?.length || !usersToFollow || !tweetsToShow) return (
+    if (!loggedinUser || !users?.length || !usersToFollow || !tweetsToShow || !hashtagsToShow) return (
         <section className="page loading">
             <Loader />
         </section>
@@ -58,7 +66,7 @@ export const Home: React.FC = () => {
             </section>
 
             <section className="small-area">
-                <TrendList hashtags={hashtags.hashtags} />
+                <TrendList hashtags={hashtagsToShow} />
                 <WhoToFollowList users={usersToFollow} loggedinUser={loggedinUser} />
             </section>
 

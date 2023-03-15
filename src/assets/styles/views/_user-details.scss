@@ -54,6 +54,12 @@
             width: 35px;
             height: 35px;
         }
+        .follow-followers-cover-img {
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
     }
     .black-screen {
         max-width: unset !important;
