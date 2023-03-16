@@ -66,7 +66,7 @@ export const LandingPage: React.FC = () => {
                 <div className="right-area">
                     <div className="retwitt-logo">
                         {/* <img src="./src/assets/icons/twitter_gif_no_bgc.gif" alt="" className='retwitt-icon' /> */}
-                        <img src="https://res.cloudinary.com/retwitt/image/upload/v1678449183/twitter_gif_no_bgc_mn1pqe.gif" alt="" className='retwitt-icon' />
+                        <img src="https://res.cloudinary.com/retwitt/image/upload/v1678967991/twitter_gif_no_bgc_tb4jt2.gif" alt="" className='retwitt-icon' />
                         <span>ReTwitt</span>
                     </div>
                     <h1 className="call-to-action-title">
