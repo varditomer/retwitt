@@ -59,7 +59,6 @@
             object-fit: cover;
             border-radius: 8px;
         }
-
     }
     .black-screen {
         max-width: unset !important;
@@ -136,7 +135,7 @@
 
                 .head-line {
                     @include flex-vertically-center;
-                    justify-content: space-between;
+                    justify-content: center;
                     .user-info {
                         @include flex-vertically-center;
                         flex-direction: column;
@@ -152,8 +151,12 @@
                             gap: 24px;
                             .user-followers {
                                 .user-followers-txt {
+                                    border-radius: $br-primary;
+                                    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+                                    padding: 2px 8px;
+                                    background-color: lighten($clr-twitter, 43%);
                                     @include hover-supported {
-                                        @include custom-hover-svg-txt;
+                                        @include custom-hover-svg-txt($clr-twitter, 2px, 35%);
                                         .emphasized {
                                             color: $clr-blue1;
                                         }

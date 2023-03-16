@@ -24,6 +24,7 @@ export interface UserDetailsContext {
     tweetsToShow: Tweet[],
     loggedinUser: User,
     users: User[],
+    title: string
     userLikedTweets?: Tweet[],
     userRepliedTweets?: Tweet[]
 }

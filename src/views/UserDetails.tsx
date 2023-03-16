@@ -6,7 +6,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 // Interfaces
-import { INITIAL_STATE, TweetState, UserState } from '../interfaces/state.interface'
+import { INITIAL_STATE, TweetState, UserDetailsContext, UserState } from '../interfaces/state.interface'
 import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
 import { User } from '../interfaces/user.interface'
 // Actions
@@ -263,8 +263,9 @@ export const UserDetails: React.FC = () => {
                             loggedinUser,
                             users,
                             userLikedTweets,
-                            userRepliedTweets
-                        }}
+                            userRepliedTweets,
+                            title: 'Tweet, reply or like now and check again'
+                        } as UserDetailsContext}
                     />
                 </div>
             </section>

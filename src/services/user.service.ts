@@ -2,7 +2,8 @@
 import { User, UserCredentials } from "../interfaces/user.interface"
 // Services
 import { httpService } from "./http.service"
-import { sessionStorageService } from './sessionStorage.service'
+// import { sessionStorageService } from './sessionStorage.service'
+import { localStorageService } from "./localStorage.service"
 
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
@@ -48,7 +49,7 @@ async function login(userCred: any) {
 }
 
 async function logout() {
-    sessionStorageService.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+    localStorageService.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     _gLoggedinUser = null
     return await httpService.post('auth/logout')
 }
@@ -59,7 +60,7 @@ function getLoggedinUser(): User | null {
 }
 
 function setLoggedinUser(user: User) {
-    sessionStorageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, user)
+    localStorageService.saveToStorage(STORAGE_KEY_LOGGEDIN_USER, user)
     _gLoggedinUser = user
 }
 
@@ -73,6 +74,6 @@ function getEmptyUserCredentials(): UserCredentials {
 }
 
 function _loadLoggedinUser(): User | null {
-    const user = sessionStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
+    const user = localStorageService.loadFromStorage(STORAGE_KEY_LOGGEDIN_USER)
     return user
 }

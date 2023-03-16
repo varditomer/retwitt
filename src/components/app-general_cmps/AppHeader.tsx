@@ -52,7 +52,7 @@ export const AppHeader: React.FC<Props> = ({ loggedinUser }) => {
             <div className="header-container">
                 <div className="logo" onClick={() => navigate(`/home`)}>
                     {/* <img src="./src/assets/icons/twitter_gif_no_bgc.gif" alt="" className='twitter' /> */}
-                    <img src="https://res.cloudinary.com/retwitt/image/upload/v1678449183/twitter_gif_no_bgc_mn1pqe.gif" alt="" className='twitter' />
+                    <img src="https://res.cloudinary.com/retwitt/image/upload/v1678967991/twitter_gif_no_bgc_tb4jt2.gif" alt="" className='twitter' />
                     <span>ReTwitt</span>
                 </div>
                 <NavLinks />

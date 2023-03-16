@@ -46,7 +46,7 @@ export const LandingPage: React.FC = () => {
 
                 <div className="left-area">
                     {/* <img src="./src/assets/icons/twitter_logo_animation.gif" alt="" className='retwitt-animation' /> */}
-                    <img src="https://res.cloudinary.com/retwitt/image/upload/v1678449229/twitter_logo_animation_jyyppn.gif" alt="" className='retwitt-animation' />
+                    <img src="https://res.cloudinary.com/retwitt/image/upload/v1678968004/twitter_logo_animation_zrkylj.gif" alt="" className='retwitt-animation' />
                     <div className="catchphrases-container">
                         <div className="catchphrase">
                             <SvgIcon iconName="search_big" wrapperStyle="catchphrase-icon" svgProp={{ stroke: "#ffffff", fill: "#ffffff" }} />

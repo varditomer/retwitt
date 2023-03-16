@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 // Interfaces
-import { TweetState, UserState } from '../interfaces/state.interface'
+import { TweetState, UserDetailsContext, UserState } from '../interfaces/state.interface'
 import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
 // Components
 import { SearchTweet } from '../components/tweet_cmps/SearchTweet'
@@ -76,8 +76,9 @@ export const Explore: React.FC = () => {
           context={{
             tweetsToShow: filteredTweetsToExplore,
             loggedinUser,
-            users
-          }}
+            users,
+            title: 'Explore'
+          } as UserDetailsContext}
         />
 
       </div>

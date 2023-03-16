@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { Loader } from '../components/app-general_cmps/Loader'
 // Interfaces
-import { TweetState, UserState } from '../interfaces/state.interface'
+import { TweetState, UserDetailsContext, UserState } from '../interfaces/state.interface'
 // Actions
 import { Tweet, TweetsFilter } from '../interfaces/tweet.interface'
 // Components
@@ -78,8 +78,9 @@ export const Bookmark: React.FC = () => {
             loggedinUser,
             users,
             userLikedTweets,
-            userRepliedTweets
-          }}
+            userRepliedTweets,
+            title: 'Bookmark tweets now and revisit'
+          } as UserDetailsContext}
         />
       </div>
     </section>
