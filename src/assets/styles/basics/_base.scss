@@ -38,18 +38,22 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
-html,
-#root,
-body {
-  height: 100%;
-}
 html {
   overflow-x: hidden;
   overflow-y: overlay;
 }
 
+html,
+#root,
+body {
+  height: 100%;
+}
+
+
 /* Set core body defaults */
 body {
+  overflow-x: hidden;
+  overflow-y: overlay;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   letter-spacing: -0.035em;

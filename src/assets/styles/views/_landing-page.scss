@@ -2,8 +2,11 @@
     background-color: white;
 
     .main-container {
-        min-height: calc(100vh - 76px);
-        margin-bottom: 76px;
+        @include for-mobile-layout {
+            min-height: calc(100vh - 76px);
+            margin-bottom: 76px;
+        }
+        min-height: 100vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
         .left-area {
@@ -11,7 +14,7 @@
             background-color: #3490dc;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: space-evenly;
 
             .retwitt-animation {
                 margin-inline: auto;
@@ -21,6 +24,7 @@
             .catchphrases-container {
                 @include flex-column;
                 gap: 10px;
+                line-height: 1.15;
             }
             .catchphrase {
                 @include flex-vertically-center;
@@ -34,10 +38,12 @@
             }
         }
         .right-area {
+            position: relative;
             @include flex-column;
             justify-content: center;
-            padding-inline: 20%;
-            gap: 20px;
+            // padding-inline: 20%;
+            padding: 30px;
+            gap: 30px;
 
             .retwitt-logo {
                 @include flex-vertically-center;
@@ -45,9 +51,10 @@
                 font-size: rem(30px);
                 color: $clr-gray1;
                 position: relative;
+                gap: 10px;
                 .retwitt-icon {
-                    height: 80px;
-                    width: 80px;
+                    height: 60px;
+                    width: 60px;
                 }
                 span {
                     color: #1da1f2;
@@ -56,6 +63,7 @@
             .call-to-action-title {
                 font-family: Poppins-Medium;
                 font-size: rem(30px);
+                line-height: 1.15;
             }
             .call-to-action-subtitle {
                 font-family: Poppins-SemiBold;
@@ -75,7 +83,6 @@
                     color: $clr-gray1;
                     @include hover-supported {
                         background-color: darken($clr--white, 4%);
-
                     }
                 }
             }
@@ -85,14 +92,33 @@
         position: fixed;
         @include flex-vertically-center;
         justify-content: center;
-        font-family: Montserrat-Medium;
         height: 76px;
         bottom: 0;
         width: 100%;
         margin: 0;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        color: $clr-gray3;
         background-color: darken(white, 5%);
+        display: none;
+        @include for-mobile-layout {
+            display: flex;
+        }
+        
+    }
+    .copyrights {
+        font-family: Montserrat-Medium;
+        color: $clr-gray3;
+        position: absolute;
+        bottom: 26px;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        // margin: auto;
+        @include for-mobile-layout {
+            &.desktop {
+                display: none;
+            }
+            position: unset;
+        }
         .emphasized {
             font-family: Montserrat-Bold;
         }

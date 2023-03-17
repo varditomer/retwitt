@@ -1,6 +1,7 @@
 .login-signup {
     height: 100vh;
     .login-signup-header {
+        position: relative;
         height: 76px;
         @include flex-vertically-center;
         justify-content: center;
@@ -76,9 +77,10 @@
         color: $clr-gray2;
         width: 100%;
         gap: 5px;
-        padding: 20px;
+        padding-block: 20px;
+        line-height: 1.15;
         @include for-mobile-layout {
-            padding: 15px;
+            padding-block: 15px;
         }
         .emphasized {
             color: $clr-twitter;
