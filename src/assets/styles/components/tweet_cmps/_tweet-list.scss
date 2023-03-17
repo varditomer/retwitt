@@ -19,6 +19,12 @@
 
     .tweet {
         position: relative;
+        .tweet-header {
+            .user-img,
+            .acronym {
+                outline: 1px solid lighten($clr-twitter, 40%);
+            }
+        }
         .tweet-modal {
             z-index: 30;
             position: absolute;
@@ -161,6 +167,10 @@
         position: relative;
         @include flex-vertically-center;
         gap: 12px;
+        .user-img, 
+        .acronym {
+            outline: 1px solid lighten($clr-twitter, 40%);
+        }
         .reply-input {
             flex-grow: 1;
             height: 40px;
@@ -170,6 +180,7 @@
             border-radius: $br-secondary;
             border: 1px solid $clr-gray7;
             padding-inline-start: 12px;
+
             &::placeholder {
                 color: $clr-gray4;
             }

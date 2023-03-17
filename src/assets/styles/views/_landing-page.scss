@@ -70,9 +70,13 @@
                 margin-top: 10px;
                 &.demo {
                     margin-top: 20px;
-                    background-color: transparent;
+                    background-color: $clr--white;
                     border: 1px solid $clr-twitter;
                     color: $clr-gray1;
+                    @include hover-supported {
+                        background-color: darken($clr--white, 4%);
+
+                    }
                 }
             }
         }

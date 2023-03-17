@@ -5,11 +5,17 @@
 
     .small-area {
         > * {
-            max-height: 48px;
-            overflow-y: hidden;
+            max-height: 58px;
+            overflow: hidden;
             transition: max-height 0.6s ease-in-out;
+            .card-title {
+                border-bottom: unset;
+            }
             &:has(> .expand) {
                 overflow-y: auto;
+                .card-title {
+                    border-bottom: 1px solid #E0E0E0;
+                }
             }
             .card-title {
                 @include flex-vertically-center;
@@ -38,7 +44,7 @@
         justify-content: unset;
         .small-area {
             display: flex;
-            >*{
+            > * {
                 max-height: 400px;
                 overflow-y: auto;
                 .expand-more {

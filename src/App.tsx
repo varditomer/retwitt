@@ -21,6 +21,8 @@ import { AppFooter } from './components/app-general_cmps/AppFooter'
 
 const App: React.FC = () => {
   const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
+  const loggedinUser = useSelector((state: UserState) => state.userModule.loggedinUser)
+  
   useEffect(() => {
     dispatch(loadUsers())
     dispatch(loadLoggedinUser())
@@ -28,7 +30,6 @@ const App: React.FC = () => {
     dispatch(loadHashtags())
   }, [])
 
-  const loggedinUser = useSelector((state: UserState) => state.userModule.loggedinUser)
 
   return (
     <section className='main-app'>

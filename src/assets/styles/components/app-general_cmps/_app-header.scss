@@ -38,10 +38,12 @@
             > *:not(.user-img, .account-modal, .acronym) {
                 display: none;
             }
-            .user-img, .acronym {
+            .user-img, 
+            .acronym {
                 border-radius: 4em;
                 height: 32px;
                 width: 32px;
+                outline: 1px solid lighten($clr-twitter, 40%);
             }
         }
         .account-modal {

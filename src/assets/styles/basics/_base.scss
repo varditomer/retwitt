@@ -42,17 +42,17 @@ html,
 #root,
 body {
   height: 100%;
-  overflow-x: hidden;
 }
-
+html {
+  overflow-x: hidden;
+  overflow-y: overlay;
+}
 
 /* Set core body defaults */
 body {
-  overflow-y: overlay;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   letter-spacing: -0.035em;
-  
 }
 
 

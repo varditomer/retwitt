@@ -28,7 +28,7 @@ export const Home: React.FC = () => {
         const popularHashtags = hashtags.hashtags.splice(0, 3)
         setHashtagsToShow(popularHashtags)
 
-    }, [hashtags])
+    }, [hashtags, loggedinUser])
 
     useEffect(() => {
         if (!tweets.length) setTweetsToShow([])

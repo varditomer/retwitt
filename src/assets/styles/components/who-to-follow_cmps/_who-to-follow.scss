@@ -24,6 +24,7 @@
                 width: 32px;
                 height: 32px;
                 font-size: rem(14px);
+                outline: 1px solid lighten($clr-twitter, 40%);
             }
             margin-bottom: 0;
             .user-info {
