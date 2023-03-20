@@ -12,7 +12,7 @@ import { setLoggedinUser, updateUser } from "../../store/actions/user.action"
 // Components
 import { SvgIcon } from "../app-general_cmps/SvgIcon"
 import { WhoToFollowPreview } from "./WhoToFollowPreview"
-
+import { toast } from 'react-toastify'
 
 type Props = {
     users: User[]
@@ -24,11 +24,11 @@ export const WhoToFollowList: React.FC<Props> = ({ users, loggedinUser }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
     const [expandMore, setExpandMore] = useState(false)
-
+    const notifySuccess = (msg: string) => toast.success(msg)
     const onNavigateTo = (user: User) => {
         navigate(`/home/${user._id}`)
     }
-    
+
     const toggleExpandMore = () => {
         setExpandMore(prev => !prev)
     }
@@ -37,16 +37,16 @@ export const WhoToFollowList: React.FC<Props> = ({ users, loggedinUser }) => {
 
         const loggedinUserToUpdate: User = structuredClone(loggedinUser)
         const userToFollowToUpdate: User = structuredClone(userToFollow)
-        
+
         loggedinUserToUpdate.follows.push(userToFollowToUpdate._id)
         userToFollowToUpdate.followers.push(loggedinUserToUpdate._id)
-        
-        
+
+
         await dispatch(setLoggedinUser(loggedinUserToUpdate))
         await dispatch(updateUser(loggedinUserToUpdate))
-        
         await dispatch(updateUser(userToFollowToUpdate))
         document.querySelector("body")?.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+        notifySuccess(`User - ${userToFollow.firstName} ${userToFollow.firstName} followed`)
     }
 
     return (

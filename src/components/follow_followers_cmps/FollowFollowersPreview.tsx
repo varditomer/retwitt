@@ -16,7 +16,7 @@ export const FollowFollowersPreview: React.FC<Props> = ({ user, onNavigateTo, to
 
     const onToggleFollowUser = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.stopPropagation()
-        toggleFollowUser(user)
+        toggleFollowUser(user, !loggedinUser.follows.includes(user._id))
     }
 
     return (

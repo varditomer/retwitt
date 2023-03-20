@@ -22,6 +22,8 @@
                 background-color: $bgc-input;
                 border-radius: $br-secondary;
                 width: 100%;
+                @include flex-column;
+                gap: 10px;
                 .reply-info-container {
                     @include flex-vertically-center;
                     justify-content: space-between;
@@ -69,6 +71,10 @@
                     font-size: rem(16px);
                     color: $clr-gray2;
                     max-width: 60ch;
+                }
+                .reply-img {
+                    max-height: 300px;
+                    object-fit: fill;
                 }
             }
         }

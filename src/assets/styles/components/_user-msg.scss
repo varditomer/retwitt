@@ -1,16 +1,14 @@
-
-
 .alert {
-    background-color: lightgray;
-    position: absolute;
-    top: 0;
-    right: 0.5em;
-    padding: 1em;
-    &.alert-success {
-        background-color: lightgreen;
-    }
-    &.alert-error {
-        background-color: lightcoral;
+    // background-color: $clr-twitter !important;
+    border-radius: $br-primary !important;
+    // color: $clr--white !important;
+    font-family: Poppins-SemiBold !important;
+    font-size: rem(20px);
+    min-width: max-content !important;
+    .Toastify__close-button {
+        svg {
+            fill: $clr-gray1;
+            stroke: $clr-gray1;
+        }
     }
 }
-

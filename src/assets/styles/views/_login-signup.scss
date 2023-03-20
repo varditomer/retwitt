@@ -1,5 +1,6 @@
 .login-signup {
-    height: 100vh;
+    height: calc(100vh - 76px);
+    overflow-y: auto;
     .login-signup-header {
         position: relative;
         height: 76px;
@@ -22,14 +23,14 @@
         background-color: $bgc-primary;
         .main-content {
             max-width: calc(650px);
-            height: calc(100vh - 76px - 76px);
             margin-inline: auto;
             margin-bottom: 76px;
             @include flex-column;
-            gap: 40px;
-            padding: 20px;
+            gap: 20px;
+            padding: 20px 0;
             @include for-mobile-layout {
                 gap: 15px;
+                padding: 20px 10px;
             }
         }
     }
@@ -80,14 +81,14 @@
         padding-block: 20px;
         line-height: 1.15;
         @include for-mobile-layout {
-            padding-block: 15px;
+            padding: 15px;
         }
         .emphasized {
             color: $clr-twitter;
             font-family: Poppins-SemiBold;
         }
         .one-line {
-            display: flex;
+            @include flex-vertically-center;
             gap: 5px;
         }
     }

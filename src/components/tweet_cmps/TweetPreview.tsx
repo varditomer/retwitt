@@ -16,6 +16,7 @@ import { setLoggedinUser, updateUser } from '../../store/actions/user.action'
 import { useClickOutside } from '../../hooks/useClickOutside'
 // Services
 import { utilService } from '../../services/util.service'
+import { toast } from 'react-toastify'
 // Components
 import { SvgIcon } from '../app-general_cmps/SvgIcon'
 import { Modal } from '../app-general_cmps/Modal'
@@ -43,6 +44,8 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
     const hashtags = useSelector((state: TweetState) => state.tweetModule.hashtags)
 
+    const notifyInfo = (msg: string) => toast.info(msg)
+    const notifySuccess = (msg: string) => toast.success(msg)
 
     const [showTweetOptModal, setShowTweetOptModal] = useState(false)
 
@@ -91,8 +94,14 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         if (!tweet._id) return
         const userToUpdate: User = structuredClone(loggedinUser)
         const tweetIdx = loggedinUser.savedTweets.findIndex(tweetId => tweetId === tweet._id)
-        if (tweetIdx !== -1) userToUpdate.savedTweets.splice(tweetIdx, 1)
-        else userToUpdate.savedTweets.push(structuredClone(tweet._id))
+        if (tweetIdx !== -1) {
+            userToUpdate.savedTweets.splice(tweetIdx, 1)
+            notifyInfo('Tweet unsaved')
+        }
+        else {
+            userToUpdate.savedTweets.push(structuredClone(tweet._id))
+            notifyInfo('Tweet saved')
+        }
         dispatch(updateUser(userToUpdate))
         dispatch(setLoggedinUser(userToUpdate))
 
@@ -129,6 +138,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
 
         }
         dispatch(removeTweet(tweet._id))
+        notifySuccess('Tweet removed')
     }
 
     const onRetweet = async () => {
@@ -138,17 +148,13 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         if (retweetedByIdx !== -1) {
             await dispatch(removeTweet(tweetToUpdate.retweetedBy[retweetedByIdx]?.retweetId!))
             tweetToUpdate.retweetedBy.splice(retweetedByIdx, 1)
+            notifyInfo('Retweet deleted')
             return onUpdateTweet(tweetToUpdate)
         }
 
         // Optimistic tweet update
         tweetToUpdate.retweetedBy.push({ retweeterId: loggedinUser._id, retweetId: '' })
         await onUpdateTweet(tweetToUpdate)
-
-        // const onUpdateTweet = (tweetToUpdate: Tweet) => {
-        //     const tweetLastState: Tweet = structuredClone(tweet)
-        //     dispatch(updateTweet(tweetToUpdate, tweetLastState))
-        // }
 
         const retweetId = await dispatch(addRetweet(tweetToUpdate._id!))
         // Update tweet again with the retweetId that was created on the backend
@@ -159,8 +165,9 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         }
 
     }
-    
-    const toggleFollowUser = (userToFollow: User) => {
+
+    const toggleFollowUser = (userToFollow: User, followUser: boolean) => {
+        setShowTweetOptModal(false)
 
         const loggedinUserToUpdate: User = structuredClone(loggedinUser)
         const userToFollowToUpdate: User = structuredClone(userToFollow)
@@ -178,6 +185,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         dispatch(updateUser(loggedinUserToUpdate))
 
         dispatch(updateUser(userToFollowToUpdate))
+        followUser? notifySuccess ('User followed') : notifyInfo ('User unfollowed')
     }
 
     const removeReply = (replyId: string) => {
@@ -185,6 +193,7 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
         const replyIdx = tweetToUpdate.replies.findIndex(reply => reply._id === replyId)!
         tweetToUpdate.replies.splice(replyIdx, 1)
         onUpdateTweet(tweetToUpdate)
+        notifyInfo('Reply removed')
     }
 
     const toggleIsEveryOneCanReplySettings = (isEveryOneCanReply: boolean) => {
@@ -255,12 +264,12 @@ export const TweetPreview: React.FC<Props> = ({ tweet, loggedinUser, tweetCreate
                                 </div>
                                 :
                                 (loggedinUser.follows.includes(tweet.createdBy)) ?
-                                    <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweetCreatedByUser)}>
+                                    <div className={`modal-item negative`} onClick={() => toggleFollowUser(tweetCreatedByUser, false)}>
                                         <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
                                         <span className="card-item-txt">Unfollow</span>
                                     </div>
                                     :
-                                    <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweetCreatedByUser)}>
+                                    <div className={`modal-item positive`} onClick={() => toggleFollowUser(tweetCreatedByUser, true)}>
                                         <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
                                         <span className="card-item-txt">Follow</span>
                                     </div>

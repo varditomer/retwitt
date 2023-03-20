@@ -17,7 +17,7 @@ export const Explore: React.FC = () => {
   const tweets = useSelector((state: TweetState) => state.tweetModule.tweets)
 
   const [tweetsToExplore, setTweetsToExplore] = useState<Tweet[]>([])
-  const [filteredTweetsToExplore, setFilteredTweetsToExplore] = useState<Tweet[] | null>(null)
+  const [filteredTweetsToExplore, setFilteredTweetsToExplore] = useState<Tweet[]>([])
 
   const [searchTweetBy, setSearchTweetBy] = useState('')
 
@@ -44,14 +44,17 @@ export const Explore: React.FC = () => {
 
     setTweetsToExplore(unFollowsUsersTweets)
 
-  }, [tweets, loggedinUser])
+  }, [tweets, loggedinUser, loggedinUser?.follows])
 
   useEffect(() => {
-    if (!tweetsToExplore.length) return
-    const tweets: Tweet[] = JSON.parse(JSON.stringify(tweetsToExplore))
+    if (!tweetsToExplore.length) {
+      return setFilteredTweetsToExplore([])
+    }
+    const tweets: Tweet[] = structuredClone(tweetsToExplore)
     const regex = new RegExp(searchTweetBy, 'i')
     const filteredTweets = tweets.filter(tweet => regex.test(tweet.content))
-    setFilteredTweetsToExplore(JSON.parse(JSON.stringify(filteredTweets)))
+    console.log(`filteredTweets:`, filteredTweets)
+    setFilteredTweetsToExplore(structuredClone(filteredTweets))
   }, [tweetsToExplore, searchTweetBy])
 
 

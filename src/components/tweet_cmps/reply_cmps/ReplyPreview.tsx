@@ -55,10 +55,10 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
         removeReply(reply._id)
     }
 
-    const onToggleFollowUser = (userToFollow: User) => {
+    const onToggleFollowUser = (userToFollow: User, followUser: boolean) => {
         if (userToFollow._id === loggedinUser._id) return
         setShowReplyOptModal(false)
-        toggleFollowUser(userToFollow)
+        toggleFollowUser(userToFollow, followUser)
     }
 
 
@@ -90,7 +90,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                                 {(loggedinUser.follows.includes(reply.createdBy)) ?
                                     <>
                                         <div className="modal-item-container">
-                                            <div className="modal-item negative" onClick={() => onToggleFollowUser(replyCreatedByUser)}>
+                                            <div className="modal-item negative" onClick={() => onToggleFollowUser(replyCreatedByUser, false)}>
                                                 <SvgIcon iconName="unfollow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#EB5757", fill: "#EB5757" }} />
                                                 <span className="card-item-txt">Unfollow</span>
                                             </div>
@@ -110,7 +110,7 @@ export const ReplyPreview: React.FC<Props> = ({ reply, replyCreatedByUser, logge
                                             ''
                                             :
                                             <div className="modal-item-container">
-                                                <div className="modal-item positive" onClick={() => onToggleFollowUser(replyCreatedByUser)}>
+                                                <div className="modal-item positive" onClick={() => onToggleFollowUser(replyCreatedByUser, true)}>
                                                     <SvgIcon iconName="follow_big" wrapperStyle="card-item-icon" svgProp={{ stroke: "#1da1f2", fill: "#1da1f2" }} />
                                                     <span className="card-item-txt">Follow</span>
                                                 </div>

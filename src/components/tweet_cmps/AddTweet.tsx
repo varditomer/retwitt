@@ -14,12 +14,13 @@ import { useClickOutside } from "../../hooks/useClickOutside"
 // Services
 import { uploadImg } from "../../services/img-upload.service"
 import { tweetService } from "../../services/tweet.service"
+import { toast } from 'react-toastify'
 // Components
 import { SvgIcon } from "../app-general_cmps/SvgIcon"
 import { Modal } from "../app-general_cmps/Modal"
 import { NameAcronym } from "../app-general_cmps/NameAcronym"
 import { useNavigate } from "react-router"
-
+import { Loader } from "../app-general_cmps/Loader"
 
 type Props = {
     loggedinUser: User,
@@ -34,13 +35,14 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
     const [whoCanReplyText, setWhoCanReplyText] = useState<string>('Everyone can reply')
+    const [isImgUploading, setIsImgUploading] = useState(false)
     const navigate = useNavigate()
 
 
     let modalTriggerRef = useRef<HTMLDivElement>(null)
     let modalRef = useRef<HTMLDivElement>(null)
     useClickOutside(modalRef, () => setShowWhoCanReplyModal(false), modalTriggerRef)
-
+    const notifyInfo = (msg:string) => toast.info(msg)
 
     useEffect(() => {
         const emptyTweet = tweetService.getEmptyTweet()
@@ -63,11 +65,14 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
     const onUploadImg = async (ev: React.ChangeEvent<HTMLInputElement>) => {
         if (!newTweet) return
         if (!ev.target.files) return
+        setIsImgUploading(true)
+        notifyInfo("Uploading image, wait for image before tweeting!")
         const file = ev.target.files[0]
         const res = await uploadImg(file)
         const tweetToSave: Tweet = structuredClone(newTweet)
         tweetToSave.imgUrl = res.secure_url
         setNewTweet(structuredClone(tweetToSave))
+        setIsImgUploading(false)
     }
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,18 +99,19 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
 
     const onAddTweet = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
+        
         if (!newTweet || !hashtags) return
-
+        
         const tweetToSave = structuredClone(newTweet)
         const matches = tweetToSave.content.match(/#(\w+)/g)
         const newHashtags = matches?.map(match => match.toLowerCase().slice(1))
         if (newHashtags) {
+            console.log(`hashtags:`, hashtags)
             const uniqueHashtags = [...new Set(newHashtags)] // The Set object lets you store unique values of any type, including strings.
             dispatch(updateHashtags(uniqueHashtags, hashtags))
             tweetToSave.hashtags = uniqueHashtags
         }
         dispatch(addTweet(tweetToSave))
-
         const emptyTweet = tweetService.getEmptyTweet()
         setNewTweet(emptyTweet)
     }
@@ -118,11 +124,12 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
             <div className="card-header new-tweet">
                 {loggedinUser.profileImg ?
                     <img src={loggedinUser.profileImg} alt="user image" className="user-img" onClick={navigateTo} /> :
-                    <NameAcronym className="user-img" firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id}/>
+                    <NameAcronym className="user-img" firstName={loggedinUser.firstName} lastName={loggedinUser.lastName} userId={loggedinUser._id} />
                 }
                 <input onChange={handleChange} className="tweet-input" placeholder="What’s happening?" value={tweetContent} />
 
             </div>
+            {isImgUploading && <Loader />}
             {newTweet?.imgUrl && <img src={newTweet.imgUrl} alt="tweet-img image" className="add-tweet-img" />}
             <div className="control-btns">
                 <div className="settings">
@@ -153,7 +160,7 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
                     </div>
                 </div>
 
-                <button type="submit" className="add-tweet-btn" disabled={newTweet?.content.length ? false : true} title={newTweet?.content.length ? 'Click to add new tweet' : 'Enter tweet content first'}>
+                <button type="submit" className="add-tweet-btn" disabled={(newTweet?.content.length || !isImgUploading) ? false : true} title={newTweet?.content.length ? 'Click to add new tweet' : 'Enter tweet content first'}>
                     <span>Tweet</span>
                 </button>
             </div>

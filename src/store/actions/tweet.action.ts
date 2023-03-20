@@ -2,7 +2,10 @@
 import { Hashtag, Hashtags, Tweet } from "../../interfaces/tweet.interface"
 // Services
 import { tweetService } from "../../services/tweet.service"
+import { toast } from 'react-toastify'
 
+const notifySuccess = (msg: string) => toast.success(msg)
+const notifyInfo = (msg: string) => toast.info(msg)
 
 export function loadTweets() {
     return async (dispatch: any) => {
@@ -31,6 +34,7 @@ export function addTweet(tweetToAdd: Tweet) {
         try {
             const tweet = await tweetService.add(tweetToAdd)
             dispatch({ type: 'ADD_TWEET', payload: tweet })
+            notifySuccess('Tweet added')
         } catch (err) {
             console.log(`err:`, err)
         }
@@ -55,6 +59,7 @@ export function addRetweet(retweetedTweetId: string) {
         try {
             const retweet = await tweetService.retweet(retweetedTweetId)
             dispatch({ type: 'ADD_TWEET', payload: retweet })
+            notifySuccess('Tweet Retweeted')
             return retweet._id
         } catch (err) {
             console.log(`err:`, err)
@@ -66,6 +71,7 @@ export function loadHashtags() {
     return async (dispatch: any) => {
         try {
             const hashtags: Hashtags = await tweetService.queryHashtags()
+            console.log(`hashtags:`, hashtags)
             dispatch({ type: 'SET_HASHTAGS', payload: hashtags })
         } catch (err) {
             console.log(`err:`, err)
@@ -75,6 +81,8 @@ export function loadHashtags() {
 
 export function removeHashtags(hashtagsToRemove: string[], currHashtags: Hashtags) {
     return async (dispatch: any) => {
+        console.log(`currHashtags:`, currHashtags)
+        console.log(`hashtagsToRemove:`, hashtagsToRemove)
         try {
             const newHashtags = currHashtags.hashtags.map(hashtagObj => {
                 if (hashtagsToRemove.includes(hashtagObj.key)) {

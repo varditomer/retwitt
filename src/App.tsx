@@ -2,6 +2,8 @@
 import './assets/styles/main.scss'
 import { routes, privateRoutes } from './routes'
 import { PrivateRoute } from './PrivateRoute'
+import 'react-toastify/dist/ReactToastify.css'
+
 // React / Redux
 import { Route, Routes } from 'react-router-dom'
 import { AnyAction } from 'redux'
@@ -17,12 +19,13 @@ import { loadHashtags, loadTweets } from './store/actions/tweet.action'
 // Components
 import { AppHeader } from './components/app-general_cmps/AppHeader'
 import { AppFooter } from './components/app-general_cmps/AppFooter'
+import { ToastContainer } from 'react-toastify'
 
 
 const App: React.FC = () => {
   const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
   const loggedinUser = useSelector((state: UserState) => state.userModule.loggedinUser)
-  
+
   useEffect(() => {
     dispatch(loadUsers())
     dispatch(loadLoggedinUser())
@@ -33,6 +36,13 @@ const App: React.FC = () => {
 
   return (
     <section className='main-app'>
+      <ToastContainer
+        position='top-center'
+        autoClose={2000}
+        toastClassName='alert'
+        limit={2}
+        
+      />
       {loggedinUser ? <AppHeader loggedinUser={loggedinUser} /> : ''}
       <Routes>
         {routes.map(route => {

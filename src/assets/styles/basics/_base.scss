@@ -69,7 +69,7 @@ body {
   &:has(> .loading) {
     background-color: unset !important;
   }
-  > *:not(header, footer) {
+  > *:not(header, footer, .Toastify) {
     flex: 1;
   }
 }

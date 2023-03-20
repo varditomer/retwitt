@@ -11,6 +11,7 @@ import { login } from "../../store/actions/user.action"
 import { useFormRegister } from "../../hooks/useFormRegister"
 // Services
 import { userService } from "../../services/user.service"
+import { toast } from 'react-toastify'
 
 
 export const Login: React.FC = () => {
@@ -20,6 +21,8 @@ export const Login: React.FC = () => {
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
 
     const { register, resetForm, fields } = useFormRegister(userService.getEmptyUserCredentials(), () => { })
+    const notifyErr = () => toast.error("Username or Password Is Incorrect!", {autoClose :1500})
+
 
     const onLogin = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
@@ -28,7 +31,8 @@ export const Login: React.FC = () => {
             await dispatch(login(fields))
             navigateTo('/home')
         } catch (err) {
-            console.log(`Username or password are incorrect`)
+            notifyErr()
+
         }
     }
 

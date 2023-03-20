@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
 
 
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
-    const [hashtagsToShow, setHashtagsToShow] = useState<Hashtag[] | null>(null)
+    const [hashtagsToShow, setHashtagsToShow] = useState<Hashtag[]>([])
     const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export const Home: React.FC = () => {
         const popularHashtags = hashtags.hashtags.splice(0, 3)
         setHashtagsToShow(popularHashtags)
 
-    }, [hashtags, loggedinUser])
+    }, [hashtags.hashtags, loggedinUser, tweets])
 
     useEffect(() => {
         if (!tweets.length) setTweetsToShow([])

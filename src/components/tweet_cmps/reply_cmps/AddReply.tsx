@@ -5,6 +5,7 @@ import { Reply, Tweet } from "../../../interfaces/tweet.interface"
 import { User } from "../../../interfaces/user.interface"
 // Services
 import { tweetService } from "../../../services/tweet.service"
+import { toast } from 'react-toastify'
 // Components
 import { SvgIcon } from "../../app-general_cmps/SvgIcon"
 import { NameAcronym } from "../../app-general_cmps/NameAcronym"
@@ -25,6 +26,7 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
 
     const [newReply, setNewReply] = useState<null | Reply>(null)
     const [replyContent, setReplyContent] = useState<string>('')
+    const notify = () => toast.success("Reply added")
 
     useEffect(() => {
         const emptyReply = tweetService.getEmptyReply()
@@ -64,6 +66,8 @@ export const AddReply: React.FC<Props> = ({ tweetToEdit, loggedinUser, childInpu
         tweetToSave.replies.unshift(replyToSave)
 
         onUpdateTweet(tweetToSave)
+
+                notify()
 
         const emptyReply = tweetService.getEmptyReply()
         setNewReply(emptyReply)

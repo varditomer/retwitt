@@ -17,7 +17,7 @@ export const Top: React.FC = () => {
         if(!tweetsToShow) return
         //meet the new deep-clone method - structured clone - already widely supported by most of the browsers
         const tweets: Tweet[] = structuredClone(tweetsToShow) //sort changes the original arr so breaking the pointer is required.
-        if(!tweets.length) return
+        if(!tweets.length) return setTopTweets([])
         const currTopTweets = tweets?.sort((tweetA, tweetB) => (tweetA.likes?.length > tweetB.likes?.length ? -1 : 1))
         setTopTweets(currTopTweets)
     }, [tweetsToShow])
