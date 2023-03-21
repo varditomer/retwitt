@@ -144,7 +144,7 @@ export const UserDetails: React.FC = () => {
         dispatch(updateUser(currLoggedinUser))
 
         dispatch(updateUser(userToFollowToUpdate))
-        followUser ? notifySuccess(`User - ${userToFollow.firstName} ${userToFollow.firstName} followed`) : notifyInfo(`User - ${userToFollow.firstName} ${userToFollow.firstName} unfollowed`)
+        followUser ? notifySuccess(`User - ${userToFollow.firstName} ${userToFollow.lastName} followed`) : notifyInfo(`User - ${userToFollow.firstName} ${userToFollow.firstName} unfollowed`)
     }
 
     if (!userTweets || !users || !user || !loggedinUser) return (
