@@ -18,17 +18,16 @@ export const Home: React.FC = () => {
     const { tweets, hashtags } = useSelector((state: TweetState) => state.tweetModule)
     const { users, loggedinUser } = useSelector((state: UserState) => state.userModule)
 
-
     const [tweetsToShow, setTweetsToShow] = useState<Tweet[] | null>(null)
     const [hashtagsToShow, setHashtagsToShow] = useState<Hashtag[]>([])
     const [usersToFollow, setUsersToFollow] = useState<User[] | null>(null)
 
     useEffect(() => {
         if (!hashtags) return
-        const popularHashtags = hashtags.hashtags.splice(0, 3)
+        const popularHashtags = hashtags.hashtagsList.slice(0, 3)
         setHashtagsToShow(popularHashtags)
 
-    }, [hashtags.hashtags, loggedinUser, tweets])
+    }, [hashtags.hashtagsList, loggedinUser, tweets])
 
     useEffect(() => {
         if (!tweets.length) setTweetsToShow([])
@@ -56,7 +55,6 @@ export const Home: React.FC = () => {
             <Loader />
         </section>
     )
-
     return (
         <section className="home page">
 

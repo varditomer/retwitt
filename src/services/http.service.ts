@@ -37,6 +37,7 @@ async function ajax(endpoint: string, method = 'GET', data: Tweet | Hashtags | R
             params: (method === 'GET') ? data : null
         })
         return res.data
+
     } catch (err: any) {
         console.log(`Had Issues while trying to ${method} on the backend, endpoint: ${endpoint}, with data:`, data)
         console.dir(err)

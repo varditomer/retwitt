@@ -10,7 +10,7 @@ export interface TWEET_STATE {
 const TWEET_STATE: TWEET_STATE = {
     tweets: [],
     hashtags: {
-        hashtags: []
+        hashtagsList: []
     }
 }
 

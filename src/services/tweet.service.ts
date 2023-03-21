@@ -52,10 +52,12 @@ async function remove(tweetId: string) {
 }
 
 async function queryHashtags() {
-    return httpService.get(`${STORAGE_KEY}/hashtag`)
+    const hashtags = await httpService.get(`${STORAGE_KEY}/hashtag`)
+    return hashtags
 }
 
 async function updateHashtags(hashtagsToUpdate: Hashtags) {
+    console.log(`hashtagsToUpdate:`, hashtagsToUpdate)
     return await httpService.put(`${STORAGE_KEY}/hashtag`, hashtagsToUpdate)
 }
 

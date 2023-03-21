@@ -71,7 +71,6 @@ export function loadHashtags() {
     return async (dispatch: any) => {
         try {
             const hashtags: Hashtags = await tweetService.queryHashtags()
-            console.log(`hashtags:`, hashtags)
             dispatch({ type: 'SET_HASHTAGS', payload: hashtags })
         } catch (err) {
             console.log(`err:`, err)
@@ -81,10 +80,8 @@ export function loadHashtags() {
 
 export function removeHashtags(hashtagsToRemove: string[], currHashtags: Hashtags) {
     return async (dispatch: any) => {
-        console.log(`currHashtags:`, currHashtags)
-        console.log(`hashtagsToRemove:`, hashtagsToRemove)
         try {
-            const newHashtags = currHashtags.hashtags.map(hashtagObj => {
+            const newHashtags = currHashtags.hashtagsList.map(hashtagObj => {
                 if (hashtagsToRemove.includes(hashtagObj.key)) {
                     return {
                         key: hashtagObj.key,
@@ -95,9 +92,9 @@ export function removeHashtags(hashtagsToRemove: string[], currHashtags: Hashtag
             }).filter(hashtag => hashtag.occurrences !== 0)
             const updatedHashtags: Hashtags = {
                 _id: currHashtags._id,
-                hashtags: newHashtags
+                hashtagsList: newHashtags
             }
-            updatedHashtags.hashtags.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
+            updatedHashtags.hashtagsList.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
             dispatch({ type: 'UPDATE_HASHTAGS', payload: updatedHashtags })
             await tweetService.updateHashtags(updatedHashtags)
 
@@ -111,24 +108,18 @@ export function removeHashtags(hashtagsToRemove: string[], currHashtags: Hashtag
 export function updateHashtags(newHashtags: string[], currHashtags: Hashtags) {
     return async (dispatch: any) => {
         try {
-            const updatedHashtags: Hashtags = {
-                _id: currHashtags._id,
-                hashtags: currHashtags.hashtags.map(hashtagObj => {
-                    const idx = newHashtags.findIndex(hashtag => hashtag === hashtagObj.key)
-                    if (idx !== -1) {
-                        newHashtags.splice(idx, 1)
-                        return { key: hashtagObj.key, occurrences: hashtagObj.occurrences + 1 }
-                    }
-                    else return hashtagObj
-                })
-            }
-            if (newHashtags.length) {
-                newHashtags.forEach(hashtag => {
-                    updatedHashtags.hashtags.push({ key: hashtag, occurrences: 1 })
-                })
-            }
-            updatedHashtags.hashtags.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
-            dispatch({ type: 'UPDATE_HASHTAGS', payload: updatedHashtags })
+            const updatedHashtags ={_id:currHashtags._id, hashtagsList: [] as Hashtag[]} as Hashtags
+            const addedHashtags = newHashtags.reduce((acc, hashtag)=>
+            {
+                const hashtagObj = currHashtags.hashtagsList.find(h=>h.key===hashtag) || {key:hashtag,occurrences:0}
+                hashtagObj.occurrences++
+                acc.push(hashtagObj)
+                return acc
+            },[]as Hashtag[])
+            addedHashtags.push(...currHashtags.hashtagsList.filter(h => !addedHashtags.find(_=>h.key===_.key)))
+            updatedHashtags.hashtagsList = addedHashtags
+            updatedHashtags.hashtagsList.sort((hashtagA, hashtagB) => hashtagB.occurrences - hashtagA.occurrences)
+            dispatch({ type: 'UPDATE_HASHTAGS', payload: structuredClone(updatedHashtags) })
             await tweetService.updateHashtags(updatedHashtags)
 
         } catch (err) {

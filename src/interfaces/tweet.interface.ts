@@ -39,7 +39,7 @@ export interface Retweet {
 
 export interface Hashtags {
     _id?: string,
-    hashtags: Hashtag[]
+    hashtagsList: Hashtag[]
 }
 
 export interface Hashtag {

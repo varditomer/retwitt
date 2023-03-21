@@ -30,7 +30,7 @@ type Props = {
 export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
 
     const dispatch = useDispatch<ThunkDispatch<INITIAL_STATE, any, AnyAction>>()
-
+    
     const [showWhoCanReplyModal, setShowWhoCanReplyModal] = useState(false)
     const [newTweet, setNewTweet] = useState<null | Tweet>(null)
     const [tweetContent, setTweetContent] = useState<string>('')
@@ -106,7 +106,6 @@ export const AddTweet: React.FC<Props> = ({ loggedinUser, hashtags }) => {
         const matches = tweetToSave.content.match(/#(\w+)/g)
         const newHashtags = matches?.map(match => match.toLowerCase().slice(1))
         if (newHashtags) {
-            console.log(`hashtags:`, hashtags)
             const uniqueHashtags = [...new Set(newHashtags)] // The Set object lets you store unique values of any type, including strings.
             dispatch(updateHashtags(uniqueHashtags, hashtags))
             tweetToSave.hashtags = uniqueHashtags
