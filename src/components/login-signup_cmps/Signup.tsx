@@ -29,7 +29,6 @@ export const Signup: React.FC = () => {
             await dispatch(signup(fields))
             navigateTo('/home')
         } catch (err) {
-            console.log(`Can't signup`,)
             notifyErr()
         }
     }

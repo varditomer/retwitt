@@ -53,7 +53,6 @@ export const Explore: React.FC = () => {
     const tweets: Tweet[] = structuredClone(tweetsToExplore)
     const regex = new RegExp(searchTweetBy, 'i')
     const filteredTweets = tweets.filter(tweet => regex.test(tweet.content))
-    console.log(`filteredTweets:`, filteredTweets)
     setFilteredTweetsToExplore(structuredClone(filteredTweets))
   }, [tweetsToExplore, searchTweetBy])
 

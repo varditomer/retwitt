@@ -2,7 +2,10 @@
 import { User, UserCredentials } from "../../interfaces/user.interface"
 // Services
 import { userService } from "../../services/user.service"
+import { toast } from 'react-toastify'
 
+
+const notifyFail = () => toast.warning('Oops something went wrong!')
 
 export function loadUsers() {
     return async (dispatch: any) => {
@@ -10,7 +13,7 @@ export function loadUsers() {
             const users = await userService.getUsers()
             dispatch({ type: 'SET_USERS', payload: users })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -21,7 +24,7 @@ export function loadLoggedinUser() {
             const loggedinUser = userService.getLoggedinUser()
             dispatch({ type: 'SET_LOGGEDIN_USER', payload: loggedinUser })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -35,7 +38,7 @@ export function signup(credentials: UserCredentials) {
             dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
             return user
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
             throw err
         }
     }
@@ -48,7 +51,7 @@ export function login(credentials: UserCredentials) {
             userService.setLoggedinUser(user)
             dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
             throw err
         }
     }
@@ -61,7 +64,7 @@ export function logout() {
             dispatch({ type: 'REMOVE_LOGGEDIN_USER' })
 
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -72,7 +75,7 @@ export function setLoggedinUser(user: User) {
             userService.setLoggedinUser(user)
             dispatch({ type: 'SET_LOGGEDIN_USER', payload: user })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -83,7 +86,7 @@ export function updateUser(user: User) {
             dispatch({ type: 'UPDATE_USER', payload: user })
             await userService.update(user)
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 

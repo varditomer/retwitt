@@ -5,7 +5,7 @@ import { tweetService } from "../../services/tweet.service"
 import { toast } from 'react-toastify'
 
 const notifySuccess = (msg: string) => toast.success(msg)
-const notifyInfo = (msg: string) => toast.info(msg)
+const notifyFail = () => toast.warning('Oops something went wrong!')
 
 export function loadTweets() {
     return async (dispatch: any) => {
@@ -13,7 +13,7 @@ export function loadTweets() {
             const tweets = await tweetService.query()
             dispatch({ type: 'SET_TWEETS', payload: tweets })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -24,7 +24,7 @@ export function removeTweet(tweetId: string) {
             await tweetService.remove(tweetId)
             dispatch({ type: 'REMOVE_TWEET', payload: tweetId })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -36,7 +36,7 @@ export function addTweet(tweetToAdd: Tweet) {
             dispatch({ type: 'ADD_TWEET', payload: tweet })
             notifySuccess('Tweet added')
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -49,7 +49,7 @@ export function updateTweet(tweetToUpdate: Tweet, tweetLastState: Tweet) {
             await tweetService.update(tweetToUpdate)
         } catch (err) {
             dispatch({ type: 'UPDATE_TWEET', payload: tweetLastState })
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -62,7 +62,7 @@ export function addRetweet(retweetedTweetId: string) {
             notifySuccess('Tweet Retweeted')
             return retweet._id
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -73,7 +73,7 @@ export function loadHashtags() {
             const hashtags: Hashtags = await tweetService.queryHashtags()
             dispatch({ type: 'SET_HASHTAGS', payload: hashtags })
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -99,7 +99,7 @@ export function removeHashtags(hashtagsToRemove: string[], currHashtags: Hashtag
             await tweetService.updateHashtags(updatedHashtags)
 
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }
@@ -123,7 +123,7 @@ export function updateHashtags(newHashtags: string[], currHashtags: Hashtags) {
             await tweetService.updateHashtags(updatedHashtags)
 
         } catch (err) {
-            console.log(`err:`, err)
+            notifyFail()
         }
     }
 }

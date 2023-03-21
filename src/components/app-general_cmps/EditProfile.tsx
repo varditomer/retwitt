@@ -51,7 +51,6 @@ export const EditProfile: React.FC<Props> = ({ user, toggleModal, modalRef }) =>
             dispatch(setLoggedinUser(fields))
             dispatch(updateUser(fields))
         } catch (err) {
-            console.log(`can't update profile`)
         }
     }
 

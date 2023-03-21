@@ -39,7 +39,6 @@ async function ajax(endpoint: string, method = 'GET', data: Tweet | Hashtags | R
         return res.data
 
     } catch (err: any) {
-        console.log(`Had Issues while trying to ${method} on the backend, endpoint: ${endpoint}, with data:`, data)
         console.dir(err)
         if (err.response && err.response.status === 401) {
             sessionStorage.clear()
